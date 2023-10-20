@@ -298,14 +298,15 @@ dd.StatblockWizard-spelllist {
 }
 
 .StatblockWizard-supplemental {
-    display: flex;
+    width: 100%;
 }
 
 .StatblockWizard-image {
+    display: block;
     border: none;
     padding: 0;
     max-width: 60mm;
-    margin: 5px auto 0;
+    margin: 2px auto;
 }
 
 .StatblockWizard hr {

@@ -202,7 +202,7 @@ function StatblockDefinition5e() {
         , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
         , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
-        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image" }
+        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 60, "position": "last" }
         , { "type": "sectionend", "content": "static" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
@@ -721,6 +721,9 @@ function Ispells5e(element, id, value) {
 }
 
 function Iimage(element) {
+    if (!element.maxheight || element.maxheight < 12 || element.maxheight > 120) { element.maxheight = 60 };
+    if (!element.position || ['first', 'last'].indexOf(element.position) == -1) { element.position = 'last' };
+
     let d = DIV();
     let d1 = P();
     let id = newID();
@@ -766,13 +769,34 @@ function Iimage(element) {
     d1.appendChild(li);
     d1.appendChild(ii);
     d1.appendChild(isp);
+
     let ic = DIV('imagecontainer unavailable');
     ic.setAttribute('id', `${id}-container`)
     let iimg = IMG('', 'A preview of the uploaded image.', 'creatorimage');
     iimg.setAttribute('id', `${id}-image`);
     ic.appendChild(iimg);
+
+    let d2 = P();
+    let d2id = `${id}-maxheight`;
+    let lheight = LABEL(d2id, 'Image max. height in mm');
+    let iheight = INPUTnumber(12, 120, element.maxheight, 'aligned');
+    iheight.setAttribute('id', d2id);
+    d2.appendChild(lheight);
+    d2.appendChild(iheight);
+
+    let d3 = P();
+    let d3id = `${id}-position`;
+    let lposition = SPAN('Position');
+    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
+    iposition.setAttribute('id', d3id);
+    iposition.value = element.position;
+    d3.appendChild(lposition);
+    d3.appendChild(iposition);
+
     d.appendChild(d1);
     d.appendChild(ic);
+    d.appendChild(d2);
+    d.appendChild(d3);
 
     element.id = id;
     if (element.value) { 
@@ -909,5 +933,7 @@ function Uspells5e(id, type) {
 
 function Uimage(element) {
     element.value = GetElementSrc(`${element.id}-image`);
+    element.maxheight = GetElementValue(`${element.id}-maxheight`);
+    element.position = GetElementValue(`${element.id}-position`);
 }
 // #endregion UpdateContent
