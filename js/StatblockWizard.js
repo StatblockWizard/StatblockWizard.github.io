@@ -85,14 +85,19 @@ function CreateHomeLinks() {
     }
 }
 
-function AddHtmlTo(existing, addition) {
+function AddHtmlTo(existing, addition, position = 'last') {
     if (addition) {
         if (addition.nodeName == '#text') {
             existing.appendChild(addition);
         } else
             if (addition.outerHTML != '') {
-                existing.appendChild(addition);
-                existing.insertAdjacentHTML('beforeend', String.fromCharCode(13) + String.fromCharCode(10));
+                if (position != 'first') {
+                    existing.appendChild(addition);
+                    existing.insertAdjacentHTML('beforeend', String.fromCharCode(13) + String.fromCharCode(10));
+                } else {
+                    existing.insertAdjacentHTML('afterbegin', String.fromCharCode(13) + String.fromCharCode(10));
+                    existing.insertBefore(addition, existing.firstChild);   
+                }
             }
     }
 }

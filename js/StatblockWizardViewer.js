@@ -8,6 +8,7 @@ let Statblock;
 let StatblockSection;
 let StatblockName = '';
 let inSection = false;
+let SectionPosition = 'last';
 
 function StartNewViewer() {
     document.getElementById('svgimg').addEventListener('load', svgimgOnLoadhandler);
@@ -139,12 +140,13 @@ function CreateStatblockHtml() {
             case 'section':
                 StatblockSection = DIV(element.css);
                 inSection = true;
+                SectionPosition = 'last';
                 AddToStatblockHtml(Osection(element));
                 break;
             case 'sectionend':
                 if (inSection) {
                     if (Osectionend(StatblockSection, element)) // do not add empty sections!
-                    { AddHtmlTo(Statblock, StatblockSection); };
+                    { AddHtmlTo(Statblock, StatblockSection, SectionPosition); };
                 };
                 inSection = false;
                 break;
@@ -167,7 +169,7 @@ function CreateStatblockHtml() {
                 AddToStatblockHtml(Ocr5e(element));
                 break;
             case 'image':
-                AddToStatblockHtml(Oimage(element));
+                AddToStatblockHtml(Oimage(element), element.position);
                 break;
             default:
                 break;
@@ -177,12 +179,13 @@ function CreateStatblockHtml() {
 }
 
 // #region Tools
-function AddToStatblockHtml(html) {
+function AddToStatblockHtml(html, position = 'last') {
     html.normalize();
     if (inSection) {
-        AddHtmlTo(StatblockSection, html);
+        AddHtmlTo(StatblockSection, html, position);
+        if (position == 'first') { SectionPosition = position };
     } else {
-        AddHtmlTo(Statblock, html);
+        AddHtmlTo(Statblock, html, position);
     }
 }
 
@@ -401,6 +404,9 @@ function Ocr5e(element) {
 function Oimage(element) {
     if (element.value) {
         let im = IMG(element.value, `Image of ${StatblockName}`, element.css);
+        if (element.maxheight && element.maxheight >=12 && element.maxheight<=120 ) {
+            im.setAttribute('style', `max-height:${element.maxheight}mm;`);
+        }
         return im;
     }
     return emptyNode();
@@ -903,14 +909,15 @@ function GetImgCSS() {
     }
 
     .StatblockWizard-supplemental {
-        display: flex;
+        width: 100%;
     }
     
     .StatblockWizard-image {
+        display: block;
         border: none;
         padding: 0;
         max-width: 60mm;
-        margin: 5px auto 0;
+        margin: 2px auto;
     }
 
     .StatblockWizard hr {
