@@ -937,7 +937,7 @@ function Uspells5e(id, type) {
 
 function Uimage(element) {
     element.value = GetElementSrc(`${element.id}-image`);
-    element.maxheight = GetElementValue(`${element.id}-maxheight`);
+    element.maxheight = Number.parseInt(GetElementValue(`${element.id}-maxheight`));
     element.position = GetElementValue(`${element.id}-position`);
 }
 // #endregion UpdateContent
