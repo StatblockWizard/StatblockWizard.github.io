@@ -74,7 +74,7 @@ function abilitymodifier(score) {
 function CreateHomeLinks() {
     let h = document.getElementsByClassName('homelink');
     if (h) {
-        for (var i=0; i<h.length; i++) {
+        for (var i = 0; i < h.length; i++) {
             h[i].addEventListener('click', () => {
                 window.location.replace('../StatblockWizard.html');
             });
@@ -96,7 +96,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
                     existing.insertAdjacentHTML('beforeend', String.fromCharCode(13) + String.fromCharCode(10));
                 } else {
                     existing.insertAdjacentHTML('afterbegin', String.fromCharCode(13) + String.fromCharCode(10));
-                    existing.insertBefore(addition, existing.firstChild);   
+                    existing.insertBefore(addition, existing.firstChild);
                 }
             }
     }
@@ -120,10 +120,10 @@ function downloadjson(what, filename) {
 function findcsselement(definitionlist, type, subtype) {
     let foundelement = null;
     definitionlist.forEach(element => {
-        if (element.type == 'css') { 
-            if (element.fortype == type) { 
+        if (element.type == 'css') {
+            if (element.fortype == type) {
                 if ((type == 'list') && (subtype) && (element.forsubtype)) {
-                    if (element.forsubtype == subtype) {foundelement = element; }
+                    if (element.forsubtype == subtype) { foundelement = element; }
                 } else {
                     foundelement = element;
                 }
@@ -245,7 +245,7 @@ function INPUTnumber(minvalue, maxvalue, defaultvalue, classnames) {
     input.setAttribute("type", "number");
     if (minvalue) { input.setAttribute("min", minvalue); };
     if (maxvalue) { input.setAttribute("max", maxvalue); };
-    if (defaultvalue) { input.setAttribute('value', defaultvalue) };
+    if (Number.isInteger(defaultvalue)) { input.setAttribute('value', defaultvalue) };
     addClassnames(input, classnames);
     return input;
 }

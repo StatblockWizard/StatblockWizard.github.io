@@ -404,7 +404,7 @@ function Ocr5e(element) {
 function Oimage(element) {
     if (element.value) {
         let im = IMG(element.value, `Image of ${StatblockName}`, element.css);
-        if (element.maxheight && element.maxheight >=12 && element.maxheight<=120 ) {
+        if (element.maxheight && element.maxheight > 0) {
             im.setAttribute('style', `max-height:${element.maxheight}mm;`);
         }
         return im;

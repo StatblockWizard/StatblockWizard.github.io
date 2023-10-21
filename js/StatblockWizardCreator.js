@@ -202,7 +202,7 @@ function StatblockDefinition5e() {
         , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
         , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
-        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 60, "position": "last" }
+        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last" }
         , { "type": "sectionend", "content": "static" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
@@ -721,7 +721,7 @@ function Ispells5e(element, id, value) {
 }
 
 function Iimage(element) {
-    if (!element.maxheight || element.maxheight < 12 || element.maxheight > 120) { element.maxheight = 60 };
+    if (!element.maxheight || element.maxheight < 0) { element.maxheight = 0 };
     if (!element.position || ['first', 'last'].indexOf(element.position) == -1) { element.position = 'last' };
 
     let d = DIV();
@@ -779,14 +779,18 @@ function Iimage(element) {
     let d2 = P();
     let d2id = `${id}-maxheight`;
     let lheight = LABEL(d2id, 'Image max. height in mm');
-    let iheight = INPUTnumber(12, 120, element.maxheight, 'aligned');
+    let sheight = SPAN(null, 'aligned');
+    let iheight = INPUTnumber(0, 250, element.maxheight);
     iheight.setAttribute('id', d2id);
+    let theight = TEXTNODE(' (0 = no maximum)');
+    sheight.appendChild(iheight);
+    sheight.appendChild(theight);
     d2.appendChild(lheight);
-    d2.appendChild(iheight);
+    d2.appendChild(sheight);
 
     let d3 = P();
     let d3id = `${id}-position`;
-    let lposition = SPAN('Position');
+    let lposition = LABEL(d3id, 'Position');
     let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
     iposition.setAttribute('id', d3id);
     iposition.value = element.position;
@@ -799,7 +803,7 @@ function Iimage(element) {
     d.appendChild(d3);
 
     element.id = id;
-    if (element.value) { 
+    if (element.value) {
         iimg.src = element.value;
         let l = iimg.parentElement.classList;
         l.remove('unavailable');
