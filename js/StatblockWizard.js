@@ -76,7 +76,7 @@ function CreateHomeLinks() {
     if (h) {
         for (var i = 0; i < h.length; i++) {
             h[i].addEventListener('click', () => {
-                window.location.replace('../StatblockWizard.html');
+                window.location.replace('StatblockWizard.html');
             });
             h[i].accessKey = 'w';
             h[i].alt = `Open the StatblockWizard homepage. (shortcut key: ${h[i].accessKey})`;
