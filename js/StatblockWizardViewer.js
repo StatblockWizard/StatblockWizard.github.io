@@ -63,7 +63,7 @@ function CreateViewerFooter() {
     let openCreator = INPUTbutton('Creator', 'c', 'Open the Creator to edit the current statblock, or to create a totally new one.');
     d.appendChild(openCreator);
     openCreator.addEventListener('click', () => {
-        window.location.replace('./StatblockWizardCreator.html');
+        window.location.replace('Creator.html');
     });
 
     let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the HTML, SVG, and PNG file export.');
@@ -502,7 +502,7 @@ function downloadhtml(html, filename) {
 
 function downloadcss() {
     const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', '../css/StatblockWizard.css');
+    linkElement.setAttribute('href', 'css/StatblockWizard.css');
     linkElement.setAttribute('download', 'StatblockWizard.css');
     linkElement.click();
 }

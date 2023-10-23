@@ -20,15 +20,15 @@ function addModules() {
 }
 
 function addModuleCreator(e) {
-    addMainPageLink(e, 'Create or edit a Statblock', 'c', 'html/StatblockWizardCreator.html', 'Open the Creator to work on a Statblock.', 'creator');
+    addMainPageLink(e, 'Create or edit a Statblock', 'c', 'Creator.html', 'Open the Creator to work on a Statblock.', 'creator');
 }
 
 function addModuleViewer(e) {
-    addMainPageLink(e, 'View an existing Statblock', 'v', 'html/StatblockWizardViewer.html', 'Open the Viewer to see an existing Statblock.', 'viewer');
+    addMainPageLink(e, 'View an existing Statblock', 'v', 'Viewer.html', 'Open the Viewer to see an existing Statblock.', 'viewer');
 }
 
 function addLicenseLink(e) {
-    addMainPageLink(e, 'Legal information', 'l', 'html/StatblockWizardLegal.html', 'Shows copyright information.');
+    addMainPageLink(e, 'Legal information', 'l', 'Legal.html', 'Shows copyright information.');
 }
 
 function addMainPageLink(e, text, accessKey, link, alt, className) {
@@ -61,17 +61,17 @@ function addSamples() {
     let f1 = FIGURE('res/Archmage.svg', 'Archmage', 'StatblockWizard sample statblock of an Archmage', classnames, 'sampleimage', captionclassnames);
     f1.addEventListener('click', () => {
         DBsetStatblockWizard(sampleArchmage());
-        window.location.replace('./html/StatblockWizardViewer.html');
+        window.location.replace('Viewer.html');
     });
     let f2 = FIGURE('res/Bat.svg', 'Bat', 'StatblockWizard sample statblock of a Bat', classnames, 'sampleimage', captionclassnames);
     f2.addEventListener('click', () => {
         DBsetStatblockWizard(sampleBat());
-        window.location.replace('./html/StatblockWizardViewer.html');
+        window.location.replace('Viewer.html');
     });
     let f3 = FIGURE('res/Cult Fanatic.svg', 'Cult Fanatic', 'StatblockWizard sample statblock of a Cult Fanatic', classnames, 'sampleimage', captionclassnames);
     f3.addEventListener('click', () => {
         DBsetStatblockWizard(sampleCultFanatic());
-        window.location.replace('./html/StatblockWizardViewer.html');
+        window.location.replace('Viewer.html');
     });
     d.appendChild(f1);
     d.appendChild(f2);

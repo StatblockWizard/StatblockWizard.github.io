@@ -69,7 +69,7 @@ function CreateCreatorFooter() {
         UpdateContent();
         removeids(Content);
         DBsetStatblockWizard(Content);
-        window.location.replace('./StatblockWizardViewer.html');
+        window.location.replace('Viewer.html');
     });
 
     Creator.appendChild(d);
