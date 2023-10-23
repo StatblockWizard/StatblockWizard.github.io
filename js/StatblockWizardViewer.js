@@ -917,7 +917,7 @@ function GetImgCSS() {
         border: none;
         padding: 0;
         max-width: 60mm;
-        margin: 2px auto;
+        margin: 0 auto;
     }
 
     .StatblockWizard hr {
