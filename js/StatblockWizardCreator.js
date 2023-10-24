@@ -726,19 +726,15 @@ function Iimage(element) {
 
     let d = DIV();
     let d1 = P();
-    let id = newID();
 
     let ii = INPUTfile();
-    ii.setAttribute('id', `${id}-fileinput`);
+    ii.setAttribute('id', 'image-fileinput');
     ii.addEventListener('change', function () {
         var fr = new FileReader();
         fr.onload = function () {
-            let iimg = document.getElementsByClassName('creatorimage');
-            if (iimg) {
-                iimg[0].src = this.result;
-                let l = iimg[0].parentElement.classList;
-                l.remove('unavailable');
-            }
+            let iimg = document.getElementById('image');
+            iimg.src = this.result;
+            HideImageAndSettings(false);
         }
         if (this.files[0] != '') {
             fr.readAsDataURL(this.files[0])
@@ -747,6 +743,7 @@ function Iimage(element) {
         }
     })
 
+    let id=newID();
     let isp = SPAN(null, 'aligned');
     let li = LABEL(id, 'Image');
     let ib = INPUTbutton('Select image', 's', 'Select the imagefile for this StatBlockWizard statblock');
@@ -756,12 +753,9 @@ function Iimage(element) {
     });
     let ie = INPUTbutton('Erase image', 'x', 'Erase the imagefile for this StatBlockWizard statblock');
     ie.addEventListener('click', () => {
-        let iimg = document.getElementsByClassName('creatorimage');
-        if (iimg) {
-            iimg[0].src = '';
-            let l = iimg[0].parentElement.classList;
-            l.add('unavailable');
-        }
+        let iimg = document.getElementById('image');
+        iimg.src = '';
+        HideImageAndSettings(true);
     });
     isp.appendChild(ib);
     isp.appendChild(ie);
@@ -771,14 +765,16 @@ function Iimage(element) {
     d1.appendChild(isp);
 
     let ic = DIV('imagecontainer unavailable');
-    ic.setAttribute('id', `${id}-container`)
+    ic.setAttribute('id', 'imagecontainer');
     let iimg = IMG('', 'A preview of the uploaded image.', 'creatorimage');
-    iimg.setAttribute('id', `${id}-image`);
+    iimg.setAttribute('id', 'image');
     ic.appendChild(iimg);
 
+    let d2id = 'image-maxheight';
     let d2 = P();
-    let d2id = `${id}-maxheight`;
-    let lheight = LABEL(d2id, 'Image max. height in mm');
+    d2.setAttribute('id','image-maxheight-p');
+    d2.classList.add('unavailable');
+    let lheight = LABEL(d2id, 'Max. height in mm');
     let sheight = SPAN(null, 'aligned');
     let iheight = INPUTnumber(0, 250, element.maxheight);
     iheight.setAttribute('id', d2id);
@@ -788,8 +784,10 @@ function Iimage(element) {
     d2.appendChild(lheight);
     d2.appendChild(sheight);
 
+    let d3id = 'image-position';
     let d3 = P();
-    let d3id = `${id}-position`;
+    d3.setAttribute('id','image-position-p');
+    d3.classList.add('unavailable');
     let lposition = LABEL(d3id, 'Position');
     let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
     iposition.setAttribute('id', d3id);
@@ -805,11 +803,27 @@ function Iimage(element) {
     element.id = id;
     if (element.value) {
         iimg.src = element.value;
-        let l = iimg.parentElement.classList;
-        l.remove('unavailable');
+        ic.classList.remove('unavailable');
+        d2.classList.remove('unavailable');
+        d3.classList.remove('unavailable');
     }
 
     return d;
+}
+
+function HideImageAndSettings(hide) {
+    let imgc = document.getElementById('imagecontainer');
+    let maxh = document.getElementById('image-maxheight-p');
+    let ipos = document.getElementById('image-position-p');
+    if (hide) {
+        imgc.classList.add('unavailable');
+        maxh.classList.add('unavailable');
+        ipos.classList.add('unavailable');
+    } else {
+        imgc.classList.remove('unavailable');
+        maxh.classList.remove('unavailable');
+        ipos.classList.remove('unavailable');
+    }
 }
 // #endregion Input
 
@@ -936,8 +950,8 @@ function Uspells5e(id, type) {
 }
 
 function Uimage(element) {
-    element.value = GetElementSrc(`${element.id}-image`);
-    element.maxheight = Number.parseInt(GetElementValue(`${element.id}-maxheight`));
-    element.position = GetElementValue(`${element.id}-position`);
+    element.value = GetElementSrc('image');
+    element.maxheight = Number.parseInt(GetElementValue('image-maxheight'));
+    element.position = GetElementValue('image-position');
 }
 // #endregion UpdateContent

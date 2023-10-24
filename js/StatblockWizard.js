@@ -141,8 +141,14 @@ function GetElementValue(id) {
 
 function GetElementSrc(id) {
     let e = document.getElementById(id);
-    if (e) { if (!e.parentElement.classList.contains('unavailable')) { return e.src } };
+    if (e) { if (ImageAvailable()) { return e.src } };
     return '';
+}
+
+function ImageAvailable() {
+    let l = document.getElementById('imagecontainer');
+    if (l) { return (!l.classList.contains('unavailable')) };
+    return false;
 }
 // #endregion Tools
 
