@@ -1,9 +1,9 @@
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="683" height="223">
+    <svg xmlns="http://www.w3.org/2000/svg" width="361" height="426" style="font-size:16px;">
         <foreignObject 
             style="
-                width:683px;
-                height:223px;
+                width:361px;
+                height:426px;
                 transform:scale(1);
             "
         ><div xmlns="http://www.w3.org/1999/xhtml" style="border:0;padding:0;"><style>
@@ -306,14 +306,15 @@
     }
 
     .StatblockWizard-supplemental {
-        display: flex;
+        width: 100%;
     }
     
     .StatblockWizard-image {
+        display: block;
         border: none;
         padding: 0;
         max-width: 60mm;
-        margin: 5px auto 0;
+        margin: 0 auto;
     }
 
     .StatblockWizard hr {
@@ -324,7 +325,7 @@
         border-left: 0;
         border-bottom: 1px var(--StatblockWizardscreenborder) solid;
     }
-    </style><div class="StatblockWizard"><div class="StatblockWizard-section StatblockWizard-general"><p class="StatblockWizard-title"><span>Cult Fanatic</span></p>
+    </style><div class="StatblockWizard StatblockWizard-SingleColumn"><div class="StatblockWizard-section StatblockWizard-general"><p class="StatblockWizard-title"><span>Cult Fanatic</span></p>
 <p class="StatblockWizard-sizetypealignment"><span>Medium humanoid (any race), any non-­good alignment</span></p>
 <p class="StatblockWizard-feature StatblockWizard-armorclass"><span class="StatblockWizard-keyword">Armor Class</span><span>13 (leather armor)</span></p>
 <p class="StatblockWizard-feature StatblockWizard-hitpoints"><span class="StatblockWizard-keyword">Hit Points</span><span>33 (6d8 + 6)</span></p>
