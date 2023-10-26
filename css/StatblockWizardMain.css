@@ -55,8 +55,9 @@ body {
 
 div#StatblockWizardModules {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-self: center;
+    max-width: 100vw;
 }
 
 .mainpagelink {
