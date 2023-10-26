@@ -130,18 +130,7 @@ input[type="button"]:hover {
     vertical-align: middle;
 }
 
-/* on phones/small devices increase the size of the inlinefavicon */
-@media only screen and (hover: none) {
-    .inlinefavicon {
-        width: 2em;
-        height: 2em;
-    }
-}
-
-/* on large devices reset the size of the inlinefavicon to normal */
-@media only screen and (hover: none) and (min-width: 992px) {
-    .inlinefavicon {
-        width: 1em;
-        height: 1em;
-    }
+.inlinefavicon {
+    width: 1em;
+    height: 1em;
 }
