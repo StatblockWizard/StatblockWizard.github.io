@@ -53,8 +53,13 @@ body {
     font-weight: bold;
 }
 
+div#StatblockWizardModules {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+}
+
 .mainpagelink {
-    display: inline;
     padding: 5px;
     margin: 0 10px;
     text-align: left;

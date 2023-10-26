@@ -9,11 +9,8 @@ function main() {
 function addModules() {
     let e = document.getElementById('StatblockWizardModules');
     if (e) {
-        addClassnames(e, 'center');
-
         addModuleViewer(e);
         addModuleCreator(e);
-
         addLicenseLink(e);
         addClearLastSaved(e);
     }
