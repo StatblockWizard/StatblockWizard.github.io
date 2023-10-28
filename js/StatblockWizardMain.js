@@ -25,7 +25,7 @@ function addModuleViewer(e) {
 }
 
 function addLicenseLink(e) {
-    addMainPageLink(e, 'Legal information', 'l', 'Legal.html', 'Shows copyright information.');
+    addMainPageLink(e, 'Legal information', 'l', 'Legal.html', 'Shows legal information.');
 }
 
 function addMainPageLink(e, text, accessKey, link, alt, className) {
