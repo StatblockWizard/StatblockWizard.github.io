@@ -17,11 +17,11 @@ function addModules() {
 }
 
 function addModuleCreator(e) {
-    addMainPageLink(e, 'Create or edit a Statblock', 'c', 'Creator.html', 'Open the Creator to work on a Statblock.', 'creator');
+    addMainPageLink(e, 'Create or edit a statblock', 'c', 'Creator.html', 'Open the Creator to work on a Statblock.', 'creator');
 }
 
 function addModuleViewer(e) {
-    addMainPageLink(e, 'View an existing Statblock', 'v', 'Viewer.html', 'Open the Viewer to see an existing Statblock.', 'viewer');
+    addMainPageLink(e, 'View an existing statblock', 'v', 'Viewer.html', 'Open the Viewer to see an existing statblock.', 'viewer');
 }
 
 function addLicenseLink(e) {
@@ -38,7 +38,7 @@ function addMainPageLink(e, text, accessKey, link, alt, className) {
 }
 
 function addClearLastSaved(e) {
-    let t = 'Clear Saved Statblock';
+    let t = 'Clear saved statblock';
     let tx = "Remove all data that was stored by this app from your browser's storage. This will enable the Demo Statblock in the Viewer.";
     let newMainPageLink = INPUTbutton(t,'', tx,'mainpagelink');
     e.appendChild(newMainPageLink);
