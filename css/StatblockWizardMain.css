@@ -104,6 +104,11 @@ h2 {
     font-size: small;
 }
 
+.samplename {
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
 .samplefigure {
     margin: 20px 0;
 }
