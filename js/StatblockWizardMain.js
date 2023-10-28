@@ -60,7 +60,7 @@ function addSamples() {
         DBsetStatblockWizard(sampleArchmage());
         window.location.replace('Viewer.html');
     });
-    let f2 = FIGURE('res/Cat.statblockwizard.svg', 'Cat', 'StatblockWizard sample statblock of a Cat', classnames, 'sampleimage', captionclassnames);
+    let f2 = FIGURE('res/Cat.statblockwizard.svg', 'Cat', 'StatblockWizard sample statblock of a Cat, featuring Zipper pondering their next course of action.', classnames, 'sampleimage', captionclassnames);
     f2.addEventListener('click', () => {
         DBsetStatblockWizard(sampleCat());
         window.location.replace('Viewer.html');
