@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <!-- Copyright 2023 StatblockWizard -->
-<html>
-    <head>
-        <title>StatblockWizard</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="refresh" content="0; StatblockWizard.html" />
-        <link rel="icon" href="favicon.ico">
-    </head>
-    <body><p>Something went wrong..... please follow the link to start the StatblockWizard:</p><a href="StatblockWizard.html">Follow the link!</a></body>
+<html lang="en">
+
+<head>
+    <title>StatblockWizard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="nofollow">
+    <script type="application/javascript" src="js/StatblockWizard.js"></script>
+    <script type="application/javascript" src="js/StatblockWizardMain.js"></script>
+    <link rel="stylesheet" href="css/StatblockWizardMain.css" type="text/css">
+    <link rel="icon" href="favicon.ico">
+    <link rel="canonical" href="https://statblockwizard.github.io/" />
+</head>
+
+<body class="infopage">
+    <h1>
+        <img src="res/StatblockWizard.png" width="32" height="32" class="home" title="StatblockWizard logo"
+            alt="A square logo featuring the letters SW, styled as a miniature statblock.">
+        StatblockWizard
+    </h1>
+    <p>Welcome to <span class="appname">StatblockWizard</span>, the tool that allows easy creation of nice looking
+        statblocks of monsters or NPCs for the world's most popular tabletop roleplaying game.</p>
+
+    <noscript>
+        <p>This app needs JavaScript to be enabled. It seems this is not the case in this browser, so sadly the app will
+            not work now.</p>
+    </noscript>
+
+    <p>The best way to start using <span class="appname">StatblockWizard</span> is to select 'View an existing
+        statblock', below. There you will see a demo statblock that shows what actions are available. You can
+        continue from there to the Creator to start creating or editing your Statblocks.</p>
+
+    <p>Clicking the <span class="appname">StatblockWizard</span> logo <img src="favicon.ico" class="inlinefavicon"
+            title="StatblockWizard logo">&nbsp;&mdash;in the top of any page&mdash;&nbsp;will bring you back here.</p>
+
+    <p class="note">Note: if you do not see the <span class="samplename">Statblock Wizard</span> demo statblock in the
+        Viewer, you can re-enable it by using the 'Clear saved statblock' action, below.</p>
+
+    <div id="StatblockWizardModules"></div>
+
+    <hr>
+    <h2 class="center">Some sample <span class="appname">StatblockWizard</span> statblocks</h2>
+    <p class="center">Select a statblock to open it in the viewer. <span class="note">(This will replace
+            your current statblock!)</span></p>
+    <div id="StatblockWizardSamples"></div>
+</body>
+
 </html>
