@@ -751,7 +751,7 @@ function Iimage(element) {
     ib.addEventListener('click', () => {
         ii.click();
     });
-    let ie = INPUTbutton('Erase image', 'x', 'Erase the imagefile for this StatBlockWizard statblock');
+    let ie = INPUTbutton('Discard image', 'x', 'Discard this imagefile');
     ie.addEventListener('click', () => {
         let iimg = document.getElementById('image');
         iimg.src = '';
@@ -774,11 +774,11 @@ function Iimage(element) {
     let d2 = P();
     d2.setAttribute('id','image-maxheight-p');
     d2.classList.add('unavailable');
-    let lheight = LABEL(d2id, 'Max. height in mm');
+    let lheight = LABEL(d2id, 'Max. height (mm)');
     let sheight = SPAN(null, 'aligned');
     let iheight = INPUTnumber(0, 250, element.maxheight);
     iheight.setAttribute('id', d2id);
-    let theight = TEXTNODE(' (0 = no maximum)');
+    let theight = TEXTNODE(' (0 = no max.)');
     sheight.appendChild(iheight);
     sheight.appendChild(theight);
     d2.appendChild(lheight);
