@@ -1,9 +1,9 @@
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="361" height="426" style="font-size:16px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="361" height="429" style="font-size:16px;">
         <foreignObject 
             style="
                 width:361px;
-                height:426px;
+                height:429px;
                 transform:scale(1);
             "
         ><div xmlns="http://www.w3.org/1999/xhtml" style="border:0;padding:0;"><style>
@@ -100,7 +100,7 @@
     
     .StatblockWizard-title {
         font-family: 'EB Garamond', Georgia, 'Times New Roman', Times, serif;
-        font-size: 1.5em;
+        font-size: 1.7em;
         font-variant: small-caps;
         font-weight: bold;
     
