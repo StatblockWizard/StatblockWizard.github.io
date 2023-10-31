@@ -703,7 +703,7 @@ function GetImgCSS() {
     
     .StatblockWizard-title {
         font-family: 'EB Garamond', Georgia, 'Times New Roman', Times, serif;
-        font-size: 1.5em;
+        font-size: 1.7em;
         font-variant: small-caps;
         font-weight: bold;
     
