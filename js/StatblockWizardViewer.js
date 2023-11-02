@@ -54,6 +54,7 @@ function ProcessFile(filecontent) {
 function CreateViewerContent() {
     Statblock = DIV('StatblockWizard');
     CreateStatblockHtml();
+    Statblock.setAttribute('title',`Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
     Viewer.appendChild(Statblock);
 }
 
