@@ -202,7 +202,7 @@ function StatblockDefinition5e() {
         , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
         , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
-        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last" }
+        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center" }
         , { "type": "sectionend", "content": "static" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
@@ -723,6 +723,7 @@ function Ispells5e(element, id, value) {
 function Iimage(element) {
     if (!element.maxheight || element.maxheight < 0) { element.maxheight = 0 };
     if (!element.position || ['first', 'last'].indexOf(element.position) == -1) { element.position = 'last' };
+    if (!element.alignment || ['center', 'left', 'right'].indexOf(element.alignment) == -1) { element.alignment = 'center' };
 
     let d = DIV();
     let d1 = P();
@@ -743,15 +744,16 @@ function Iimage(element) {
         }
     })
 
-    let id=newID();
+    let id = newID();
     let isp = SPAN(null, 'aligned');
     let li = LABEL(id, 'Image');
-    let ib = INPUTbutton('Select image', 's', 'Select the imagefile for this StatBlockWizard statblock');
+    let ib = INPUTbutton('Select image', 's', 'Select the image file for this StatBlockWizard statblock');
     ib.setAttribute('id', id);
     ib.addEventListener('click', () => {
         ii.click();
     });
-    let ie = INPUTbutton('Discard image', 'x', 'Discard this imagefile');
+    let ie = INPUTbutton('Discard image', 'x', 'Discard this image', 'unavailable');
+    ie.setAttribute('id', 'image-discard');
     ie.addEventListener('click', () => {
         let iimg = document.getElementById('image');
         iimg.src = '';
@@ -772,7 +774,7 @@ function Iimage(element) {
 
     let d2id = 'image-maxheight';
     let d2 = P();
-    d2.setAttribute('id','image-maxheight-p');
+    d2.setAttribute('id', 'image-maxheight-p');
     d2.classList.add('unavailable');
     let lheight = LABEL(d2id, 'Max. height (mm)');
     let sheight = SPAN(null, 'aligned');
@@ -786,7 +788,7 @@ function Iimage(element) {
 
     let d3id = 'image-position';
     let d3 = P();
-    d3.setAttribute('id','image-position-p');
+    d3.setAttribute('id', 'image-position-p');
     d3.classList.add('unavailable');
     let lposition = LABEL(d3id, 'Position');
     let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
@@ -795,34 +797,54 @@ function Iimage(element) {
     d3.appendChild(lposition);
     d3.appendChild(iposition);
 
+    let d4id = 'image-alignment';
+    let d4 = P();
+    d4.setAttribute('id', 'image-alignment-p');
+    d4.classList.add('unavailable');
+    let lalignment = LABEL(d4id, 'Alignment');
+    let ialignment = SELECT(element, [{ "value": "center", "text": "Center" }, { "value": "left", "text": "Left" }, { "value": "right", "text": "Right" }], 'aligned');
+    ialignment.setAttribute('id', d4id);
+    ialignment.value = element.alignment;
+    d4.appendChild(lalignment);
+    d4.appendChild(ialignment);
+
     d.appendChild(d1);
     d.appendChild(ic);
     d.appendChild(d2);
     d.appendChild(d3);
+    d.appendChild(d4);
 
     element.id = id;
     if (element.value) {
         iimg.src = element.value;
+        ie.classList.remove('unavailable');
         ic.classList.remove('unavailable');
         d2.classList.remove('unavailable');
         d3.classList.remove('unavailable');
+        d4.classList.remove('unavailable');
     }
 
     return d;
 }
 
 function HideImageAndSettings(hide) {
+    let imgd = document.getElementById('image-discard');
     let imgc = document.getElementById('imagecontainer');
     let maxh = document.getElementById('image-maxheight-p');
     let ipos = document.getElementById('image-position-p');
+    let iali = document.getElementById('image-alignment-p');
     if (hide) {
+        imgd.classList.add('unavailable');
         imgc.classList.add('unavailable');
         maxh.classList.add('unavailable');
         ipos.classList.add('unavailable');
+        iali.classList.add('unavailable');
     } else {
+        imgd.classList.remove('unavailable');
         imgc.classList.remove('unavailable');
         maxh.classList.remove('unavailable');
         ipos.classList.remove('unavailable');
+        iali.classList.remove('unavailable');
     }
 }
 // #endregion Input
@@ -953,5 +975,6 @@ function Uimage(element) {
     element.value = GetElementSrc('image');
     element.maxheight = Number.parseInt(GetElementValue('image-maxheight'));
     element.position = GetElementValue('image-position');
+    element.alignment = GetElementValue('image-alignment');
 }
 // #endregion UpdateContent

@@ -54,7 +54,7 @@ function ProcessFile(filecontent) {
 function CreateViewerContent() {
     Statblock = DIV('StatblockWizard');
     CreateStatblockHtml();
-    Statblock.setAttribute('title',`Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
+    Statblock.setAttribute('title', `Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
     Viewer.appendChild(Statblock);
 }
 
@@ -282,7 +282,7 @@ function Ostring(element) {
         let p = P('', element.css);
         if (element.showcaption) { p.appendChild(SPAN(element.caption, element.captioncss)); };
         p.appendChild(SPAN(element.value));
-        if (element.css == 'title') { StatblockName = element.value.replace(/<[^>]*>/g,' ') };
+        if (element.css == 'title') { StatblockName = element.value.replace(/<[^>]*>/g, ' ') };
         return p;
     };
     return emptyNode();
@@ -385,7 +385,7 @@ function Olanguages5e(element) {
 function Ocr5e(element) {
     if (element.value) {
         if (element.value >= 0) {
-            let cr = CR5e().filter((v)=>{return (v.value==element.value)})[0];
+            let cr = CR5e().filter((v) => { return (v.value == element.value) })[0];
             let p = P('', element.css);
             let scr = SPAN('', element.crcss);
             scr.appendChild(SPAN(element.caption, element.captioncss));
@@ -405,9 +405,8 @@ function Ocr5e(element) {
 function Oimage(element) {
     if (element.value) {
         let im = IMG(element.value, `Image of ${StatblockName}`, element.css);
-        if (element.maxheight && element.maxheight > 0) {
-            im.setAttribute('style', `max-height:${element.maxheight}mm;`);
-        }
+        if (element.maxheight && element.maxheight > 0) im.setAttribute('style', `max-height:${element.maxheight}mm;`);
+        if (element.alignment && element.alignment != 'center') addClassnames(im, `${element.css}-${element.alignment}`);
         return im;
     }
     return emptyNode();
@@ -554,7 +553,7 @@ function CreateSVG(imgtype, filename) {
                 height:${requiredimgheight}px;
                 transform:scale(${scale});
             "
-        >${imgdiv.outerHTML.replace(imgregex, replaceby).replace(brhrregex,replaceby)}
+        >${imgdiv.outerHTML.replace(imgregex, replaceby).replace(brhrregex, replaceby)}
         </foreignObject>
     </svg>
     `;
@@ -816,7 +815,7 @@ function GetImgCSS() {
         break-inside: avoid-column;
     }
     
-    .StatblockWizard-sectionheader + .StatblockWizard-line {
+    .StatblockWizard-sectionheader+.StatblockWizard-line {
         break-before: avoid;
     }
     
@@ -825,13 +824,13 @@ function GetImgCSS() {
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-line + .StatblockWizard-text {
+    .StatblockWizard-line+.StatblockWizard-text {
         text-indent: 1em;
         margin-top: 2px;
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-sectionheader + .StatblockWizard-line {
+    .StatblockWizard-sectionheader+.StatblockWizard-line {
         margin-top: 2px;
     }
     
@@ -890,7 +889,7 @@ function GetImgCSS() {
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-line + dl.StatblockWizard-list {
+    .StatblockWizard-line+dl.StatblockWizard-list {
         margin-top: 2px;
     }
     
@@ -919,6 +918,14 @@ function GetImgCSS() {
         padding: 0;
         max-width: 60mm;
         margin: 0 auto;
+    }
+
+    .StatblockWizard-image-left {
+        margin: 0 auto 0 0;
+    }
+    
+    .StatblockWizard-image-right {
+        margin: 0 0 0 auto;
     }
 
     .StatblockWizard hr {
