@@ -212,7 +212,7 @@
         break-inside: avoid-column;
     }
     
-    .StatblockWizard-sectionheader + .StatblockWizard-line {
+    .StatblockWizard-sectionheader+.StatblockWizard-line {
         break-before: avoid;
     }
     
@@ -221,13 +221,13 @@
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-line + .StatblockWizard-text {
+    .StatblockWizard-line+.StatblockWizard-text {
         text-indent: 1em;
         margin-top: 2px;
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-sectionheader + .StatblockWizard-line {
+    .StatblockWizard-sectionheader+.StatblockWizard-line {
         margin-top: 2px;
     }
     
@@ -286,7 +286,7 @@
         margin-bottom: 2px;
     }
     
-    .StatblockWizard-line + dl.StatblockWizard-list {
+    .StatblockWizard-line+dl.StatblockWizard-list {
         margin-top: 2px;
     }
     
@@ -317,6 +317,14 @@
         margin: 0 auto;
     }
 
+    .StatblockWizard-image-left {
+        margin: 0 auto 0 0;
+    }
+    
+    .StatblockWizard-image-right {
+        margin: 0 0 0 auto;
+    }
+
     .StatblockWizard hr {
         margin: 2px 0;
         border-style: none;
@@ -325,7 +333,7 @@
         border-left: 0;
         border-bottom: 1px var(--StatblockWizardscreenborder) solid;
     }
-    </style><div class="StatblockWizard"><div class="StatblockWizard-section StatblockWizard-general"><p class="StatblockWizard-title"><span>Archmage</span></p>
+    </style><div class="StatblockWizard" title="Statblock of Archmage. See https://statblockwizard.github.io/Legal.html"><div class="StatblockWizard-section StatblockWizard-general"><p class="StatblockWizard-title"><span>Archmage</span></p>
 <p class="StatblockWizard-sizetypealignment"><span>Medium humanoid (any race), any alignment</span></p>
 <p class="StatblockWizard-feature StatblockWizard-armorclass"><span class="StatblockWizard-keyword">Armor Class</span><span>12 (15 with mage armor)</span></p>
 <p class="StatblockWizard-feature StatblockWizard-hitpoints"><span class="StatblockWizard-keyword">Hit Points</span><span>99 (18d8 + 18)</span></p>

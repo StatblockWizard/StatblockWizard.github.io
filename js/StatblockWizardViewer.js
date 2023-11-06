@@ -404,7 +404,9 @@ function Ocr5e(element) {
 
 function Oimage(element) {
     if (element.value) {
-        let im = IMG(element.value, `Image of ${StatblockName}`, element.css);
+        let imagetitle = `Image of ${StatblockName}`;
+        if (element.credits) imagetitle = `${imagetitle} ${element.credits}`;
+        let im = IMG(element.value, imagetitle, element.css);
         if (element.maxheight && element.maxheight > 0) im.setAttribute('style', `max-height:${element.maxheight}mm;`);
         if (element.alignment && element.alignment != 'center') addClassnames(im, `${element.css}-${element.alignment}`);
         return im;

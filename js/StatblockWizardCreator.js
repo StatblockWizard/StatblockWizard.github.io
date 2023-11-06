@@ -808,11 +808,23 @@ function Iimage(element) {
     d4.appendChild(lalignment);
     d4.appendChild(ialignment);
 
+    let d5id = 'image-credits';
+    let d5 = P();
+    d5.setAttribute('id', 'image-credits-p');
+    d5.classList.add('unavailable');
+    let lcredits = LABEL(d4id, 'Credits');
+    let icredits = INPUTtext('', 50, 'aligned full');
+    icredits.setAttribute('id', d5id);
+    if (element.credits) icredits.value = element.credits;
+    d5.appendChild(lcredits);
+    d5.appendChild(icredits);
+
     d.appendChild(d1);
     d.appendChild(ic);
     d.appendChild(d2);
     d.appendChild(d3);
     d.appendChild(d4);
+    d.appendChild(d5);
 
     element.id = id;
     if (element.value) {
@@ -822,6 +834,7 @@ function Iimage(element) {
         d2.classList.remove('unavailable');
         d3.classList.remove('unavailable');
         d4.classList.remove('unavailable');
+        d5.classList.remove('unavailable');
     }
 
     return d;
@@ -833,18 +846,21 @@ function HideImageAndSettings(hide) {
     let maxh = document.getElementById('image-maxheight-p');
     let ipos = document.getElementById('image-position-p');
     let iali = document.getElementById('image-alignment-p');
+    let icre = document.getElementById('image-credits-p');
     if (hide) {
         imgd.classList.add('unavailable');
         imgc.classList.add('unavailable');
         maxh.classList.add('unavailable');
         ipos.classList.add('unavailable');
         iali.classList.add('unavailable');
+        icre.classList.add('unavailable');
     } else {
         imgd.classList.remove('unavailable');
         imgc.classList.remove('unavailable');
         maxh.classList.remove('unavailable');
         ipos.classList.remove('unavailable');
         iali.classList.remove('unavailable');
+        icre.classList.remove('unavailable');
     }
 }
 // #endregion Input
@@ -976,5 +992,6 @@ function Uimage(element) {
     element.maxheight = Number.parseInt(GetElementValue('image-maxheight'));
     element.position = GetElementValue('image-position');
     element.alignment = GetElementValue('image-alignment');
+    element.credits = GetElementValue('image-credits')
 }
 // #endregion UpdateContent
