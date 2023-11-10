@@ -135,7 +135,7 @@ function findcsselement(definitionlist, type, subtype) {
 
 function GetElementValue(id) {
     let e = document.getElementById(id);
-    if (e) { return e.value };
+    if (e) { return e.value.replace(/\s[\s]+/ig,' ') };
     return '';
 }
 
