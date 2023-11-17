@@ -1,5 +1,9 @@
 /* Copyright 2023 StatblockWizard */
 @media print {
+    :root {
+        --StatblockWizardprintborder: #d3d3d3;
+    }
+
     .StatblockWizard {
         border-image-source: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEMSURBVHhe7d27DcJAEEDBA3IaoGG6BnOyECBnxi+akfY+6WtgB43Tej+W+Xyz31bb+ZlzHRehd1obfvU8v47lM+7jNof/+O05Q3M8oSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0KXtpbRssu75zrWVR9oc101hxrjCaP8GY01jQ67AAAAAElFTkSuQmCC");
     }

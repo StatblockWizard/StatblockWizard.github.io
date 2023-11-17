@@ -615,7 +615,6 @@ function GetImgCSS() {
     :root {
         --StatblockWizardmonstername: #a00000;
         --StatblockWizardscreenborder: #a00000;
-        --StatblockWizardprintborder: #d3d3d3;
         --StatblockWizardtext: #020202;
     }
     
