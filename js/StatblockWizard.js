@@ -196,7 +196,7 @@ function FIGCAPTION(caption, classnames) {
 function FIGURE(src, caption, alt, classnames, imgclassnames, captionclassnames) {
     let f = document.createElement('figure');
     addClassnames(f, classnames);
-    f.appendChild(IMG(src, alt, imgclassnames));
+    f.appendChild(IMGset(`${src} 2x`, alt, imgclassnames));
     f.appendChild(FIGCAPTION(caption, captionclassnames));
     return f;
 }
@@ -224,6 +224,15 @@ function HR(classnames) {
 function IMG(src, alt, classnames) {
     let i = document.createElement('img');
     i.src = src;
+    i.alt = alt;
+    i.title = alt;
+    addClassnames(i, classnames);
+    return i;
+}
+
+function IMGset(srcset, alt, classnames) {
+    let i = document.createElement('img');
+    i.srcset = srcset;
     i.alt = alt;
     i.title = alt;
     addClassnames(i, classnames);
