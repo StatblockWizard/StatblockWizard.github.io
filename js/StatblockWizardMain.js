@@ -55,22 +55,22 @@ function addSamples() {
     let classnames = 'samplefigure';
     // let imgclassnames = 'sampleimage';
     let captionclassnames = 'samplecaption';
-    let f1 = FIGURE('res/Archmage.statblockwizard.svg', 'Archmage', 'StatblockWizard sample statblock of an Archmage', classnames, 'sampleimage', captionclassnames);
+    let f1 = FIGURE('res/Archmage.statblockwizard.png', 'Archmage', 'StatblockWizard sample statblock of an Archmage', classnames, 'sampleimage', captionclassnames);
     f1.addEventListener('click', () => {
         DBsetStatblockWizard(sampleArchmage());
         window.location.replace('Viewer.html');
     });
-    let f2 = FIGURE('res/Cat.statblockwizard.svg', 'Cat', 'StatblockWizard sample statblock of a Cat, featuring Zipper.', classnames, 'sampleimage', captionclassnames);
+    let f2 = FIGURE('res/Cat.statblockwizard.png', 'Cat', 'StatblockWizard sample statblock of a Cat, featuring Zipper.', classnames, 'sampleimage', captionclassnames);
     f2.addEventListener('click', () => {
         DBsetStatblockWizard(sampleCat());
         window.location.replace('Viewer.html');
     });
-    let f3 = FIGURE('res/Cult Fanatic.statblockwizard.svg', 'Cult Fanatic', 'StatblockWizard sample statblock of a Cult Fanatic', classnames, 'sampleimage', captionclassnames);
+    let f3 = FIGURE('res/Cult%20Fanatic.statblockwizard.png', 'Cult Fanatic', 'StatblockWizard sample statblock of a Cult Fanatic', classnames, 'sampleimage', captionclassnames);
     f3.addEventListener('click', () => {
         DBsetStatblockWizard(sampleCultFanatic());
         window.location.replace('Viewer.html');
     });
-    let f4 = FIGURE('res/Obsidian Tusker.statblockwizard.svg', 'Obsidian Tusker', 'StatblockWizard sample statblock of an Obsidian Tusker', classnames, 'sampleimage', captionclassnames);
+    let f4 = FIGURE('res/Obsidian%20Tusker.statblockwizard.png', 'Obsidian Tusker', 'StatblockWizard sample statblock of an Obsidian Tusker', classnames, 'sampleimage', captionclassnames);
     f4.addEventListener('click', () => {
         DBsetStatblockWizard(sampleObsidianTusker());
         window.location.replace('Viewer.html');
