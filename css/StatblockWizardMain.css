@@ -10,6 +10,9 @@
 }
 
 body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    font-size-adjust: inherit;
     color: var(--fore);
     background-color: var(--back);
 }
@@ -26,12 +29,6 @@ body {
 }
 
 .infopage {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    font-size-adjust: inherit;
-    color: var(--fore);
-    background-color: var(--back);
-
     max-width: 850px;
     margin-left: auto;
     margin-right: auto;
