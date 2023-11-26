@@ -101,12 +101,30 @@
 }
 
 .StatblockWizard-sizetypealignment {
+    /* deprecated */
     font-style: italic;
 
     margin-top: 0;
     margin-bottom: 3px;
     padding-bottom: 2px;
     border-bottom: 2px var(--StatblockWizardscreenborder) solid;
+}
+
+.StatblockWizard-sizetypetagsalignment {
+    font-style: italic;
+
+    margin-top: 0;
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+}
+
+.StatblockWizard-general, .StatblockWizard-general2 {
+    break-inside: avoid;
+
+    border-top: none;
+    border-bottom: 2px var(--StatblockWizardscreenborder) solid;
+    border-left: none;
+    border-right: none;
 }
 
 .StatblockWizard-abilities {
@@ -120,7 +138,7 @@
     justify-content: space-between;
 
     clear: both;
-    border-top: 2px var(--StatblockWizardscreenborder) solid;
+    border-top: none;
     border-bottom: 2px var(--StatblockWizardscreenborder) solid;
     border-left: none;
     border-right: none;
