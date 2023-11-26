@@ -161,18 +161,20 @@ function StatblockDefinition5e() {
     return [
         { "type": "section", "caption": "General", "showcaption": false, "css": "section general", "captioncss": "" }
         , { "type": "string", "caption": "Name", "showcaption": false, "defaultvalue": "", "css": "title", "captioncss": "" }
-        , { "type": "string", "caption": "Size / Type / Alignment", "showcaption": false, "defaultvalue": "", "css": "sizetypealignment", "captioncss": "" }
+        , { "type": "string", "caption": "Creature info", "showcaption": false, "defaultvalue": "", "css": "sizetypetagsalignment", "captioncss": "" }
+        , { "type": "sectionend", "content": "static" }
+        , { "type": "section", "caption": "", "showcaption": false, "css": "section general2", "captioncss": "" }
         , { "type": "string", "caption": "Armor Class", "showcaption": true, "defaultvalue": "", "css": "feature armorclass", "captioncss": "keyword" }
         , { "type": "string", "caption": "Hit Points", "showcaption": true, "defaultvalue": "", "css": "feature hitpoints", "captioncss": "keyword" }
         , { "type": "string", "caption": "Speed", "showcaption": true, "defaultvalue": "30 ft.", "css": "feature speed", "captioncss": "keyword" }
         , { "type": "sectionend", "content": "static" }
         , { "type": "section", "caption": "Abilities", "showcaption": false, "css": "section abilities", "captioncss": "" }
-        , { "type": "ability5e", "caption": "STR", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "DEX", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "CON", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "INT", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "WIS", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "CHA", "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "STR", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "DEX", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "CON", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "INT", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "WIS", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
+        , { "type": "ability5e", "caption": "CHA", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
         , { "type": "sectionend", "content": "static" }
         , { "type": "section", "caption": "Features", "showcaption": false, "css": "section features", "captioncss": "" }
         , { "type": "string", "caption": "Saving Throws", "showcaption": true, "defaultvalue": "", "css": "feature savingthrows", "captioncss": "keyword" }
@@ -438,7 +440,7 @@ function Istring(element) {
 
 function Iability5e(element) {
     let p = P();
-    let i = INPUTnumber(1, 30, 10, 'aligned');
+    let i = INPUTnumber(1, 30, element.defaultvalue, 'aligned');
     let id = newID();
     let modifierid = newID();
     i.setAttribute('id', id);
@@ -868,6 +870,7 @@ function HideImageAndSettings(hide) {
 // #region UpdateContent
 function Ustring(element) {
     element.value = GetElementValue(element.id);
+    if (element.defaultvalue != element.value) element.defaultvalue = '';
 }
 
 function Usection(element) { } // not editable
@@ -916,6 +919,7 @@ function Usectionend(element) {
 
 function Uability5e(element) {
     element.value = GetElementValue(element.id);
+    if (element.defaultvalue != element.value) element.defaultvalue = '';
 }
 
 function Uskills5e(element) {

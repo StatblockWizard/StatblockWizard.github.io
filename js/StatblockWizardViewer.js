@@ -345,15 +345,18 @@ function Osectionend(section, element) {
 }
 
 function Oability5e(element) {
-    let div = DIV(element.css);
-    let divabilityname = DIV(element.captioncss);
-    divabilityname.appendChild(TEXTNODE(element.caption));
-    let divabilitynumbers = DIV(element.numberscss);
-    divabilitynumbers.appendChild(SPAN(element.value, element.scorecss));
-    divabilitynumbers.appendChild(SPAN(abilitymodifier(element.value), element.modifiercss));
-    div.appendChild(divabilityname);
-    div.appendChild(divabilitynumbers);
-    return div;
+    if (element.value) {
+        let div = DIV(element.css);
+        let divabilityname = DIV(element.captioncss);
+        divabilityname.appendChild(TEXTNODE(element.caption));
+        let divabilitynumbers = DIV(element.numberscss);
+        divabilitynumbers.appendChild(SPAN(element.value, element.scorecss));
+        divabilitynumbers.appendChild(SPAN(abilitymodifier(element.value), element.modifiercss));
+        div.appendChild(divabilityname);
+        div.appendChild(divabilitynumbers);
+        return div;
+    };
+    return emptyNode();
 }
 
 function Oskills5e(element) {
@@ -712,14 +715,32 @@ function GetImgCSS() {
         padding: 0;
         margin: 0;
     }
-    
+
     .StatblockWizard-sizetypealignment {
+        /* deprecated */
         font-style: italic;
     
         margin-top: 0;
         margin-bottom: 3px;
         padding-bottom: 2px;
         border-bottom: 2px var(--StatblockWizardscreenborder) solid;
+    }
+    
+    .StatblockWizard-sizetypetagsalignment {
+        font-style: italic;
+    
+        margin-top: 0;
+        margin-bottom: 3px;
+        padding-bottom: 2px;
+    }
+    
+    .StatblockWizard-general, .StatblockWizard-general2 {
+        break-inside: avoid;
+    
+        border-top: none;
+        border-bottom: 2px var(--StatblockWizardscreenborder) solid;
+        border-left: none;
+        border-right: none;
     }
     
     .StatblockWizard-abilities {
@@ -733,12 +754,12 @@ function GetImgCSS() {
         justify-content: space-between;
     
         clear: both;
-        border-top: 2px var(--StatblockWizardscreenborder) solid;
+        border-top: none;
         border-bottom: 2px var(--StatblockWizardscreenborder) solid;
         border-left: none;
-        border-right: none;    
+        border-right: none;
     }
-    
+
     .StatblockWizard-ability {
         display: block;
         text-align: center;
