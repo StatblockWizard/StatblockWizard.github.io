@@ -9,6 +9,7 @@ let StatblockSection;
 let StatblockName = '';
 let inSection = false;
 let SectionPosition = 'last';
+let currentzoom = '100%';
 
 function StartNewViewer() {
     document.getElementById('svgimg').addEventListener('load', svgimgOnLoadhandler);
@@ -513,10 +514,14 @@ function downloadcss() {
 }
 
 function downloadAsImageSVG(filename) {
+    currentzoom = document.body.style.zoom;
+    document.body.style.zoom = '100%';
     CreateSVG('svg', filename);
 }
 
 function downloadAsImagePNG(filename) {
+    currentzoom = document.body.style.zoom;
+    document.body.style.zoom = '100%';
     CreateSVG('png', filename);
 }
 
@@ -597,6 +602,7 @@ function svgimgOnLoadhandler() {
             downloadPNG(StatblockImage, imgexportwidth, imgexportheight, imgexportname);
             break;
     }
+    document.body.style.zoom = currentzoom;
 }
 
 function downloadPNG(StatblockImage, imgexportwidth, imgexportheight, filename) {
