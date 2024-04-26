@@ -162,7 +162,7 @@ function DBsetStatblockWizard(value) {
 }
 
 function DBConfirmWrite() {
-    return window.confirm("This action will store statblock data in your browser; this data is required for the app to function. See our 'Legal information' page to learn more.\n\nDo you want to allow this?");
+    return window.confirm("This action will store statblock data in your browser, necessary for the app to function. See the 'Legal information' page to learn more.\n\nDo you allow this storage?");
 }
 
 function DBgetStatblockWizard() {
