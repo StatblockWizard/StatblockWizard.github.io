@@ -135,7 +135,7 @@ function findcsselement(definitionlist, type, subtype) {
 
 function GetElementValue(id) {
     let e = document.getElementById(id);
-    if (e) { return e.value.replace(/\s[\s]+/ig,' ') };
+    if (e) { return e.value.replace(/\s[\s]+/ig, ' ') };
     return '';
 }
 
@@ -154,7 +154,15 @@ function ImageAvailable() {
 
 // #region DB
 function DBsetStatblockWizard(value) {
-    window.localStorage.setItem('StatblockWizard', JSON.stringify(value))
+    let currentv = window.localStorage.getItem('StatblockWizard');
+    if (!currentv) {
+        if (!DBConfirmWrite()) { throw (': user prevented storage of data.'); }
+    }
+    window.localStorage.setItem('StatblockWizard', JSON.stringify(value));
+}
+
+function DBConfirmWrite() {
+    return window.confirm("This action will store statblock data in your browser; this data is required for the app to function. See our 'Legal information' page to learn more.\n\nDo you want to allow this?");
 }
 
 function DBgetStatblockWizard() {
@@ -279,11 +287,11 @@ function INPUTtext(defaultvalue, size, classnames) {
     input.setAttribute('value', defaultvalue);
     addClassnames(input, classnames);
 
-    input.addEventListener('paste',(ce) => {
+    input.addEventListener('paste', (ce) => {
         let paste = (ce.clipboardData || window.clipboardData).getData('text').toString();
-        input.value = `${input.value.substring(0,input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`.replace(/\s[\s]+/ig,' ').trim();
+        input.value = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`.replace(/\s[\s]+/ig, ' ').trim();
         ce.preventDefault();
-     });
+    });
 
     return input;
 }
