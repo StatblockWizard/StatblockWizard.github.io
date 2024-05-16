@@ -529,7 +529,7 @@ function CreateSVG(imgtype, filename) {
     let scale;
     switch (imgtype) {
         case "png":
-            scale = 2;
+            scale = 300/96; // convert from 96 dpi to 300 dpi
             break;
         case "svg":
             scale = 1;
@@ -556,7 +556,7 @@ function CreateSVG(imgtype, filename) {
     let replaceby = '$1/>';
 
     let svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${requiredimgwidth * scale}" height="${requiredimgheight * scale}" style="font-size:16px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="${requiredimgwidth}" height="${requiredimgheight}" style="font-size:16px;">
         <foreignObject 
             style="
                 width:${requiredimgwidth}px;
@@ -573,6 +573,8 @@ function CreateSVG(imgtype, filename) {
             let StatblockImage = document.getElementById('svgimg');
             StatblockImage.setAttribute('imgexporttype', imgtype);
             StatblockImage.setAttribute('imgexportname', filename);
+            StatblockImage.setAttribute('imgexportstylewidth', requiredimgwidth);
+            StatblockImage.setAttribute('imgexportstyleheight', requiredimgheight);
             StatblockImage.setAttribute('imgexportwidth', requiredimgwidth * scale);
             StatblockImage.setAttribute('imgexportheight', requiredimgheight * scale);
 
@@ -597,19 +599,23 @@ function svgimgOnLoadhandler() {
     let imgexportname = StatblockImage.getAttribute('imgexportname');
     switch (imgtype) {
         case 'png':
+            let imgexportstylewidth = StatblockImage.getAttribute('imgexportstylewidth');
+            let imgexportstyleheight = StatblockImage.getAttribute('imgexportstyleheight');
             let imgexportwidth = StatblockImage.getAttribute('imgexportwidth');
             let imgexportheight = StatblockImage.getAttribute('imgexportheight');
-            downloadPNG(StatblockImage, imgexportwidth, imgexportheight, imgexportname);
+            downloadPNG(StatblockImage, imgexportstylewidth, imgexportstyleheight, imgexportwidth, imgexportheight, imgexportname);
             break;
     }
     document.body.style.zoom = currentzoom;
 }
 
-function downloadPNG(StatblockImage, imgexportwidth, imgexportheight, filename) {
+function downloadPNG(StatblockImage, imgexportstylewidth, imgexportstyleheight, imgexportwidth, imgexportheight, filename) {
     var canvas;
     var ctx;
     canvas = document.createElement('canvas');
     ctx = canvas.getContext('2d');
+    canvas.style.width = imgexportstylewidth;
+    canvas.style.height = imgexportstyleheight;
     canvas.width = imgexportwidth;
     canvas.height = imgexportheight;
     ctx.drawImage(StatblockImage, 0, 0);
