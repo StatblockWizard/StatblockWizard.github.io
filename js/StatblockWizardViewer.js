@@ -556,7 +556,7 @@ function CreateSVG(imgtype, filename) {
     let replaceby = '$1/>';
 
     let svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${requiredimgwidth}" height="${requiredimgheight}" style="font-size:16px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="${requiredimgwidth * scale}" height="${requiredimgheight * scale}" style="font-size:16px;">
         <foreignObject 
             style="
                 width:${requiredimgwidth}px;
