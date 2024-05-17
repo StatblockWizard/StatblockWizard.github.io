@@ -204,7 +204,7 @@ function FIGCAPTION(caption, classnames) {
 function FIGURE(src, caption, alt, classnames, imgclassnames, captionclassnames) {
     let f = document.createElement('figure');
     addClassnames(f, classnames);
-    f.appendChild(IMGset(`${src} 2x`, alt, imgclassnames));
+    f.appendChild(IMGset(`${src} 3.125x`, alt, imgclassnames));
     f.appendChild(FIGCAPTION(caption, captionclassnames));
     return f;
 }
