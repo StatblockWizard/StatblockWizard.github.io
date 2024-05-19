@@ -874,7 +874,7 @@ function HideImageSettingsForPosition() {
     let iali = document.getElementById('image-alignment-p');
     let ipos = document.getElementById('image-position-p');
     let pos = GetElementValue('image-position');
-    if (pos == 'token' || ipos.hasAttribute('unavailable') ) {
+    if (pos == 'token' || ipos.classList.contains('unavailable') ) {
         maxh.classList.add('unavailable');
         iali.classList.add('unavailable');
     } else {
