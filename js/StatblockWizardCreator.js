@@ -24,6 +24,7 @@ function CreateCreatorPage() {
         CreateCreatorContent();
         CreateCreatorFooter();
 
+        HideImageSettingsForPosition();
         activateFirstTitle();
     };
 }
@@ -724,7 +725,7 @@ function Ispells5e(element, id, value) {
 
 function Iimage(element) {
     if (!element.maxheight || element.maxheight < 0) { element.maxheight = 0 };
-    if (!element.position || ['first', 'last'].indexOf(element.position) == -1) { element.position = 'last' };
+    if (!element.position || ['first', 'last', 'token'].indexOf(element.position) == -1) { element.position = 'last' };
     if (!element.alignment || ['center', 'left', 'right'].indexOf(element.alignment) == -1) { element.alignment = 'center' };
 
     let d = DIV();
@@ -793,11 +794,14 @@ function Iimage(element) {
     d3.setAttribute('id', 'image-position-p');
     d3.classList.add('unavailable');
     let lposition = LABEL(d3id, 'Position');
-    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
+    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }, { "value": "token", "text": "Token (top right)"}], 'aligned');
     iposition.setAttribute('id', d3id);
     iposition.value = element.position;
     d3.appendChild(lposition);
     d3.appendChild(iposition);
+    iposition.addEventListener('change', function () {
+        HideImageSettingsForPosition();
+    });
 
     let d4id = 'image-alignment';
     let d4 = P();
@@ -823,9 +827,9 @@ function Iimage(element) {
 
     d.appendChild(d1);
     d.appendChild(ic);
-    d.appendChild(d2);
     d.appendChild(d3);
     d.appendChild(d4);
+    d.appendChild(d2);
     d.appendChild(d5);
 
     element.id = id;
@@ -845,11 +849,11 @@ function Iimage(element) {
 function HideImageAndSettings(hide) {
     let imgd = document.getElementById('image-discard');
     let imgc = document.getElementById('imagecontainer');
-    let maxh = document.getElementById('image-maxheight-p');
     let ipos = document.getElementById('image-position-p');
-    let iali = document.getElementById('image-alignment-p');
     let icre = document.getElementById('image-credits-p');
     if (hide) {
+        let maxh = document.getElementById('image-maxheight-p');
+        let iali = document.getElementById('image-alignment-p');
         imgd.classList.add('unavailable');
         imgc.classList.add('unavailable');
         maxh.classList.add('unavailable');
@@ -859,10 +863,23 @@ function HideImageAndSettings(hide) {
     } else {
         imgd.classList.remove('unavailable');
         imgc.classList.remove('unavailable');
-        maxh.classList.remove('unavailable');
         ipos.classList.remove('unavailable');
-        iali.classList.remove('unavailable');
         icre.classList.remove('unavailable');
+        HideImageSettingsForPosition();
+    }
+}
+
+function HideImageSettingsForPosition() {
+    let maxh = document.getElementById('image-maxheight-p');
+    let iali = document.getElementById('image-alignment-p');
+    let ipos = document.getElementById('image-position-p');
+    let pos = GetElementValue('image-position');
+    if (pos == 'token' || ipos.hasAttribute('unavailable') ) {
+        maxh.classList.add('unavailable');
+        iali.classList.add('unavailable');
+    } else {
+        maxh.classList.remove('unavailable');
+        iali.classList.remove('unavailable');
     }
 }
 // #endregion Input

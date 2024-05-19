@@ -4,6 +4,7 @@ window.addEventListener('load', StartNewViewer, false);
 
 var Viewer;
 var Content = [];
+let StatblockWizard;
 let Statblock;
 let StatblockSection;
 let StatblockName = '';
@@ -53,10 +54,12 @@ function ProcessFile(filecontent) {
 }
 
 function CreateViewerContent() {
-    Statblock = DIV('StatblockWizard');
+    StatblockWizard = DIV('StatblockWizard');    
+    Statblock = DIV('StatblockWizard-Content');
     CreateStatblockHtml();
-    Statblock.setAttribute('title', `Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
-    Viewer.appendChild(Statblock);
+    StatblockWizard.setAttribute('title', `Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
+    StatblockWizard.appendChild(Statblock);
+    Viewer.appendChild(StatblockWizard);
 }
 
 function CreateViewerFooter() {
@@ -411,8 +414,13 @@ function Oimage(element) {
         let imagetitle = `Image of ${StatblockName}`;
         if (element.credits) imagetitle = `${imagetitle} ${element.credits}`;
         let im = IMG(element.value, imagetitle, element.css);
-        if (element.maxheight && element.maxheight > 0) im.setAttribute('style', `max-height:${element.maxheight}mm;`);
-        if (element.alignment && element.alignment != 'center') addClassnames(im, `${element.css}-${element.alignment}`);
+        if (element.position == 'token') {
+            addClassnames(im, 'token');
+            return im;
+        } else {
+            if (element.maxheight && element.maxheight > 0) im.setAttribute('style', `max-height:${element.maxheight}mm;`);
+            if (element.alignment && element.alignment != 'center') addClassnames(im, `${element.css}-${element.alignment}`);
+        }
         return im;
     }
     return emptyNode();
@@ -529,7 +537,7 @@ function CreateSVG(imgtype, filename) {
     let scale;
     switch (imgtype) {
         case "png":
-            scale = 300/96; // convert from 96 dpi to 300 dpi
+            scale = 300 / 96; // convert from 96 dpi to 300 dpi
             break;
         case "svg":
             scale = 1;
@@ -540,8 +548,8 @@ function CreateSVG(imgtype, filename) {
 
     var requiredimgwidth;
     var requiredimgheight;
-    requiredimgwidth = Statblock.clientWidth + 2 * Statblock.clientLeft;
-    requiredimgheight = Statblock.clientHeight + 2 * Statblock.clientTop;
+    requiredimgwidth = StatblockWizard.clientWidth + 2 * StatblockWizard.clientLeft;
+    requiredimgheight = StatblockWizard.clientHeight + 2 * StatblockWizard.clientTop;
 
     let imgdiv = document.createElement('div');
     imgdiv.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
@@ -549,7 +557,7 @@ function CreateSVG(imgtype, filename) {
     let style = document.createElement('style');
     style.innerHTML = GetImgCSS();
     imgdiv.appendChild(style);
-    imgdiv.insertAdjacentHTML('beforeend', Statblock.outerHTML);
+    imgdiv.insertAdjacentHTML('beforeend', StatblockWizard.outerHTML);
 
     let imgregex = /(<img[^>]*)>/i;
     let brhrregex = /(<[bh]r)>/ig;
@@ -697,7 +705,11 @@ function GetImgCSS() {
         min-width: 100px;
         width: 85mm;
     }
-    
+
+    .StatblockWizard-Content {
+        position: relative;
+    }
+           
     .StatblockWizard-Transparent {
         border-image-source: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEMSURBVHhe7d27DcJAEEDBA3IaoGG6BnOyECBnxi+akfY+6WtgB43Tej+W+Xyz31bb+ZlzHRehd1obfvU8v47lM+7jNof/+O05Q3M8oSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0KXtpbRssu75zrWVR9oc101hxrjCaP8GY01jQ67AAAAAElFTkSuQmCC");
         margin-top: 0;
@@ -969,6 +981,15 @@ function GetImgCSS() {
         border-right: 0;
         border-left: 0;
         border-bottom: 1px var(--StatblockWizardscreenborder) solid;
+    }
+    
+    .StatblockWizard-token {
+        position: absolute;
+        max-height: 24mm;
+        max-width: 24mm;
+        right: 0;
+        top: 0;
+        margin: 0;
     }
     `;
 }

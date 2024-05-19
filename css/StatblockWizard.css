@@ -70,6 +70,10 @@
     width: 85mm;
 }
 
+.StatblockWizard-Content {
+    position: relative;
+}
+
 .StatblockWizard-Transparent {
     border-image-source: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEMSURBVHhe7d27DcJAEEDBA3IaoGG6BnOyECBnxi+akfY+6WtgB43Tej+W+Xyz31bb+ZlzHRehd1obfvU8v47lM+7jNof/+O05Q3M8oSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0KXtpbRssu75zrWVR9oc101hxrjCaP8GY01jQ67AAAAAElFTkSuQmCC");
     margin-top: 0;
@@ -341,4 +345,13 @@ dd.StatblockWizard-spelllist {
     border-right: 0;
     border-left: 0;
     border-bottom: 1px var(--StatblockWizardscreenborder) solid;
+}
+
+.StatblockWizard-token {
+    position: absolute;
+    max-height: 24mm;
+    max-width: 24mm;
+    right: 0;
+    top: 0;
+    margin: 0;
 }
