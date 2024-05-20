@@ -14,12 +14,16 @@
         display: none;
     }
 
+    .StatblockWizard-general, .StatblockWizard-general2 {
+        border-bottom: 2px var(--StatblockWizardprintborder) solid;
+    }
+
     .StatblockWizard-sizetypealignment {
         border-bottom: 2px var(--StatblockWizardprintborder) solid;
     }
 
     .StatblockWizard-abilities {
-        border-top: 2px var(--StatblockWizardprintborder) solid;
+        border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 2px var(--StatblockWizardprintborder) solid;
