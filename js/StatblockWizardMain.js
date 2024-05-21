@@ -66,7 +66,7 @@ function addSamples() {
         DBsetStatblockWizard(sampleCat());
         window.location.replace('Viewer.html');
     });
-    let f21 = FIGURE('res/Cat1.statblockwizard.png', 'Cat (alternative image position)', 'StatblockWizard sample statblock of a Cat, featuring Zipper (alternative image position).', classnames, 'sampleimage', captionclassnames);
+    let f21 = FIGURE('res/Cat1.statblockwizard.png', 'Cat (alternate image position)', 'StatblockWizard sample statblock of a Cat, featuring Zipper (alternate image position).', classnames, 'sampleimage', captionclassnames);
     f21.addEventListener('click', () => {
         DBsetStatblockWizard(sampleCat1());
         window.location.replace('Viewer.html');
