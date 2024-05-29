@@ -252,7 +252,7 @@ function activateProposedFocus() {
 
 // #region Input
 function Isection(element) {
-    return H3(element.caption);
+    return H2(element.caption);
 }
 
 function Isectionend(element) {
@@ -818,7 +818,7 @@ function Iimage(element) {
     let d5 = P();
     d5.setAttribute('id', 'image-credits-p');
     d5.classList.add('unavailable');
-    let lcredits = LABEL(d4id, 'Credits');
+    let lcredits = LABEL(d5id, 'Credits');
     let icredits = INPUTtext('', 50, 'aligned full');
     icredits.setAttribute('id', d5id);
     if (element.credits) icredits.value = element.credits;

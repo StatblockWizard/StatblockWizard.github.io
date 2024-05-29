@@ -4,7 +4,8 @@ body {
 }
 
 /* h1, */
-h3 {
+h2 {
+    font-size: 1.17em;
     margin: 10px 0 1px;
     padding: 0;
 }
