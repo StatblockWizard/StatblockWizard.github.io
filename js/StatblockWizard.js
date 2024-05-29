@@ -216,11 +216,11 @@ function H1(text, classnames) {
     return h1;
 }
 
-function H3(text, classnames) {
-    let h3 = document.createElement('h3');
-    h3.innerHTML = text;
-    addClassnames(h3, classnames);
-    return h3;
+function H2(text, classnames) {
+    let h2 = document.createElement('h2');
+    h2.innerHTML = text;
+    addClassnames(h2, classnames);
+    return h2;
 }
 
 function HR(classnames) {
