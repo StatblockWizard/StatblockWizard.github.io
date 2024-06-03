@@ -289,7 +289,7 @@ function INPUTtext(defaultvalue, size, classnames) {
 
     input.addEventListener('paste', (ce) => {
         let paste = (ce.clipboardData || window.clipboardData).getData('text').toString();
-        input.value = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`.replace(/\s[\s]+/ig, ' ').trim();
+        input.value = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`.replace(/\s[\s]+/ig, ' ').replace('','').trim();
         ce.preventDefault();
     });
 
