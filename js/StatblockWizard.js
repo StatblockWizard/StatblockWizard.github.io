@@ -280,18 +280,28 @@ function INPUTfile(accept) {
     return ifs;
 }
 
-function INPUTtext(defaultvalue, size, classnames) {
+function INPUTtext(defaultvalue, size, classnames, caption) {
     var input = document.createElement('input');
     input.setAttribute("type", "text");
     if (size > 20) { input.setAttribute("size", size) };
     input.setAttribute('value', defaultvalue);
+    if (caption) { input.setAttribute('caption', caption); }
     addClassnames(input, classnames);
 
     input.addEventListener('paste', (ce) => {
         let paste = (ce.clipboardData || window.clipboardData).getData('text').toString();
         paste = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`;
         paste = paste.replace(/\s[\s]+/ig, ' ').replace(/[\u0002\ufffe]/g, '');
-        input.value = paste.trim();
+
+        let caption = input.getAttribute('caption');
+        let r = RegExp(`^${caption}[\:]*`, 'i')
+        if (caption) { paste = paste.replace(r, ''); }
+        // let name = input.getAttribute('name');
+        // if (name.endsWith('-caption')) {
+        //     input.value = paste.trim();
+        // } else {
+            input.value = paste.trim();
+        // }
         ce.preventDefault();
     });
     return input;

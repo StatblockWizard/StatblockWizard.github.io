@@ -427,7 +427,7 @@ function Iswitch(endid, thisid, otherid) {
 
 function Istring(element) {
     let p = P();
-    let i = INPUTtext(element.defaultvalue, 50, 'aligned full');
+    let i = INPUTtext(element.defaultvalue, 50, 'aligned full', element.caption);
     if (element.css == 'title') { addClassnames(i, element.css) };
     let id = newID();
     i.setAttribute('id', id);
