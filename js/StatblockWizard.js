@@ -63,6 +63,11 @@ function attacktype5e() {
     ]
 }
 
+function attacktype5evalue(fromtext) {
+    let aa = attacktype5e().filter((t) => { return (t.text == fromtext) });
+    return aa[0].value;
+}
+
 function abilitymodifier(score) {
     let x = Math.trunc(score / 2) - 5;
     return ((x < 0) ? x.toString() : `+${x.toString()}`);
@@ -133,6 +138,11 @@ function findcsselement(definitionlist, type, subtype) {
     return foundelement;
 }
 
+function SetEmelentValue(id, value) {
+    let e = document.getElementById(id);
+    if (e) { e.value = value; };
+}
+
 function GetElementValue(id) {
     let e = document.getElementById(id);
     if (e) { return e.value.replace(/\s[\s]+/ig, ' ') };
@@ -150,6 +160,15 @@ function ImageAvailable() {
     if (l) { return (!l.classList.contains('unavailable')) };
     return false;
 }
+
+function removeCaption(from, caption) {
+    if (caption) {
+        let r = RegExp(`^${caption}[\:.]*`, 'i');
+        return from.replace(r, '');
+    } else
+        return from;
+}
+
 // #endregion Tools
 
 // #region DB
@@ -280,12 +299,11 @@ function INPUTfile(accept) {
     return ifs;
 }
 
-function INPUTtext(defaultvalue, size, classnames, caption) {
+function INPUTtext(defaultvalue, size, classnames) {
     var input = document.createElement('input');
     input.setAttribute("type", "text");
     if (size > 20) { input.setAttribute("size", size) };
     input.setAttribute('value', defaultvalue);
-    if (caption) { input.setAttribute('caption', caption); }
     addClassnames(input, classnames);
 
     input.addEventListener('paste', (ce) => {
@@ -293,15 +311,66 @@ function INPUTtext(defaultvalue, size, classnames, caption) {
         paste = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`;
         paste = paste.replace(/\s[\s]+/ig, ' ').replace(/[\u0002\ufffe]/g, '');
 
-        let caption = input.getAttribute('caption');
-        let r = RegExp(`^${caption}[\:]*`, 'i')
-        if (caption) { paste = paste.replace(r, ''); }
-        // let name = input.getAttribute('name');
-        // if (name.endsWith('-caption')) {
-        //     input.value = paste.trim();
-        // } else {
-            input.value = paste.trim();
-        // }
+        let swtype = input.getAttribute('swtype');
+        switch (swtype) {
+            case 'fixedcaption':
+                let caption = input.getAttribute('swcaption');
+                paste = removeCaption(paste, caption);
+                break;
+            case 'captiondotvalue':
+                let dot = paste.indexOf('.');
+                if (dot >= 0) {
+                    let pastevalue = paste.slice(dot + 1).trim();
+                    if (pastevalue.length > 0) {
+                        let valueid = input.getAttribute('swvalueid');
+                        let valueinput = document.getElementById(valueid);
+                        if (valueinput) {
+                            valueinput.value = pastevalue.trim();
+                            paste = paste.substring(0, dot + 1);
+                        }
+                    }
+                }
+                break;
+            case 'captioncolonvalue':
+                let colon = paste.indexOf(':');
+                if (colon >= 0) {
+                    let pastevalue = paste.slice(colon + 1).trim();
+                    if (pastevalue.length > 0) {
+                        let valueid = input.getAttribute('swvalueid');
+                        let valueinput = document.getElementById(valueid);
+                        if (valueinput) {
+                            valueinput.value = pastevalue.trim();
+                            paste = paste.substring(0, colon + 1);
+                        }
+                    }
+                }
+                break;
+            case 'ul':
+                if (paste[1] == ' ') { paste = paste.slice(1); };
+                break;
+            case 'ol':
+                let rd = /^[\d]*[\.]/;
+                paste = paste.replace(rd, '');
+                break;
+            case 'attack5e':
+                let attackdot = paste.indexOf('.');
+                if (attackdot < 0) { break; };
+                let pastevalue = paste.slice(attackdot + 1).trim();
+                if (pastevalue.length == 0) { break; };
+                let r = /(Melee Weapon Attack\:|Ranged Weapon Attack\:|Melee or Ranged Weapon Attack\:|Melee Spell Attack\:|Ranged Spell Attack\:|Melee or Ranged Spell Attack\:)(.*)Hit\:(.*)/i;
+                let matches = pastevalue.match(r);
+                if (matches.length == 4) {
+                    let valueids = JSON.parse(input.getAttribute('swvalueids'));
+                    SetEmelentValue(valueids[0], attacktype5evalue(matches[1].trim()));
+                    SetEmelentValue(valueids[1], matches[2].trim());
+                    SetEmelentValue(valueids[2], matches[3].trim());
+                    paste = paste.substring(0, attackdot + 1);
+                }
+                break;
+            default: // do nothing extra
+                break;
+        }
+        input.value = paste.trim();
         ce.preventDefault();
     });
     return input;

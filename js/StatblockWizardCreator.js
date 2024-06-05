@@ -427,10 +427,12 @@ function Iswitch(endid, thisid, otherid) {
 
 function Istring(element) {
     let p = P();
-    let i = INPUTtext(element.defaultvalue, 50, 'aligned full', element.caption);
+    let i = INPUTtext(element.defaultvalue, 50, 'aligned full');
     if (element.css == 'title') { addClassnames(i, element.css) };
     let id = newID();
     i.setAttribute('id', id);
+    i.setAttribute('swtype', 'fixedcaption');
+    i.setAttribute('swcaption', element.caption);
     if (element.value) { i.setAttribute('value', element.value) };
     element.id = id;
     p.appendChild(LABEL(id, element.caption));
@@ -494,6 +496,8 @@ function Inamedstring(element, id, value) {
     let ic = INPUTtext('', 0, 'aligned full');
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
+    ic.setAttribute('swtype', 'captiondotvalue');
+    ic.setAttribute('swvalueid', forit);
     p1.appendChild(lc);
     p1.appendChild(ic);
     d.appendChild(p1);
@@ -610,7 +614,8 @@ function IlistAddListItem(id, listid, listtype, value) {
             case "ul":
                 s.appendChild(TEXTNODE('\u2022\u00a0'));
                 let iul = INPUTtext('', 50);
-                iul.setAttribute('id', `${did}-li`)
+                iul.setAttribute('id', `${did}-li`);
+                iul.setAttribute('swtype', 'ul');
                 addClassnames(iul, 'nearfull');
                 if (value) { iul.setAttribute('value', value) };
                 s.appendChild(iul);
@@ -619,7 +624,8 @@ function IlistAddListItem(id, listid, listtype, value) {
             case "ol":
                 s.appendChild(TEXTNODE('8\u00a0'));
                 let iol = INPUTtext('', 50);
-                iol.setAttribute('id', `${did}-li`)
+                iol.setAttribute('id', `${did}-li`);
+                iol.setAttribute('swtype', 'ol');
                 addClassnames(iol, 'nearfull');
                 if (value) { iol.setAttribute('value', value) };
                 s.appendChild(iol);
@@ -628,14 +634,17 @@ function IlistAddListItem(id, listid, listtype, value) {
             case "dl":
             case "spells5e":
                 let idt = INPUTtext('', 10);
+                let iddid = `${did}-dd`;
                 idt.setAttribute('id', `${did}-dt`);
+                idt.setAttribute('swtype', (listtype == 'dl') ? 'captiondotvalue' : 'captioncolonvalue');
+                idt.setAttribute('swvalueid', iddid);
                 addClassnames(idt, 'first');
                 if (value) { idt.setAttribute('value', value.dt) };
                 s.appendChild(idt);
                 proposeFocus(`${did}-dt`);
 
                 let idd = INPUTtext('', 30);
-                idd.setAttribute('id', `${did}-dd`);
+                idd.setAttribute('id', iddid);
                 addClassnames(idd, 'second');
                 if (value) { idd.setAttribute('value', value.dd) };
                 s.appendChild(idd);
@@ -656,6 +665,8 @@ function Iattack5e(element, id, value) {
     let ic = INPUTtext('', 0, 'aligned full');
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
+    ic.setAttribute('swtype', 'attack5e');
+    ic.setAttribute('swvalueids', JSON.stringify([foriat, foria, forih]));
     let p1 = P();
     p1.appendChild(lc);
     p1.appendChild(ic);
@@ -794,7 +805,7 @@ function Iimage(element) {
     d3.setAttribute('id', 'image-position-p');
     d3.classList.add('unavailable');
     let lposition = LABEL(d3id, 'Position');
-    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }, { "value": "token", "text": "Token (top right)"}], 'aligned');
+    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }, { "value": "token", "text": "Token (top right)" }], 'aligned');
     iposition.setAttribute('id', d3id);
     iposition.value = element.position;
     d3.appendChild(lposition);
@@ -874,7 +885,7 @@ function HideImageSettingsForPosition() {
     let iali = document.getElementById('image-alignment-p');
     let ipos = document.getElementById('image-position-p');
     let pos = GetElementValue('image-position');
-    if (pos == 'token' || ipos.classList.contains('unavailable') ) {
+    if (pos == 'token' || ipos.classList.contains('unavailable')) {
         maxh.classList.add('unavailable');
         iali.classList.add('unavailable');
     } else {
