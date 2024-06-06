@@ -346,10 +346,11 @@ function INPUTtext(defaultvalue, size, classnames) {
                 }
                 break;
             case 'ul':
-                if (paste[1] == ' ') { paste = paste.slice(1); };
+                let rul = /^[^\da-z]/i;
+                paste = paste.replace(rul, '');
                 break;
             case 'ol':
-                let rd = /^[\d]*[\.]/;
+                let rd = /^[\d]*[\.]+/;
                 paste = paste.replace(rd, '');
                 break;
             case 'attack5e':
