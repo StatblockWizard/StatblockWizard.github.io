@@ -5,8 +5,8 @@
     --alternateback: #dfdfdf;
     --dottedline: black;
     --key: #a00000;
-    --buttonface: #b8860b;
-    --buttonfont: #f5f5f5;
+    --buttonface: #a8760b; /* #b8860b; */
+    --buttonfont: #fdfdfd; /* #f5f5f5; */
 }
 
 body {
