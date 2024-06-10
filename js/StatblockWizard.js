@@ -356,9 +356,9 @@ function INPUTtext(defaultvalue, size, classnames) {
                 paste = paste.replace(rd, '');
                 break;
             case 'attack5e':
-                let attackdot = paste.indexOf('.');
-                if (attackdot < 0) { break; };
-                let pastevalue = paste.slice(attackdot + 1).trim();
+                if (colon >= 0 && (colon < dot || dot == -1)) { dot = colon; };
+                if (dot < 0) { break; };
+                let pastevalue = paste.slice(dot + 1).trim();
                 if (pastevalue.length == 0) { break; };
                 let r = /(Melee Weapon Attack\:|Ranged Weapon Attack\:|Melee or Ranged Weapon Attack\:|Melee Spell Attack\:|Ranged Spell Attack\:|Melee or Ranged Spell Attack\:)(.*)Hit\:(.*)/i;
                 let matches = pastevalue.match(r);
@@ -367,7 +367,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                     SetEmelentValue(valueids[0], attacktype5evalue(matches[1].trim()));
                     SetEmelentValue(valueids[1], matches[2].trim());
                     SetEmelentValue(valueids[2], matches[3].trim());
-                    paste = paste.substring(0, attackdot + 1);
+                    paste = paste.substring(0, dot) + '.';
                 }
                 break;
             default: // do nothing extra
