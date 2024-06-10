@@ -681,7 +681,7 @@ function Iattack5e(element, id, value) {
     p2.appendChild(sat);
     d.appendChild(p2);
 
-    let la = LABEL(foria, 'Attack Text');
+    let la = LABEL(foria, 'Attack');
     let ia = INPUTtext('', 50, 'aligned full');
     ia.setAttribute('id', foria);
     ia.setAttribute('name', foria);
@@ -690,10 +690,12 @@ function Iattack5e(element, id, value) {
     p3.appendChild(ia);
     d.appendChild(p3);
 
-    let lh = LABEL(forih, 'Hit Text');
+    let lh = LABEL(forih, 'Hit');
     let ih = INPUTtext('', 50, 'aligned full');
     ih.setAttribute('id', forih);
     ih.setAttribute('name', forih);
+    ih.setAttribute('swtype', 'fixedcaption');
+    ih.setAttribute('swcaption', 'Hit');
     let p4 = P();
     p4.appendChild(lh);
     p4.appendChild(ih);

@@ -312,13 +312,15 @@ function INPUTtext(defaultvalue, size, classnames) {
         paste = paste.replace(/\s[\s]+/ig, ' ').replace(/[\u0002\ufffe]/g, '');
 
         let swtype = input.getAttribute('swtype');
+        let dot = paste.indexOf('.');
+        let colon = paste.indexOf(':');
         switch (swtype) {
             case 'fixedcaption':
                 let caption = input.getAttribute('swcaption');
                 paste = removeCaption(paste, caption);
                 break;
             case 'captiondotvalue':
-                let dot = paste.indexOf('.');
+                if (colon >= 0 && (colon < dot || dot == -1)) { dot = colon; };
                 if (dot >= 0) {
                     let pastevalue = paste.slice(dot + 1).trim();
                     if (pastevalue.length > 0) {
@@ -326,13 +328,13 @@ function INPUTtext(defaultvalue, size, classnames) {
                         let valueinput = document.getElementById(valueid);
                         if (valueinput) {
                             valueinput.value = pastevalue.trim();
-                            paste = paste.substring(0, dot + 1);
+                            paste = paste.substring(0, dot) + '.';
                         }
                     }
                 }
                 break;
             case 'captioncolonvalue':
-                let colon = paste.indexOf(':');
+                if (dot >= 0 && (dot < colon || colon == -1)) { colon = dot; };
                 if (colon >= 0) {
                     let pastevalue = paste.slice(colon + 1).trim();
                     if (pastevalue.length > 0) {
@@ -340,7 +342,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                         let valueinput = document.getElementById(valueid);
                         if (valueinput) {
                             valueinput.value = pastevalue.trim();
-                            paste = paste.substring(0, colon + 1);
+                            paste = paste.substring(0, colon) + ':';
                         }
                     }
                 }
