@@ -71,13 +71,13 @@ function CreateViewerFooter() {
         window.location.replace('Creator.html');
     });
 
-    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the HTML, SVG, and PNG file export.');
+    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the HTML and PNG file export.');
     d.appendChild(togglecolumns);
     togglecolumns.addEventListener('click', () => {
         Viewer.firstElementChild.classList.toggle('StatblockWizard-SingleColumn');
     });
 
-    let Transparent = INPUTbutton('Transparent', 't', 'Switch between normal and transparent backgrounds. The selected option affects the HTML, SVG, and PNG file export.');
+    let Transparent = INPUTbutton('Transparent', 't', 'Switch between normal and transparent backgrounds. The selected option affects the HTML and PNG file export.');
     d.appendChild(Transparent);
     Transparent.addEventListener('click', () => {
         Viewer.firstElementChild.classList.toggle('StatblockWizard-Transparent');
@@ -119,12 +119,6 @@ function CreateViewerFooter() {
     d.appendChild(dlcss);
     dlcss.addEventListener('click', () => {
         downloadcss();
-    });
-
-    let dlsvg = INPUTbutton('SVG', 'g', 'Download the statblock as a StatblockWizard SVG file. This gives you the best image resolution. WARNING: the SVG format used is not widely supported. Test this for your preferred software. Modern browsers support the format.');
-    d.appendChild(dlsvg);
-    dlsvg.addEventListener('click', () => {
-        downloadAsImageSVG(StatblockName);
     });
 
     let dlpng = INPUTbutton('PNG', 'p', 'Download the statblock as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution.');
@@ -519,12 +513,6 @@ function downloadcss() {
     linkElement.setAttribute('href', 'css/StatblockWizard.css');
     linkElement.setAttribute('download', 'StatblockWizard.css');
     linkElement.click();
-}
-
-function downloadAsImageSVG(filename) {
-    currentzoom = document.body.style.zoom;
-    document.body.style.zoom = '100%';
-    CreateSVG('svg', filename);
 }
 
 function downloadAsImagePNG(filename) {
