@@ -1,4 +1,4 @@
-// Copyright 2023 StatblockWizard
+// Copyright 2023, 2025 StatblockWizard
 "use strict";
 window.addEventListener('load', StartCreator, false);
 
@@ -7,7 +7,7 @@ var Content = [];
 var proposedFocusId = '';
 
 function StartNewCreator() {
-    Content = StatblockDefinition5e();
+    Content = StatblockDefinition2024();
     CreateCreatorPage();
 }
 
@@ -37,7 +37,7 @@ function CreateCreatorFooter() {
     Creator.appendChild(HR());
     let d = DIV('center');
 
-    let startnewbutton = INPUTbutton('New Statblock', 'n', 'Start a completely new statblock.');
+    let startnewbutton = INPUTbutton('New Stat block', 'n', 'Start a completely new stat block.');
     d.appendChild(startnewbutton);
     startnewbutton.addEventListener('click', () => {
         StartNewCreator();
@@ -48,8 +48,7 @@ function CreateCreatorFooter() {
         seljson.addEventListener('change', function () {
             var fr = new FileReader();
             fr.onload = function () {
-                Content = JSON.parse(fr.result);
-                CreateCreatorPage();
+                ProcessFileCreator(fr.result);
             }
             if (this.files[0] != '') {
                 fr.readAsText(this.files[0])
@@ -64,13 +63,13 @@ function CreateCreatorFooter() {
         seljson.click();
     });
 
-    let openViewer = INPUTbutton('Viewer', 'v', 'Open the Viewer using the current statblock. There you can export it in several file formats.');
+    let openViewer = INPUTbutton('Viewer', 'v', 'Open the Viewer using the current stat block. There you can export it in several file formats.');
     d.appendChild(openViewer);
     openViewer.addEventListener('click', () => {
         UpdateContent();
         removeids(Content);
         DBsetStatblockWizard(Content);
-        window.location.replace('Viewer.html');
+        window.location.replace('2024Viewer.html');
     });
 
     Creator.appendChild(d);
@@ -91,11 +90,17 @@ function CreateCreatorContent() {
                     });
                 };
                 break;
+            case 'tablesection':
+                AddToCreator(Isection(element));
+                break;
+            case 'tablesectionend':
+                AddToCreator(Isectionend(element));
+                break;
             case 'string':
                 AddToCreator(Istring(element));
                 break;
-            case 'ability5e':
-                AddToCreator(Iability5e(element));
+            case 'ability2024':
+                AddToCreator(Iability2024(element));
                 break;
             case 'skills5e':
                 AddToCreator(Iskills5e(element));
@@ -105,9 +110,6 @@ function CreateCreatorContent() {
                 break;
             case 'languages5e':
                 AddToCreator(Ilanguages5e(element));
-                break;
-            case 'cr5e':
-                AddToCreator(Icr5e(element));
                 break;
             case 'image':
                 AddToCreator(Iimage(element));
@@ -131,11 +133,15 @@ function UpdateContent() {
             case 'sectionend':
                 Usectionend(element);
                 break;
+            case 'tablesection':
+                break;
+            case 'tablesectionend':
+                break;
             case 'string':
                 Ustring(element);
                 break;
-            case 'ability5e':
-                Uability5e(element);
+            case 'ability2024':
+                Uability2024(element);
                 break;
             case 'skills5e':
                 Uskills5e(element);
@@ -146,9 +152,6 @@ function UpdateContent() {
             case 'languages5e':
                 Ulanguages5e(element);
                 break;
-            case 'cr5e':
-                Ucr5e(element);
-                break;
             case 'image':
                 Uimage(element);
                 break;
@@ -158,76 +161,79 @@ function UpdateContent() {
     });
 }
 
-function StatblockDefinition5e() {
-    return [
-        { "type": "section", "caption": "General", "showcaption": false, "css": "section general", "captioncss": "" }
-        , { "type": "string", "caption": "Name", "showcaption": false, "defaultvalue": "", "css": "title", "captioncss": "" }
-        , { "type": "string", "caption": "Creature info", "showcaption": false, "defaultvalue": "", "css": "sizetypetagsalignment", "captioncss": "" }
-        , { "type": "sectionend", "content": "static" }
-        , { "type": "section", "caption": "", "showcaption": false, "css": "section general2", "captioncss": "" }
-        , { "type": "string", "caption": "Armor Class", "showcaption": true, "defaultvalue": "", "css": "feature armorclass", "captioncss": "keyword" }
-        , { "type": "string", "caption": "Hit Points", "showcaption": true, "defaultvalue": "", "css": "feature hitpoints", "captioncss": "keyword" }
-        , { "type": "string", "caption": "Speed", "showcaption": true, "defaultvalue": "30 ft.", "css": "feature speed", "captioncss": "keyword" }
-        , { "type": "sectionend", "content": "static" }
-        , { "type": "section", "caption": "Abilities", "showcaption": false, "css": "section abilities", "captioncss": "" }
-        , { "type": "ability5e", "caption": "STR", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "DEX", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "CON", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "INT", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "WIS", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "ability5e", "caption": "CHA", "defaultvalue": 10, "css": "ability", "captioncss": "abilityname", "numberscss": "abilitynumbers", "scorecss": "abilityscore", "modifiercss": "abilitymodifier" }
-        , { "type": "sectionend", "content": "static" }
-        , { "type": "section", "caption": "Features", "showcaption": false, "css": "section features", "captioncss": "" }
-        , { "type": "string", "caption": "Saving Throws", "showcaption": true, "defaultvalue": "", "css": "feature savingthrows", "captioncss": "keyword" }
-        , { "type": "skills5e", "caption": "Skills", "showcaption": true, "defaultvalue": "", "css": "feature skills", "captioncss": "keyword", "skillcss": "skill" }
-        , { "type": "string", "caption": "Damage Vulnerabilities", "showcaption": true, "defaultvalue": "", "css": "feature vulnerabilities", "captioncss": "keyword" }
-        , { "type": "string", "caption": "Damage Resistances", "showcaption": true, "defaultvalue": "", "css": "feature resistances", "captioncss": "keyword" }
-        , { "type": "string", "caption": "Damage Immunities", "showcaption": true, "defaultvalue": "", "css": "feature immunities", "captioncss": "keyword" }
-        , { "type": "string", "caption": "Condition Immunities", "showcaption": true, "defaultvalue": "", "css": "feature immunities", "captioncss": "keyword" }
-        , { "type": "senses5e", "caption": "Senses", "showcaption": true, "defaultvalue": "", "css": "feature senses", "captioncss": "keyword" }
-        , { "type": "languages5e", "caption": "Languages", "showcaption": true, "defaultvalue": "", "css": "feature languages", "captioncss": "keyword" }
-        , { "type": "cr5e", "caption": "Challenge", "proficiencycaption": "Proficiency Bonus", "css": "feature crproficiency", "crcss": "cr", "captioncss": "keyword", "proficiencycss": "proficiency", "proficiencycaptioncss": "keyword" }
-        , { "type": "sectionend", "content": "static" }
-        , { "type": "section", "caption": "Characteristics (like Personality Traits, Ideals, Bonds, Flaws) ", "showcaption": false, "css": "section characteristics", "captioncss": "" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Special Traits", "showcaption": false, "css": "section specialtraits", "captioncss": "" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Actions", "showcaption": true, "css": "section actions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Bonus Actions", "showcaption": true, "css": "section bonusactions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Reactions", "showcaption": true, "css": "section reactions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Legendary Actions", "showcaption": true, "css": "section legendaryactions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Epic Actions", "showcaption": true, "css": "section epicactions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-        , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
-        , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack5e" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+function StatblockDefinition2024() {
+    return ([
+        { "type": "version", "version": "2024.1" }
+        , { "type": "group", "css": "header" }
+            , { "type": "section", "caption": "General", "showcaption": false, "css": "section general", "captioncss": "" }
+            , { "type": "string", "caption": "Name", "showcaption": false, "defaultvalue": "", "css": "title", "captioncss": "" }
+            , { "type": "string", "caption": "Creature info", "showcaption": false, "defaultvalue": "", "css": "sizetypetagsalignment", "captioncss": "" }
+            , { "type": "sectionend", "content": "static" }
+        , { "type": "groupend" }
+        , { "type": "group", "css": "core" }
+            , { "type": "section", "caption": "", "showcaption": false, "css": "section general2", "captioncss": "" }
+            , { "type": "string", "caption": "AC", "showcaption": true, "defaultvalue": "", "css": "feature armorclass", "captioncss": "keyword" }
+            , { "type": "string", "caption": "Initiative", "showcaption": true, "defaultvalue": "", "css": "feature initiative", "captioncss": "keyword" }
+            , { "type": "sectionend", "content": "static" }
+            , { "type": "section", "caption": "", "showcaption": false, "css": "section general3", "captioncss": "" }
+            , { "type": "string", "caption": "Hit Points", "showcaption": true, "defaultvalue": "", "css": "feature hitpoints", "captioncss": "keyword" }
+            , { "type": "string", "caption": "Speed", "showcaption": true, "defaultvalue": "", "css": "feature speed", "captioncss": "keyword" }
+            , { "type": "sectionend", "content": "static" }
+            , { "type": "tablesection", "caption": "Abilities", "showcaption": false, "css": "section abilities", "captioncss": "" , "tablecss": "abilitiesblock"}
+            , { "type": "ability2024", "caption": "Str", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname physicalabilities", "scorecss": "abilityscore physicalabilities", "modifiercss": "abilitymodifier physicalmods", "savecss": "abilitysave physicalmods", "number": 1 }
+            , { "type": "ability2024", "caption": "Dex", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname physicalabilities", "scorecss": "abilityscore physicalabilities", "modifiercss": "abilitymodifier physicalmods", "savecss": "abilitysave physicalmods", "number": 2 }
+            , { "type": "ability2024", "caption": "Con", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname physicalabilities", "scorecss": "abilityscore physicalabilities", "modifiercss": "abilitymodifier physicalmods", "savecss": "abilitysave physicalmods", "number": 3 }
+            , { "type": "ability2024", "caption": "Int", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname mentalabilities", "scorecss": "abilityscore mentalabilities", "modifiercss": "abilitymodifier mentalmods", "savecss": "abilitysave mentalmods", "number": 1 }
+            , { "type": "ability2024", "caption": "Wis", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname mentalabilities", "scorecss": "abilityscore mentalabilities", "modifiercss": "abilitymodifier mentalmods", "savecss": "abilitysave mentalmods", "number": 2 }
+            , { "type": "ability2024", "caption": "Cha", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname mentalabilities", "scorecss": "abilityscore mentalabilities", "modifiercss": "abilitymodifier mentalmods", "savecss": "abilitysave mentalmods", "number": 3 }
+            , { "type": "tablesectionend", "content": "static" }
+            , { "type": "section", "caption": "Features", "showcaption": false, "css": "section features", "captioncss": "" }
+            // , { "type": "string", "caption": "Saving Throws", "showcaption": true, "defaultvalue": "", "css": "feature savingthrows", "captioncss": "keyword" }
+            , { "type": "skills5e", "caption": "Skills", "showcaption": true, "defaultvalue": "", "css": "feature skills", "captioncss": "keyword", "skillcss": "skill" }
+            , { "type": "string", "caption": "Vulnerabilities", "showcaption": true, "defaultvalue": "", "css": "feature vulnerabilities", "captioncss": "keyword" }
+            , { "type": "string", "caption": "Resistances", "showcaption": true, "defaultvalue": "", "css": "feature resistances", "captioncss": "keyword" }
+            , { "type": "string", "caption": "Immunities", "showcaption": true, "defaultvalue": "", "css": "feature immunities", "captioncss": "keyword" }
+            , { "type": "senses5e", "caption": "Senses", "showcaption": true, "defaultvalue": "", "css": "feature senses", "captioncss": "keyword" }
+            , { "type": "languages5e", "caption": "Languages", "showcaption": true, "defaultvalue": "", "css": "feature languages", "captioncss": "keyword" }
+            , { "type": "string", "caption": "CR", "showcaption": true, "defaultvalue": "", "css": "feature cr", "captioncss": "keyword" }
+            , { "type": "sectionend", "content": "static" }
+        , { "type": "groupend" }
+        , { "type": "group", "css": "body" }
+            , { "type": "section", "caption": "Characteristics (like Personality Traits, Ideals, Bonds, Flaws) ", "showcaption": false, "css": "section characteristics", "captioncss": "" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Traits", "showcaption": true, "css": "section traits", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Actions", "showcaption": true, "css": "section actions", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Bonus Actions", "showcaption": true, "css": "section bonusactions", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Reactions", "showcaption": true, "css": "section reactions", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "reaction", "type": "reaction2024" }, { "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Legendary Actions", "showcaption": true, "css": "section legendaryactions", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "legendary text", "type": "legendarytext" }, { "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "section", "caption": "Epic Actions", "showcaption": true, "css": "section epicactions", "captioncss": "sectionheader" }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            // , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
+            // , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+        , { "type": "groupend" }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
-        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center" }
+        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center" , "beforeclass": "core"}
         , { "type": "sectionend", "content": "static" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
         , { "type": "css", "fortype": "text", "css": "line text" }
-        , { "type": "css", "fortype": "attack5e", "css": "line weapon", "captioncss": "keyword", "attackcss": "attack", "hitcss": "hit" }
+        , { "type": "css", "fortype": "legendarytext", "css": "line legendarytext" }
+        , { "type": "css", "fortype": "attack2024", "css": "line attack", "captioncss": "keyword", "attackcss": "attacktype", "hitcss": "hit" }
+        , { "type": "css", "fortype": "save2024", "css": "line savingthrow", "captioncss": "keyword", "savetypecss": "savingthrowtype", "saveresultcss": "savingthrowresult" }
+        , { "type": "css", "fortype": "reaction2024", "css": "line reaction", "captioncss": "keyword", "triggercss": "trigger", "responsecss": "response" }
         , { "type": "css", "fortype": "list", "forsubtype": "ul", "listcss": "line list-ul", "css": "listitem", "captioncss": "keyword" }
         , { "type": "css", "fortype": "list", "forsubtype": "ol", "listcss": "line list-ol", "css": "listitem", "captioncss": "keyword" }
         , { "type": "css", "fortype": "list", "forsubtype": "dl", "listcss": "line list-dl", "css": "listitem", "captioncss": "keyword" }
         , { "type": "css", "fortype": "list", "forsubtype": "spells5e", "listcss": "line list-spells5e", "captioncss": "spellliststart", "css": "spelllist", "spellcss": "spell" }
-    ];
+    ]);
 }
 
 // #region Tools
-function updatemodifier(id) {
-    let e = document.getElementById(id);
-    if (e) {
-        let i = e.getAttribute('modifierid')
-        let m = document.getElementById(i);
-        if (m) { m.innerText = abilitymodifier(e.value); };
-    };
-}
-
 function activateFirstTitle() {
     let elist = document.getElementsByClassName('title');
     if (elist.length > 0) {
@@ -264,7 +270,7 @@ function Isectionend(element) {
             d.setAttribute('elements', '[]');
             element.id = id;
             element.contenttypes.forEach(contenttype => {
-                let b = INPUTbutton(`Add ${contenttype.name}`, null, `Add a new ${contenttype.name} section to the current statblock.`);
+                let b = INPUTbutton(`Add ${contenttype.name}`, null, `Add a new ${contenttype.name} section to the current stat block.`);
                 b.setAttribute('contenttype', contenttype.type);
                 b.setAttribute('beforeid', id);
                 b.addEventListener('click', function () {
@@ -293,7 +299,7 @@ function Iadd(type, subtype, before, value) {
         d.setAttribute('elementtype', type);
 
         let d1 = DIV('elementmanager');
-        let b = INPUTbutton('x', null, 'Remove this section from the statblock. Any data in this section will be lost.');
+        let b = INPUTbutton('x', null, 'Remove this section from the stat block. Any data in this section will be lost.');
         b.addEventListener('click', function () {
             Iremove(id);
         });
@@ -313,13 +319,21 @@ function Iadd(type, subtype, before, value) {
             case "text":
                 d2.appendChild(Itext(element, id, value));
                 break;
+            case "legendarytext":
+                d2.appendChild(Itext(element, id, value));
+                break;
             case "list":
                 d2.appendChild(Ilist(element, id, value));
                 if (value) { IlistSetListtype(id, value.listtype, value.values); };
                 break;
-            case "weapon5e": // deprecated
-            case "attack5e":
-                d2.appendChild(Iattack5e(element, id, value));
+            case "attack2024":
+                d2.appendChild(Iattack2024(element, id, value));
+                break;
+            case "save2024":
+                d2.appendChild(Isave2024(element, id, value));
+                break;
+            case "reaction2024":
+                d2.appendChild(Ireaction2024(element, id, value));
                 break;
             case "spells5e": //deprecated, now use list
                 d2.appendChild(Ispells5e(element, id, value));
@@ -347,13 +361,16 @@ function Iadd(type, subtype, before, value) {
                 break;
             case "text":
                 break;
+            case "legendarytext":
+                break;
             case "list":
                 if (value) { IlistSetListtype(id, value.listtype, value.values); };
                 break;
-            case "weapon5e": // deprecated
-            case "attack5e":
+            case "attack2024":
                 break;
-            case "spells5e": // deprecated
+            case "save2024":
+                break;
+            case "reaction2024":
                 break;
             default:
                 alert(`Adding a ${type} before id=${before}`);
@@ -441,21 +458,32 @@ function Istring(element) {
     return p
 }
 
-function Iability5e(element) {
+function Iability2024(element) {
     let p = P();
-    let i = INPUTnumber(1, 30, element.defaultvalue, 'aligned');
-    let id = newID();
-    let modifierid = newID();
-    i.setAttribute('id', id);
-    i.setAttribute('modifierid', modifierid);
-    i.setAttribute('onchange', `updatemodifier(${id});`);
-    if (element.value) { i.setAttribute('value', element.value); };
-    element.id = id;
-    p.appendChild(LABEL(id, element.caption));
+    let scoreid = newID();
+    let modid = `${scoreid}-mod`;
+    let saveid = `${scoreid}-save`;
+    let i = INPUTtext('', 4, 'aligned ability');
+    i.setAttribute('id', scoreid);
+    i.setAttribute('swtype', 'ability2024');
+    i.setAttribute('swcaption', element.caption);
+
+    let imod = INPUTtext('', 4, 'abilitymod');
+    imod.setAttribute('id', modid);
+    let isave = INPUTtext('', 4, 'abilitysave');
+    isave.setAttribute('id',saveid);
+    element.id = scoreid;
+
+    p.appendChild(LABEL(scoreid, `${element.caption} / ${element.modcaption} / ${element.savecaption}`));
     p.appendChild(i);
-    let s = SPAN((element.value) ? abilitymodifier(element.value) : '+0', 'abilitymodifier');
-    s.setAttribute('id', modifierid);
-    p.insertAdjacentHTML("beforeend", s.outerHTML);
+    p.appendChild(imod);
+    p.appendChild(isave);
+
+    if (element.value) { 
+        i.setAttribute('value', element.value.score); 
+        imod.setAttribute('value', element.value.mod); 
+        isave.setAttribute('value', element.value.save); 
+    };
     return p
 }
 
@@ -472,18 +500,6 @@ function Isenses5e(element) {
 function Ilanguages5e(element) {
     // for now just use Istring
     return Istring(element);
-}
-
-function Icr5e(element) {
-    let p = P();
-    let s = SELECT(element, CR5e(), 'aligned');
-    let id = newID();
-    s.setAttribute('id', id);
-    if (element.value) { s.value = element.value; }; //{ s.setAttribute('value', element.value); };
-    element.id = id;
-    p.appendChild(LABEL(id, element.caption));
-    p.appendChild(s);
-    return p
 }
 
 function Inamedstring(element, id, value) {
@@ -542,22 +558,22 @@ function Ilist(element, id, value) {
     if (!value) {
         d.appendChild(TEXTNODE('Type:'));
         let s = SPAN('', 'aligned');
-        let tul = INPUTbutton('bullet list', null, 'Create a bullet list in the statblock.');
+        let tul = INPUTbutton('bullet list', null, 'Create a bullet list in the stat block.');
         s.appendChild(tul);
         tul.addEventListener('click', () => {
             IlistSetListtype(id, 'ul');
         });
-        let tol = INPUTbutton('numbered list', null, 'Create a numbered list in the statblock. The list will be numbered automatically.');
+        let tol = INPUTbutton('numbered list', null, 'Create a numbered list in the stat block. The list will be numbered automatically.');
         s.appendChild(tol);
         tol.addEventListener('click', () => {
             IlistSetListtype(id, 'ol');
         });
-        let tdl = INPUTbutton('keyword list', null, 'Add a keyword list to the statblock. For each list item you will have to provide the keyword and its description.');
+        let tdl = INPUTbutton('keyword list', null, 'Add a keyword list to the stat block. For each list item you will have to provide the keyword and its description.');
         s.appendChild(tdl);
         tdl.addEventListener('click', () => {
             IlistSetListtype(id, 'dl');
         });
-        let tspells5e = INPUTbutton('spell list', null, 'Add a spell list to the statblock. For each list item, provide the type/number of spell slots and the list of spells.');
+        let tspells5e = INPUTbutton('spell list', null, 'Add a spell list to the stat block. For each list item, provide the type/number of spell slots and the list of spells.');
         s.appendChild(tspells5e);
         tspells5e.addEventListener('click', () => {
             IlistSetListtype(id, 'spells5e');
@@ -655,7 +671,7 @@ function IlistAddListItem(id, listid, listtype, value) {
     }
 }
 
-function Iattack5e(element, id, value) {
+function Iattack2024(element, id, value) {
     let d = DIV();
     let foric = `${id}-caption`;
     let foriat = `${id}-attacktype`;
@@ -665,7 +681,7 @@ function Iattack5e(element, id, value) {
     let ic = INPUTtext('', 0, 'aligned full');
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
-    ic.setAttribute('swtype', 'attack5e');
+    ic.setAttribute('swtype', 'attack2024');
     ic.setAttribute('swvalueids', JSON.stringify([foriat, foria, forih]));
     let p1 = P();
     p1.appendChild(lc);
@@ -674,7 +690,7 @@ function Iattack5e(element, id, value) {
     proposeFocus(foric);
 
     let lat = LABEL(foriat, 'Attack Type');
-    let sat = SELECT(element, attacktype5e(), 'aligned');
+    let sat = SELECT(element, attacktype2024(), 'aligned');
     sat.setAttribute('id', foriat);
     let p2 = P();
     p2.appendChild(lat)
@@ -703,11 +719,143 @@ function Iattack5e(element, id, value) {
 
     if (value) {
         ic.setAttribute('value', value.caption);
-        sat.value = ((value.attacktype) ? value.attacktype : value.weapontype); // for backward compatibility
+        sat.value = value.attacktype;
         ia.setAttribute('value', value.attack);
         ih.setAttribute('value', value.hit);
     };
 
+    return d;
+}
+
+function Isave2024(element, id, value) {
+    let d = DIV();
+    let foric = `${id}-caption`;
+    let forist = `${id}-savetype`;
+    let forisdc = `${id}-savedc`;
+    let forif = `${id}-failure`;
+    let foris = `${id}-success`;
+    let forifs = `${id}-failureorsuccess`;
+
+    let lc = LABEL(foric, 'Save Name');
+    let ic = INPUTtext('', 0, 'aligned full');
+    ic.setAttribute('id', foric);
+    ic.setAttribute('name', foric);
+    ic.setAttribute('swtype', 'save2024');
+    ic.setAttribute('swvalueids', JSON.stringify([forist, forisdc, forif, foris, forifs]));
+    let p1 = P();
+    p1.appendChild(lc);
+    p1.appendChild(ic);
+    d.appendChild(p1);
+    proposeFocus(foric);
+
+    let lst = LABEL(forist, 'Save Type');
+    let sst = SELECT(element, savetype2024(), 'aligned');
+    sst.setAttribute('id', forist);
+    let p2 = P();
+    p2.appendChild(lst)
+    p2.appendChild(sst);
+    d.appendChild(p2);
+
+    let ldc = LABEL(forisdc, 'DC');
+    let idc = INPUTtext('', 50, 'aligned full');
+    idc.setAttribute('id', forisdc);
+    idc.setAttribute('name', forisdc);
+    idc.setAttribute('swtype', 'fixedcaption');
+    idc.setAttribute('swcaption', 'DC');
+    let p3 = P();
+    p3.appendChild(ldc);
+    p3.appendChild(idc);
+    d.appendChild(p3);
+
+    let lf = LABEL(forif, 'Failure');
+    let isf = INPUTtext('', 50, 'aligned full');
+    isf.setAttribute('id', forif);
+    isf.setAttribute('name', forif);
+    isf.setAttribute('swtype', 'fixedcaption');
+    isf.setAttribute('swcaption', 'Failure');
+    let p4 = P();
+    p4.appendChild(lf);
+    p4.appendChild(isf);
+    d.appendChild(p4);
+
+    let lss = LABEL(foris, 'Success');
+    let iss = INPUTtext('', 50, 'aligned full');
+    iss.setAttribute('id', foris);
+    iss.setAttribute('name', foris);
+    iss.setAttribute('swtype', 'fixedcaption');
+    iss.setAttribute('swcaption', 'Success');
+    let p5 = P();
+    p5.appendChild(lss);
+    p5.appendChild(iss);
+    d.appendChild(p5);
+
+    let lfs = LABEL(foris, 'Failure or Success');
+    let ifs = INPUTtext('', 50, 'aligned full');
+    ifs.setAttribute('id', forifs);
+    ifs.setAttribute('name', forifs);
+    ifs.setAttribute('swtype', 'fixedcaption');
+    ifs.setAttribute('swcaption', 'Failure or Success');
+    let p6 = P();
+    p6.appendChild(lfs);
+    p6.appendChild(ifs);
+    d.appendChild(p6);
+
+    if (value) {
+        ic.setAttribute('value', value.caption);
+        sst.value = value.savetype;
+        idc.setAttribute('value', value.savedc);
+        isf.setAttribute('value', value.failure);
+        iss.setAttribute('value', value.success);
+        ifs.setAttribute('value', value.failureorsuccess);
+    };
+
+    return d;
+}
+
+function Ireaction2024(element, id, value) {
+    let d = DIV();
+    let foric = `${id}-caption`;
+    let forit = `${id}-trigger`;
+    let forir = `${id}-response`;
+
+    let lc = LABEL(foric, 'Reaction');
+    let ic = INPUTtext('', 0, 'aligned full');
+    ic.setAttribute('id', foric);
+    ic.setAttribute('name', foric);
+    ic.setAttribute('swtype', 'reaction2024');
+    ic.setAttribute('swvalueids', JSON.stringify([forit, forir]));
+    let p1 = P();
+    p1.appendChild(lc);
+    p1.appendChild(ic);
+    d.appendChild(p1);
+    proposeFocus(foric);
+
+    let lt = LABEL(forit, 'Trigger');
+    let it = INPUTtext('', 0, 'aligned full');
+    it.setAttribute('id', forit);
+    it.setAttribute('swtype', 'fixedcaption');
+    it.setAttribute('swcaption', 'Trigger');
+    let p2 = P();
+    p2.appendChild(lt)
+    p2.appendChild(it);
+    d.appendChild(p2);
+
+    let lr = LABEL(forir, 'Response');
+    let ir = INPUTtext('', 0, 'aligned full');
+    ir.setAttribute('id', forir);
+    ir.setAttribute('name', forir);
+    ir.setAttribute('swtype', 'fixedcaption');
+    ir.setAttribute('swcaption', 'Response');
+    let p3 = P();
+    p3.appendChild(lr);
+    p3.appendChild(ir);
+    d.appendChild(p3);
+
+    if (value) {
+        ic.setAttribute('value', value.caption);
+        it.setAttribute('value', value.trigger);
+        ir.setAttribute('value', value.response);
+    };
     return d;
 }
 
@@ -738,7 +886,7 @@ function Ispells5e(element, id, value) {
 
 function Iimage(element) {
     if (!element.maxheight || element.maxheight < 0) { element.maxheight = 0 };
-    if (!element.position || ['first', 'last', 'token'].indexOf(element.position) == -1) { element.position = 'last' };
+    if (!element.position || ['first', 'last'].indexOf(element.position) == -1) { element.position = 'last' };
     if (!element.alignment || ['center', 'left', 'right'].indexOf(element.alignment) == -1) { element.alignment = 'center' };
 
     let d = DIV();
@@ -763,7 +911,7 @@ function Iimage(element) {
     let id = newID();
     let isp = SPAN(null, 'aligned');
     let li = LABEL(id, 'Image');
-    let ib = INPUTbutton('Select image', 's', 'Select the image file for this StatBlockWizard statblock');
+    let ib = INPUTbutton('Select image', 's', 'Select the image file for this StatBlockWizard stat block');
     ib.setAttribute('id', id);
     ib.addEventListener('click', () => {
         ii.click();
@@ -807,7 +955,7 @@ function Iimage(element) {
     d3.setAttribute('id', 'image-position-p');
     d3.classList.add('unavailable');
     let lposition = LABEL(d3id, 'Position');
-    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }, { "value": "token", "text": "Token (top right)" }], 'aligned');
+    let iposition = SELECT(element, [{ "value": "first", "text": "First" }, { "value": "last", "text": "Last" }], 'aligned');
     iposition.setAttribute('id', d3id);
     iposition.value = element.position;
     d3.appendChild(lposition);
@@ -887,7 +1035,7 @@ function HideImageSettingsForPosition() {
     let iali = document.getElementById('image-alignment-p');
     let ipos = document.getElementById('image-position-p');
     let pos = GetElementValue('image-position');
-    if (pos == 'token' || ipos.classList.contains('unavailable')) {
+    if (ipos.classList.contains('unavailable')) {
         maxh.classList.add('unavailable');
         iali.classList.add('unavailable');
     } else {
@@ -923,12 +1071,21 @@ function Usectionend(element) {
                             case "text":
                                 element.values.push(Utext(seelementid, type));
                                 break;
+                            case "legendarytext":
+                                element.values.push(Utext(seelementid, type));
+                                break;
                             case "list":
                                 element.values.push(Ulist(seelementid, type));
                                 break;
                             case "weapon5e": // deprecated
-                            case "attack5e":
-                                element.values.push(Uattack5e(seelementid, type));
+                            case "attack2024":
+                                element.values.push(Uattack2024(seelementid, type));
+                                break;
+                            case "save2024":
+                                element.values.push(Usave2024(seelementid, type));
+                                break;
+                            case "reaction2024":
+                                element.values.push(Ureaction2024(seelementid, type));
                                 break;
                             case "spells5e": // deprecated
                                 element.values.push(Uspells5e(seelementid, type));
@@ -947,9 +1104,11 @@ function Usectionend(element) {
     }
 }
 
-function Uability5e(element) {
-    element.value = GetElementValue(element.id);
-    if (element.defaultvalue != element.value) element.defaultvalue = '';
+function Uability2024(element) {
+    let score = GetElementValue(element.id);
+    let mod = GetElementValue(`${element.id}-mod`)
+    let save = GetElementValue(`${element.id}-save`)
+    element.value = { "score": score, "mod": mod, "save": save }
 }
 
 function Uskills5e(element) {
@@ -964,10 +1123,6 @@ function Usenses5e(element) {
 function Ulanguages5e(element) {
     // for now just use Istring
     return Ustring(element);
-}
-
-function Ucr5e(element) {
-    element.value = GetElementValue(element.id);
 }
 
 function Unamedstring(id, type) {
@@ -1006,7 +1161,7 @@ function Ulist(id, type) {
     return { "type": type, "listtype": listtype, "values": values };
 }
 
-function Uattack5e(id, type) {
+function Uattack2024(id, type) {
     let c = GetElementValue(`${id}-caption`);
     let at = GetElementValue(`${id}-attacktype`);
     let a = GetElementValue(`${id}-attack`);
@@ -1014,11 +1169,21 @@ function Uattack5e(id, type) {
     return { "type": type, "caption": c, "attacktype": at, "attack": a, "hit": h };
 }
 
-// deprecated
-function Uspells5e(id, type) {
-    let c = GetElementValue(`${id}-start`);
-    let t = GetElementValue(`${id}-spells`);
-    return { "type": type, "caption": c, "value": t };
+function Usave2024(id, type) {
+    let c = GetElementValue(`${id}-caption`);
+    let st = GetElementValue(`${id}-savetype`);
+    let sdc = GetElementValue(`${id}-savedc`);
+    let f = GetElementValue(`${id}-failure`);
+    let s = GetElementValue(`${id}-success`);
+    let fs = GetElementValue(`${id}-failureorsuccess`);
+    return { "type": type, "caption": c, "savetype": st, "savedc": sdc, "failure": f, "success": s, "failureorsuccess": fs };
+}
+
+function Ureaction2024(id, type) {
+    let c = GetElementValue(`${id}-caption`);
+    let t = GetElementValue(`${id}-trigger`);
+    let r = GetElementValue(`${id}-response`);
+    return { "type": type, "caption": c, "trigger": t, "response": r };
 }
 
 function Uimage(element) {
