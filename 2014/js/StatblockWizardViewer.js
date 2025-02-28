@@ -1,4 +1,4 @@
-// Copyright 2023 StatblockWizard
+// Copyright 2023, 2025 StatblockWizard
 "use strict";
 window.addEventListener('load', StartNewViewer, false);
 
@@ -23,7 +23,7 @@ function StartNewViewer() {
         Viewer.addEventListener('drop', (event) => {
             if (event.dataTransfer.files.length == 1) {
                 var fr = new FileReader();
-                fr.onload = function () { ProcessFile(fr.result) }
+                fr.onload = function () { ProcessFileViewer(fr.result) }
                 fr.readAsText(event.dataTransfer.files[0]);
             }
             event.preventDefault();
@@ -42,22 +42,11 @@ function StartViewer() {
     return false
 }
 
-function ProcessFile(filecontent) {
-    var newContent = JSON.parse(filecontent);
-    if (newContent) {
-        if (Array.isArray(newContent)) {
-            Content = newContent;
-            DBsetStatblockWizard(Content);
-            StartViewer();
-        }
-    }
-}
-
 function CreateViewerContent() {
     StatblockWizard = DIV('StatblockWizard');    
     Statblock = DIV('StatblockWizard-Content');
     CreateStatblockHtml();
-    StatblockWizard.setAttribute('title', `Statblock of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
+    StatblockWizard.setAttribute('title', `Stat block of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
     StatblockWizard.appendChild(Statblock);
     Viewer.appendChild(StatblockWizard);
 }
@@ -65,7 +54,7 @@ function CreateViewerContent() {
 function CreateViewerFooter() {
     let d = DIV('center');
 
-    let openCreator = INPUTbutton('Creator', 'c', 'Open the Creator to edit the current statblock, or to create a totally new one.');
+    let openCreator = INPUTbutton('Creator', 'c', 'Open the Creator to edit the current stat block, or to create a totally new one.');
     d.appendChild(openCreator);
     openCreator.addEventListener('click', () => {
         window.location.replace('Creator.html');
@@ -87,7 +76,7 @@ function CreateViewerFooter() {
     if (seljson) {
         seljson.addEventListener('change', function () {
             var fr = new FileReader();
-            fr.onload = function () { ProcessFile(fr.result) }
+            fr.onload = function () { ProcessFileViewer(fr.result) }
             if (this.files[0] != '') {
                 fr.readAsText(this.files[0])
                 this.value = ''
@@ -95,7 +84,7 @@ function CreateViewerFooter() {
             }
         })
     }
-    let upjson = INPUTbutton('Upload JSON', 'u', 'Load a StatblockWizard json file to show the contained statblock.');
+    let upjson = INPUTbutton('Upload JSON', 'u', 'Load a StatblockWizard json file to show the contained stat block.');
     d.appendChild(upjson);
     upjson.addEventListener('click', () => {
         seljson.click();
@@ -103,31 +92,31 @@ function CreateViewerFooter() {
 
     d.appendChild(SPAN('Download:', 'downloadoptionstext'))
 
-    let dljsonbutton = INPUTbutton('JSON', 'j', 'Download the current statblock to a StatblockWizard json file. This file will contain all data that is required to later view or edit the statblock again. The name of the statblock will be used for the name of the file.');
+    let dljsonbutton = INPUTbutton('JSON', 'j', 'Download the current stat block to a StatblockWizard json file. This file will contain all data that is required to later view or edit the stat block again. The name of the stat block will be used for the name of the file.');
     d.appendChild(dljsonbutton);
     dljsonbutton.addEventListener('click', () => {
         downloadjson(Content, StatblockName);
     });
 
-    let dlhtmlbutton = INPUTbutton('HTML', 'h', 'Download the statblock as a StatblockWizard partial html file, containing a DIV element that you can use in your own html files. The file needs a style sheet!');
+    let dlhtmlbutton = INPUTbutton('HTML', 'h', 'Download the stat block as a StatblockWizard partial html file, containing a DIV element that you can use in your own html files. The file needs a style sheet!');
     d.appendChild(dlhtmlbutton);
     dlhtmlbutton.addEventListener('click', () => {
         downloadhtml(Viewer.firstElementChild, StatblockName);
     });
 
-    let dlcss = INPUTbutton('CSS', 's', 'Show the styling information that defines how StatblockWizard statblocks look. You are free to use, edit, or redistribute this at your own risk.');
+    let dlcss = INPUTbutton('CSS', 's', 'Show the styling information that defines how StatblockWizard stat blocks look. You are free to use, edit, or redistribute this at your own risk.');
     d.appendChild(dlcss);
     dlcss.addEventListener('click', () => {
         downloadcss();
     });
 
-    // let dlsvg = INPUTbutton('SVG', 'g', 'Download the statblock as a StatblockWizard SVG file. This gives you the best image resolution. WARNING: the SVG format used is not widely supported. Test this for your preferred software. Modern browsers support the format.');
+    // let dlsvg = INPUTbutton('SVG', 'g', 'Download the stat block as a StatblockWizard SVG file. This gives you the best image resolution. WARNING: the SVG format used is not widely supported. Test this for your preferred software. Modern browsers support the format.');
     // d.appendChild(dlsvg);
     // dlsvg.addEventListener('click', () => {
     //     downloadAsImageSVG(StatblockName);
     // });
 
-    let dlpng = INPUTbutton('PNG', 'p', 'Download the statblock as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution.');
+    let dlpng = INPUTbutton('PNG', 'p', 'Download the stat block as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution.');
     d.appendChild(dlpng);
     dlpng.addEventListener('click', () => {
         downloadAsImagePNG(StatblockName);

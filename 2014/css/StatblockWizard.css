@@ -283,6 +283,10 @@ dd.StatblockWizard-spelllist {
     margin-left: 1em;
 }
 
+li.StatblockWizard-listitem::marker {
+    content: counter(list-item) ": ";
+}
+
 .StatblockWizard-supplemental {
     width: 100%;
 }

@@ -1,0 +1,397 @@
+/* This file is provided as-is, without any warranty. You are free to copy, modify, and redistribute as you see fit. */
+
+:root {
+    --StatblockWizardMonstername: #700000;
+    --StatblockWizardScreenborder: #600000;
+    --StatblockWizardCoreText: #600000;
+    --StatblockWizardText: #020202;
+    --StatblockWizardBackground: #f8f4f0;
+    --StatblockWizardAbilitiesRow1: #f8e8e0;
+    --StatblockWizardAbilitiesRow2: #d0d0d0;
+    --StatblockWizardModsRow1: #e8d0d0;
+    --StatblockWizardModsRow2: #d8c0c0;
+    --StatblockWizardSectionHeader: #500000;
+    --StatblockWizardGrey: #696969;
+}
+
+.StatblockWizard {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+    color: var(--StatblockWizardText);
+    background-color: var(--StatblockWizardBackground);
+    columns: 2;
+    gap: 8mm;
+    width: 173mm;
+    padding: 2mm;
+    break-inside: avoid-page;
+    clear: both;
+
+    font-size: 0.8em;
+    font-weight: 300;
+    font-kerning: auto;
+    letter-spacing: 0.02em;
+    border: 3px #bcbcbc double;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px #bcbcbc;
+
+    margin-top: 0;
+    margin-bottom: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 7px 7px;
+}
+
+.StatblockWizard-SingleColumn {
+    columns: 1;
+    min-width: 100px;
+    width: 84mm;
+}
+
+.StatblockWizard-Content {
+    position: relative;
+}
+
+.StatblockWizard-Transparent {
+    background-color: transparent;
+}
+
+.StatblockWizard-likeyword,
+.StatblockWizard-keyword {
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.StatblockWizard-nbspbefore::before,
+.StatblockWizard-nbspafter::after,
+.StatblockWizard-keyword::after {
+    content: '\0000a0';
+}
+
+.StatblockWizard-header {
+    column-span: all;
+}
+
+.StatblockWizard-title {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+    font-size: 1.7em;
+    font-variant: small-caps;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+
+    color: var(--StatblockWizardMonstername);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+}
+
+.StatblockWizard-sizetypetagsalignment {
+    font-style: italic;
+    color: var(--StatblockWizardGrey);
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+}
+
+.StatblockWizard-core {
+    color: var(--StatblockWizardCoreText);
+}
+
+.StatblockWizard-general,
+.StatblockWizard-general2,
+.StatblockWizard-general3 {
+    break-inside: avoid;
+    border: none;
+}
+
+.StatblockWizard-general2 {
+    width: 100%;
+    columns: 2;
+}
+
+.StatblockWizard-abilities {
+    box-sizing: border-box;
+    break-inside: avoid;
+
+    display: flex;
+    flex-grow: initial;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    clear: both;
+    border: none;
+}
+
+.StatblockWizard-abilitiesblock {
+    border-collapse: collapse;
+    margin: 3px 0;
+}
+
+.StatblockWizard-physicalabilities {
+    background-color: var(--StatblockWizardAbilitiesRow1);
+}
+.StatblockWizard-physicalmods {
+    background-color: var(--StatblockWizardModsRow1);
+}
+
+.StatblockWizard-mentalabilities {
+    background-color: var(--StatblockWizardAbilitiesRow2);
+}
+.StatblockWizard-mentalmods {
+    background-color: var(--StatblockWizardModsRow2);
+}
+
+.StatblockWizard-abilitiesblock th {
+    font-size: 1em;
+    font-weight: lighter;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    text-align: right;
+    text-align-last: right;
+    padding-right: 1px;
+    color: var(--StatblockWizardGrey);
+}
+
+.StatblockWizard-ability {
+    text-align: center;
+    width: 2.5cm;
+    padding: 1px 4px;
+}
+
+.StatblockWizard-abilityname {
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    text-align: left;
+    padding-left: 3px;
+    width: 1.5em;
+}
+
+.StatblockWizard-abilityscore {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.StatblockWizard-abilitymodifier {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.StatblockWizard-abilitysave {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.StatblockWizard-features {
+    border: none;
+    margin-bottom: 2px;
+    break-inside: avoid-column;
+}
+
+.StatblockWizard-feature {
+    text-indent: -1em;
+    padding-left: 1em;
+
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+.StatblockWizard-crproficiency {
+    text-indent: 0;
+    padding-left: 0;
+}
+
+.StatblockWizard-cr {
+    margin-right: 3px !important;
+    break-inside: avoid;
+    break-after: auto;
+}
+
+.StatblockWizard-proficiency {
+    break-inside: avoid;
+}
+
+.StatblockWizard-sectionheader {
+    color: var(--StatblockWizardSectionHeader);
+    font-variant: small-caps;
+    font-size: 1.4em;
+    letter-spacing: 0.02em;
+    break-inside: avoid;
+    break-after: avoid;
+
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 1px;
+    border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+}
+
+.StatblockWizard-characteristics {
+    border-bottom: 2px var(--StatblockWizardScreenborder) solid;
+    margin-bottom: 2px;
+    break-inside: avoid-column;
+}
+
+.StatblockWizard-sectionheader+.StatblockWizard-line {
+    break-before: avoid;
+}
+
+.StatblockWizard-line {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.StatblockWizard-line+.StatblockWizard-text {
+    text-indent: 1em;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.StatblockWizard-sectionheader+.StatblockWizard-line {
+    margin-top: 2px;
+}
+
+.StatblockWizard-attacktype,
+.StatblockWizard-hit,
+.StatblockWizard-savingthrowtype,
+.StatblockWizard-savingthrowresult,
+.StatblockWizard-trigger,
+.StatblockWizard-response,
+.StatblockWizard-italic {
+    font-style: italic;
+}
+
+.StatblockWizard-hit::before,
+.StatblockWizard-savingthrowresult::before,
+.StatblockWizard-response::before {
+    content: ' ';
+}
+
+.StatblockWizard-attacktype::after,
+.StatblockWizard-hit::after,
+.StatblockWizard-savingthrowtype::after,
+.StatblockWizard-savingthrowresult::after,
+.StatblockWizard-trigger::after,
+.StatblockWizard-response::after {
+    content: '\0000a0';
+}
+
+.StatblockWizard-detailline {
+    text-indent: -1em;
+    padding-left: 1em;
+    margin: 0;
+}
+
+.StatblockWizard-namedstring .StatblockWizard-keyword,
+.StatblockWizard-attack .StatblockWizard-keyword,
+.StatblockWizard-savingthrow .StatblockWizard-keyword,
+.StatblockWizard-reaction .StatblockWizard-keyword {
+        font-style: italic;
+}
+
+.StatblockWizard-legendarytext {
+    font-style: italic;
+    color: var(--StatblockWizardGrey);
+}
+
+.StatblockWizard-spellliststart {
+    font-weight: bold;
+}
+
+.StatblockWizard-spellliststart::after {
+    content: '\0000a0';
+}
+
+.StatblockWizard-spell {
+    font-style: italic;
+    break-before: avoid-column;
+}
+
+.StatblockWizard-list-ol {
+    margin-top: 0;
+    padding: 0 0 0 1em;
+    list-style-type: decimal;
+    list-style-position: outside;
+    break-before: avoid-column;
+    counter-reset: itemcounter;
+}
+
+ol li.StatblockWizard-listitem {
+    counter-increment: itemcounter;
+}
+
+ol li.StatblockWizard-listitem::marker {
+    content: counter(itemcounter) ": ";
+    font-weight: bold;
+}
+
+.StatblockWizard-list-ul {
+    margin-top: 0;
+    padding: 0 0 0 1em;
+    list-style-type: disc;
+    list-style-position: outside;
+    break-before: avoid-column;
+}
+
+dl.StatblockWizard-list {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.StatblockWizard-line+dl.StatblockWizard-list {
+    margin-top: 2px;
+}
+
+dt.StatblockWizard-keyword,
+dt.StatblockWizard-spellliststart {
+    float: left;
+    clear: left;
+}
+
+dt.StatblockWizard-keyword::after {
+    content: '\0000a0';
+}
+
+dd.StatblockWizard-listitem,
+dd.StatblockWizard-spelllist {
+    margin-left: 1em;
+}
+
+.StatblockWizard-supplemental {
+    width: 100%;
+}
+
+.StatblockWizard-image {
+    display: block;
+    border: none;
+    padding: 0;
+    max-width: 60mm;
+    margin: 0 auto;
+}
+
+.StatblockWizard-image-left {
+    margin: 0 auto 0 0;
+}
+
+.StatblockWizard-image-right {
+    margin: 0 0 0 auto;
+}
+
+.StatblockWizard-image-first {
+    margin-bottom: 1mm;
+}
+
+.StatblockWizard-image-last {
+    margin-top: 1mm;
+}
+
+.StatblockWizard hr {
+    margin: 2px 0;
+    border-style: none;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+}

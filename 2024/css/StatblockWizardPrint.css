@@ -1,0 +1,58 @@
+/* Copyright 2025 StatblockWizard */
+@media print {
+    :root {
+        --StatblockWizardMonstername: #000000;
+        --StatblockWizardScreenborder: #000000;
+        --StatblockWizardCoreText: #000000;
+        --StatblockWizardText: #000000;
+        --StatblockWizardSectionHeader: #000000;
+    }
+
+    .center,
+    noscript,
+    .StatblockWizard-supplemental,
+    .StatblockWizard-image {
+        display: none;
+    }
+
+    .StatblockWizard {
+        color: var(--StatblockWizardText);
+        background-color: transparent;
+        margin-left: 0;
+    }
+
+    .StatblockWizard-title {
+        color: var(--StatblockWizardMonstername);
+        border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+    }
+
+    .StatblockWizard-core {
+        color: var(--StatblockWizardCoreText);
+    }
+
+    .StatblockWizard-physicalabilities,
+    .StatblockWizard-physicalmods,
+    .StatblockWizard-mentalabilities,
+    .StatblockWizard-mentalmods {
+        background-color: transparent;
+        border-top: 1px var(--StatblockWizardGrey) solid;
+        border-bottom: 1px var(--StatblockWizardGrey) solid;
+    }
+
+    .StatblockWizard-sectionheader {
+        color: var(--StatblockWizardSectionHeader);
+        border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+    }
+
+    .StatblockWizard-characteristics {
+        border-bottom: 2px var(--StatblockWizardScreenborder) solid;
+    }
+
+    .StatblockWizard-legendarytext {
+        color: var(--StatblockWizardGrey);
+    }
+
+    .StatblockWizard hr {
+        border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+    }
+}
