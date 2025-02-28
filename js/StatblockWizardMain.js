@@ -132,6 +132,7 @@ function addSamples() {
     d.appendChild(f1);
     d.appendChild(f2);
     d.appendChild(f22);
+    d.appendChild(f22);
     d.appendChild(f21);
     d.appendChild(f3);
 }
