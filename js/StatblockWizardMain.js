@@ -26,7 +26,7 @@ function addVersionSelect() {
                 text = "Currently, there is no statblock stored in this browser's local storage.";
                 break;
             default:
-                text = `The current stat block uses the ${currentVersion} layout. If the version you select below differs from the current stat block\'s version, using the "Create or edit" or "View" buttons will erase the current stat block.`;
+                text = `The current stat block uses the ${currentVersion} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
                 vs.value = currentVersion;
         };
         p.appendChild(SPAN(text));
@@ -85,7 +85,7 @@ function addMainPageLink(e, text, accessKey, link, alt, className) {
 
 function addClearLastSaved(e) {
     let t = 'Clear saved stat block';
-    let tx = "Remove all data that was stored by this app from your browser's storage. This will enable the Demo Stat block in the Viewer.";
+    let tx = "Remove all data that was stored by this app from your browser's storage.";
     let newMainPageLink = INPUTbutton(t,'', tx,'mainpagelink');
     e.appendChild(newMainPageLink);
     newMainPageLink.addEventListener('click', () => {
