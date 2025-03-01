@@ -26,7 +26,7 @@ function addVersionSelect() {
                 text = "Currently, there is no statblock stored in this browser's local storage.";
                 break;
             default:
-                text = `The current stat block uses the ${currentVersion} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
+                text = `Your current stat block uses the ${currentVersion} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
                 vs.value = currentVersion;
         };
         p.appendChild(SPAN(text));
