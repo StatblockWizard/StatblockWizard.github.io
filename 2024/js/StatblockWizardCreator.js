@@ -176,7 +176,7 @@ function StatblockDefinition2024() {
             , { "type": "string", "caption": "Initiative", "showcaption": true, "defaultvalue": "", "css": "feature initiative", "captioncss": "keyword" }
             , { "type": "sectionend", "content": "static" }
             , { "type": "section", "caption": "", "showcaption": false, "css": "section general3", "captioncss": "" }
-            , { "type": "string", "caption": "Hit Points", "showcaption": true, "defaultvalue": "", "css": "feature hitpoints", "captioncss": "keyword" }
+            , { "type": "string", "caption": "HP", "showcaption": true, "defaultvalue": "", "css": "feature hp", "captioncss": "keyword" }
             , { "type": "string", "caption": "Speed", "showcaption": true, "defaultvalue": "", "css": "feature speed", "captioncss": "keyword" }
             , { "type": "sectionend", "content": "static" }
             , { "type": "tablesection", "caption": "Abilities", "showcaption": false, "css": "section abilities", "captioncss": "" , "tablecss": "abilitiesblock"}
