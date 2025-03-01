@@ -63,7 +63,7 @@ function CreateCreatorFooter() {
         seljson.click();
     });
 
-    let openViewer = INPUTbutton('Viewer', 'v', 'Open the Viewer using the current stat block. There you can export it in several file formats.');
+    let openViewer = INPUTbutton('Viewer', 'v', 'Save the current stat block in the browser\'s local storage, then show it in the Viewer. There you can export it in several file formats.');
     d.appendChild(openViewer);
     openViewer.addEventListener('click', () => {
         UpdateContent();

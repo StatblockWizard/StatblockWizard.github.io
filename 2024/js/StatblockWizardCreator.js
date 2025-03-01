@@ -193,6 +193,7 @@ function StatblockDefinition2024() {
             , { "type": "string", "caption": "Vulnerabilities", "showcaption": true, "defaultvalue": "", "css": "feature vulnerabilities", "captioncss": "keyword" }
             , { "type": "string", "caption": "Resistances", "showcaption": true, "defaultvalue": "", "css": "feature resistances", "captioncss": "keyword" }
             , { "type": "string", "caption": "Immunities", "showcaption": true, "defaultvalue": "", "css": "feature immunities", "captioncss": "keyword" }
+            , { "type": "string", "caption": "Gear", "showcaption": true, "defaultvalue": "", "css": "feature gear", "captioncss": "keyword" }
             , { "type": "senses5e", "caption": "Senses", "showcaption": true, "defaultvalue": "", "css": "feature senses", "captioncss": "keyword" }
             , { "type": "languages5e", "caption": "Languages", "showcaption": true, "defaultvalue": "", "css": "feature languages", "captioncss": "keyword" }
             , { "type": "string", "caption": "CR", "showcaption": true, "defaultvalue": "", "css": "feature cr", "captioncss": "keyword" }
