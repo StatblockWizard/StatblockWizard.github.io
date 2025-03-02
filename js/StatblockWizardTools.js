@@ -391,14 +391,14 @@ function INPUTtext(defaultvalue, size, classnames) {
                 }
                 break;
             case 'attack2024':
-                let r = /(.*)(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)/i;
+                let r = /(.*)\.\s*(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)/i;
                 let matches = paste.match(r);
                 if (matches.length == 5) {
                     let valueids = JSON.parse(input.getAttribute('swvalueids'));
                     SetElementValue(valueids[0], attacktype2024value(matches[2].trim()));
                     SetElementValue(valueids[1], matches[3].trim());
                     SetElementValue(valueids[2], matches[4].trim());
-                    paste = matches[1].replace(/\.([^\s])/ig, '. $1').trim();
+                    paste = matches[1].replace(/\.([^\s])/ig, '. $1').trim()+'.';
                 }
                 break;
             case "save2024":
