@@ -391,34 +391,25 @@ function INPUTtext(defaultvalue, size, classnames) {
                 }
                 break;
             case 'attack2024':
-                if (colon >= 0 && (colon < dot || dot == -1)) { dot = colon; };
-                if (dot < 0) { break; };
-                let pastevalue = paste.slice(dot + 1).trim();
-                if (pastevalue.length == 0) { break; };
-                let r = /(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)/i;
-                let matches = pastevalue.match(r);
-                if (matches.length == 4) {
+                let r = /(.*)(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)/i;
+                let matches = paste.match(r);
+                if (matches.length == 5) {
                     let valueids = JSON.parse(input.getAttribute('swvalueids'));
-                    SetElementValue(valueids[0], attacktype2024value(matches[1].trim()));
-                    SetElementValue(valueids[1], matches[2].trim());
-                    SetElementValue(valueids[2], matches[3].trim());
-                    paste = paste.substring(0, dot) + '.';
+                    SetElementValue(valueids[0], attacktype2024value(matches[2].trim()));
+                    SetElementValue(valueids[1], matches[3].trim());
+                    SetElementValue(valueids[2], matches[4].trim());
+                    paste = matches[1].replace(/\.([^\s])/ig, '. $1').trim();
                 }
                 break;
             case "save2024":
                 {
-                    if (colon >= 0 && (colon < dot || dot == -1)) { dot = colon; };
-                    if (dot < 0) { break; };
-                    let pastevalue = paste.slice(dot + 1).trim();
-                    if (pastevalue.length == 0) { break; };
-
-                    let s = /(Strength Saving Throw\:|Dexterity Saving Throw\:|Constitution Saving Throw\:|Intelligence Saving Throw\:|Wisdom Saving Throw\:|Charisma Saving Throw\:|)(.*)/i
-                    let matches = pastevalue.match(s);
-                    if (matches.length != 3) { break; }
+                    let s = /(.*)(Strength Saving Throw\:|Dexterity Saving Throw\:|Constitution Saving Throw\:|Intelligence Saving Throw\:|Wisdom Saving Throw\:|Charisma Saving Throw\:)(.*)/i
+                    let matches = paste.match(s);
+                    if (matches.length != 4) { break; }
                     let svalueids = JSON.parse(input.getAttribute('swvalueids'));
-                    SetElementValue(svalueids[0], savetype2024value(matches[1].trim()));
+                    SetElementValue(svalueids[0], savetype2024value(matches[2].trim()));
 
-                    let rem = matches[2].trim();
+                    let rem = matches[3].trim();
                     // order must be Failure, Success, Failure or Success
                     // but none of them need to be present.
                     let fs = rem.indexOf('Failure or Success:');
@@ -441,7 +432,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                         rem = rem.substring(0, ff).trim();
                     }
                     SetElementValue(svalueids[1], rem.trim());
-                    paste = paste.substring(0, dot) + '.';
+                    paste = matches[1].replace(/\.([^\s])/ig, '. $1').trim();
                 }
                 break;
             case 'reaction2024':
