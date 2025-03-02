@@ -412,7 +412,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                     let pastevalue = paste.slice(dot + 1).trim();
                     if (pastevalue.length == 0) { break; };
 
-                    let s = /(Strength Saving Throw\:|Dexterity Saving Throw\:|Constitution Saving Throw\:|Intelligence Saving Throw\:|Wisdom Saving Throw\:|Constitution Saving Throw\:|)(.*)/i
+                    let s = /(Strength Saving Throw\:|Dexterity Saving Throw\:|Constitution Saving Throw\:|Intelligence Saving Throw\:|Wisdom Saving Throw\:|Charisma Saving Throw\:|)(.*)/i
                     let matches = pastevalue.match(s);
                     if (matches.length != 3) { break; }
                     let svalueids = JSON.parse(input.getAttribute('swvalueids'));
