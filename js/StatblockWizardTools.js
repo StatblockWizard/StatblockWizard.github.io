@@ -117,8 +117,8 @@ function PutKeywordsInSpan(text) {
 }
 
 function PutTitleInSpan(text) {
-    let r = /^([^\.]*\.)/i;
-    return (text.replace(r, '<span class="' + fullClassname('likeyword') + '">$1</span>'));
+    let r = /^([^\.]+\.)/i;
+    return (text.replace(r, '<span class="' + fullClassname('likeyword') + '">$1</span>').replace(/^\.\s*/,''));
 }
 
 function StatblockWizardVersion(Statblock) {
