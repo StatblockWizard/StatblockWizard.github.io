@@ -66,10 +66,12 @@ function CreateViewerFooter() {
         window.location.replace('2024Creator.html');
     });
 
-    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the HTML and PNG file export.');
+    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the JSON, HTML, and PNG file export.');
     d.appendChild(togglecolumns);
     togglecolumns.addEventListener('click', () => {
         Viewer.firstElementChild.classList.toggle('StatblockWizard-SingleColumn');
+        Content[0].columns = 3 - Content[0].columns;
+        DBsetStatblockWizard(Content);
     });
 
     let Transparent = INPUTbutton('Transparent', 't', 'Switch between normal and transparent backgrounds. The selected option affects the HTML and PNG file export.');
@@ -138,6 +140,15 @@ function CreateStatblockHtml() {
     inSection = false;
     Content.forEach(element => {
         switch (element.type) {
+            case 'version':
+                if (element.version != CurrentVersionNumber()) { updateStatblock2024(Content) };
+                switch (element.columns) {
+                    case 1: StatblockWizard.classList.add('StatblockWizard-SingleColumn');
+                        break;
+                    case 2: StatblockWizard.classList.remove('StatblockWizard-SingleColumn');
+                        break;
+                }
+                break;
             case 'group':
                 StatblockGroup = DIV(element.css);
                 inGroup = true;
