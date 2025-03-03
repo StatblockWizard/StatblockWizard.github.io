@@ -2,7 +2,7 @@
 
 // #region 2024
 function CurrentVersionNumber() {
-    return '2024.2';
+    return '2024.3';
 }
 
 function StatblockWizardDemo() {
@@ -71,6 +71,7 @@ function updateStatblock2024(Content) {
     while (current != CurrentVersionNumber()) {
         switch (current) {
             case "2024.1": current = updateStatblock2024v1Tov2(Content); break;
+            case "2024.2": current = updateStatblock2024v2Tov3(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -91,6 +92,16 @@ function updateStatblock2024v1Tov2(Content) {
     // add new columns property
     Content[0].version = "2024.2";
     Content[0].columns = 2;
+    return Content[0].version;
+}
+
+function updateStatblock2024v2Tov3(Content) {
+    // modify "string","AC" to "ac2024","AC"
+    let ac = getStatblockContentElementIndex(Content, 'string', 'AC');
+    if (ac != -1) Content[ac].type = 'ac2024';
+
+    // update version no.
+    Content[0].version = "2024.3";
     return Content[0].version;
 }
 // #endregion VersionUpdate

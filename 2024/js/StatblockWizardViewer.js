@@ -202,6 +202,9 @@ function CreateStatblockHtml() {
             case 'string':
                 AddToStatblockHtml(Ostring(element));
                 break;
+            case 'ac2024':
+                AddToStatblockHtml(Oac2024(element));
+                break;
             case 'ability2024':
                 AddToStatblockHtml(Oability2024(element))
                 break;
@@ -505,13 +508,18 @@ function Oskills5e(element) {
     return emptyNode();
 }
 
+
+function Oac2024(element) {
+    // for now just use Ostring
+    return Ostring(element);
+}
+
 function Osenses5e(element) {
-    // for now just use Istring
+    // for now just use Ostring
     return Ostring(element);
 }
 
 function Olanguages5e(element) {
-    // for now just use Istring
     if (element.value) {
         let p = P('', element.css);
         if (element.showcaption) { p.appendChild(SPAN(element.caption, element.captioncss)); };
