@@ -1,6 +1,10 @@
 // Copyright 2025 StatblockWizard
 
 // #region 2024
+function CurrentVersionNumber() {
+    return '2024.2';
+}
+
 function StatblockWizardDemo() {
     return GetStatblocWizardDemo2024();
 }
@@ -60,3 +64,33 @@ function AddHtmlTo(existing, addition, position = 'last') {
     }
 }
 // #endregion Versionspecific Tools
+
+// #region VersionUpdate
+function updateStatblock2024(Content) {
+    let current = Content[0].version;
+    while (current != CurrentVersionNumber()) {
+        switch (current) {
+            case "2024.1": current = updateStatblock2024v1Tov2(Content); break;
+            default: // actually a not supported version of upgrade. Silently keep the current version
+                current = CurrentVersionNumber(); // to end the loop
+        }
+    }
+    DBsetStatblockWizard(Content);
+}
+
+function updateStatblock2024v1Tov2(Content) {
+    // if no Gear entry extists, insert it right before Senses
+    if (getStatblockContentElementIndex(Content, 'string', 'Gear') == -1) {
+        let senses = getStatblockContentElementIndex(Content, 'senses5e', 'Senses');
+        Content.splice(senses, 0, { "type": "string", "caption": "Gear", "showcaption": true, "defaultvalue": "", "css": "feature gear", "captioncss": "keyword" })
+    };
+    // if a Saving Throws entry exists, remove it
+    let sav = getStatblockContentElementIndex(Content, 'string', 'Saving Throws');
+    if (sav > -1) Content.splice(sav, 1);
+
+    // add new columns property
+    Content[0].version = "2024.2";
+    Content[0].columns = 2;
+    return Content[0].version;
+}
+// #endregion VersionUpdate

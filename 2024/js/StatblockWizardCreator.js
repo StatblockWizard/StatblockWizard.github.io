@@ -162,8 +162,9 @@ function UpdateContent() {
 }
 
 function StatblockDefinition2024() {
+    // the "version" type MUST be the first element in the array.
     return ([
-        { "type": "version", "version": "2024.1" }
+        { "type": "version", "version": CurrentVersionNumber(), "columns": 2 }
         , { "type": "group", "css": "header" }
             , { "type": "section", "caption": "General", "showcaption": false, "css": "section general", "captioncss": "" }
             , { "type": "string", "caption": "Name", "showcaption": false, "defaultvalue": "", "css": "title", "captioncss": "" }
