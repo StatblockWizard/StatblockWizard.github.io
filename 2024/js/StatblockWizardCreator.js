@@ -99,6 +99,9 @@ function CreateCreatorContent() {
             case 'string':
                 AddToCreator(Istring(element));
                 break;
+            case 'ac2024':
+                AddToCreator(Iac2024(element));
+                break;
             case 'ability2024':
                 AddToCreator(Iability2024(element));
                 break;
@@ -140,6 +143,9 @@ function UpdateContent() {
             case 'string':
                 Ustring(element);
                 break;
+            case 'ac2024':
+                Uac2024(element);
+                break;
             case 'ability2024':
                 Uability2024(element);
                 break;
@@ -173,7 +179,7 @@ function StatblockDefinition2024() {
         , { "type": "groupend" }
         , { "type": "group", "css": "core" }
             , { "type": "section", "caption": "", "showcaption": false, "css": "section general2", "captioncss": "" }
-            , { "type": "string", "caption": "AC", "showcaption": true, "defaultvalue": "", "css": "feature armorclass", "captioncss": "keyword" }
+            , { "type": "ac2024", "caption": "AC", "showcaption": true, "defaultvalue": "", "css": "feature armorclass", "captioncss": "keyword" }
             , { "type": "string", "caption": "Initiative", "showcaption": true, "defaultvalue": "", "css": "feature initiative", "captioncss": "keyword" }
             , { "type": "sectionend", "content": "static" }
             , { "type": "section", "caption": "", "showcaption": false, "css": "section general3", "captioncss": "" }
@@ -486,6 +492,22 @@ function Iability2024(element) {
         imod.setAttribute('value', element.value.mod); 
         isave.setAttribute('value', element.value.save); 
     };
+    return p
+}
+
+function Iac2024(element) {
+    let p = P();
+    let i = INPUTtext(element.defaultvalue, 50, 'aligned full');
+    if (element.css == 'title') { addClassnames(i, element.css) };
+    let id = newID();
+    i.setAttribute('id', id);
+    i.setAttribute('swtype', 'ac2024');
+    i.setAttribute('swcaption', element.caption);
+    if (element.value) { i.setAttribute('value', element.value) };
+    element.id = id;
+    p.appendChild(LABEL(id, element.caption));
+    p.appendChild(i);
+    proposeFocus(id);
     return p
 }
 
@@ -1104,6 +1126,11 @@ function Usectionend(element) {
         default:
             break;
     }
+}
+
+function Uac2024(element) {
+    // for now just use Istring
+    return Ustring(element);
 }
 
 function Uability2024(element) {

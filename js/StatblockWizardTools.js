@@ -387,6 +387,25 @@ function INPUTtext(defaultvalue, size, classnames) {
                     }
                 }
                 break;
+            case 'ac2024':
+                {
+                    let r = /AC\s*(.+)(Initiative)(.+)/i;
+                    let matches = paste.match(r);
+                    if (matches.length == 4) {
+                        let id = -1;
+                        let inputs = document.getElementsByTagName('input');
+                        let i = 0;
+                        while ((id == -1) && (i < inputs.length)) {
+                            if (inputs[i].getAttribute('swcaption') == 'Initiative') id = inputs[i].id;
+                            i++;
+                        }
+                        if (id >= 0) {
+                            SetElementValue(id, matches[3].trim());
+                            paste = matches[1].trim();
+                        }
+                    }
+                }
+                break;
             case 'ability2024':
                 {
                     paste = paste.replace(/[−]/ig, '-');
