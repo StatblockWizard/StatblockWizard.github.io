@@ -92,7 +92,7 @@ function getStatblockContentElementIndex(inStatblock, type, caption) {
 
 function SetElementValue(id, value) {
     let e = document.getElementById(id);
-    if (e) { e.value = value; };
+    if (e) { e.value = (value == '--')? 'None': value; };
 }
 
 function GetElementValue(id) {
@@ -134,6 +134,52 @@ function PutTitleInSpan(text) {
 function StatblockWizardVersion(Statblock) {
     let version = Statblock.filter((element) => (element.type == "version"))
     return ((version.length == 0) ? versionOriginal : (version[0].version).slice(0, 4));
+}
+
+function pasteHandler(caption, pastevalue) {
+    let success = false;
+    let inputs = document.getElementsByTagName('input');
+    for (var input = 0; input < inputs.length; input++) {
+        let swcaption = inputs[input].getAttribute('swcaption');
+        if (swcaption) {
+            if (swcaption.toLowerCase() == caption.toLowerCase()) {
+                let swtype = inputs[input].getAttribute('swtype');
+                switch (swtype) {
+                    case "fixedcaption":
+                        SetElementValue(inputs[input].id, pastevalue);
+                        success = true;
+                        break;
+                    case "ac2024":
+                        {
+                            let r = /(.+)Initiative(.+)/i;
+                            let matches = pastevalue.match(r);
+                            if (matches.length == 3) {
+                                SetElementValue(inputs[input].id, matches[1].trim());
+                                pasteHandler('initiative', matches[2].trim());
+                                success = true;
+                            } else {
+                                SetElementValue(inputs[input].id, pastevalue);
+                            }
+                            break;
+                        }
+                    case "ability2024":
+                        {
+                            paste = pastevalue.replace(/[−]/ig, '-');
+                            let r = /(\d*)\s*([\+\-\d]*)\s*([\+\-\d]*)/i;
+                            let matches = pastevalue.match(r);
+                            if (matches.length == 4) {
+                                SetElementValue(inputs[input].id, matches[1]);
+                                SetElementValue(`${inputs[input].id}-mod`, matches[2]);
+                                SetElementValue(`${inputs[input].id}-save`, matches[3]);
+                                success = true;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+    }
+    return success;
 }
 
 // #endregion Tools
@@ -323,8 +369,9 @@ function INPUTtext(defaultvalue, size, classnames) {
 
     input.addEventListener('paste', (ce) => {
         let paste = (ce.clipboardData || window.clipboardData).getData('text').toString();
+        let pastedlines = paste.split(/\n/g)
         paste = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`;
-        paste = paste.replace(/\s[\s]+/ig, ' ').replace(/[\u0002\ufffe]/g, '');
+        paste = paste.replace(/\s+/ig, ' ').replace(/[\u0002\ufffe]/g, '').trim();
 
         let swtype = input.getAttribute('swtype');
         let dot = paste.indexOf('.');
@@ -332,7 +379,20 @@ function INPUTtext(defaultvalue, size, classnames) {
         switch (swtype) {
             case 'fixedcaption':
                 let caption = input.getAttribute('swcaption');
-                paste = removeCaption(paste, caption);
+                if (caption.toLowerCase() == 'name' && pastedlines.length > 1) {
+                    paste = pastedlines.shift(); // the first line should be the name
+                    pastedlines.forEach(line => {
+                        let m = line.match(/^\s*([a-z]*)(.*)/i);
+                        if (['tiny', 'small', 'medium', 'large', 'huge', 'gargantuan'].includes(m[1].toLowerCase())) {
+                            m[2] = `${m[1]} ${m[2]}`;
+                            m[1] = 'creature info';
+                        }
+                        pasteHandler(m[1].toLowerCase(), m[2].replace(/\s+/ig, ' ').trim());
+                    });
+                } else {
+                    paste = removeCaption(paste, caption);
+                    if (paste == '--') paste = 'None';
+                }
                 break;
             case 'captiondotvalue':
                 if (colon >= 0 && (colon < dot || dot == -1)) { dot = colon; };
@@ -389,20 +449,11 @@ function INPUTtext(defaultvalue, size, classnames) {
                 break;
             case 'ac2024':
                 {
-                    let r = /AC\s*(.+)(Initiative)(.+)/i;
+                    let r = /AC\s*(.+)Initiative(.+)/i;
                     let matches = paste.match(r);
-                    if (matches.length == 4) {
-                        let id = -1;
-                        let inputs = document.getElementsByTagName('input');
-                        let i = 0;
-                        while ((id == -1) && (i < inputs.length)) {
-                            if (inputs[i].getAttribute('swcaption') == 'Initiative') id = inputs[i].id;
-                            i++;
-                        }
-                        if (id >= 0) {
-                            SetElementValue(id, matches[3].trim());
-                            paste = matches[1].trim();
-                        }
+                    if (matches.length == 3) {
+                        paste = matches[1].trim();
+                        pasteHandler('initiative', matches[2].trim());
                     }
                 }
                 break;

@@ -706,6 +706,7 @@ function Iattack2024(element, id, value) {
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
     ic.setAttribute('swtype', 'attack2024');
+    ic.setAttribute('swcaption', element.caption);
     ic.setAttribute('swvalueids', JSON.stringify([foriat, foria, forih]));
     let p1 = P();
     p1.appendChild(lc);
