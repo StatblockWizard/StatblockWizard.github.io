@@ -92,7 +92,7 @@ function getStatblockContentElementIndex(inStatblock, type, caption) {
 
 function SetElementValue(id, value) {
     let e = document.getElementById(id);
-    if (e) { e.value = (value == '--')? 'None': value; };
+    if (e) { e.value = (value == '--') ? 'None' : value; };
 }
 
 function GetElementValue(id) {
@@ -136,16 +136,24 @@ function StatblockWizardVersion(Statblock) {
     return ((version.length == 0) ? versionOriginal : (version[0].version).slice(0, 4));
 }
 
-function pasteHandler(caption, pastevalue) {
+function pasteHandler(caption, pastevalue, fullvalue) {
+    if (pastevalue == '' || !pastevalue) return false;
     let success = false;
     let inputs = document.getElementsByTagName('input');
-    for (var input = 0; input < inputs.length; input++) {
+    let input = 0;
+    while (!success && input < inputs.length) {
         let swcaption = inputs[input].getAttribute('swcaption');
         if (swcaption) {
-            if (swcaption.toLowerCase() == caption.toLowerCase()) {
+            let f = fullvalue.toLowerCase().substring(0, swcaption.length);
+            if (swcaption.toLowerCase() == caption.toLowerCase() || (swcaption.toLowerCase() == f && swcaption.length > caption.length)) {
+                if (swcaption.toLowerCase() == f && swcaption.length > caption.length) pastevalue = removeCaption(fullvalue, swcaption).trim();
                 let swtype = inputs[input].getAttribute('swtype');
                 switch (swtype) {
                     case "fixedcaption":
+                        SetElementValue(inputs[input].id, pastevalue);
+                        success = true;
+                        break;
+                    case "number":
                         SetElementValue(inputs[input].id, pastevalue);
                         success = true;
                         break;
@@ -155,7 +163,7 @@ function pasteHandler(caption, pastevalue) {
                             let matches = pastevalue.match(r);
                             if (matches.length == 3) {
                                 SetElementValue(inputs[input].id, matches[1].trim());
-                                pasteHandler('initiative', matches[2].trim());
+                                pasteHandler('initiative', matches[2].trim(), pastevalue);
                                 success = true;
                             } else {
                                 SetElementValue(inputs[input].id, pastevalue);
@@ -164,7 +172,7 @@ function pasteHandler(caption, pastevalue) {
                         }
                     case "ability2024":
                         {
-                            paste = pastevalue.replace(/[−]/ig, '-');
+                            pastevalue = pastevalue.replace(/[−]/ig, '-');
                             let r = /(\d*)\s*([\+\-\d]*)\s*([\+\-\d]*)/i;
                             let matches = pastevalue.match(r);
                             if (matches.length == 4) {
@@ -178,6 +186,7 @@ function pasteHandler(caption, pastevalue) {
                 }
             }
         }
+        input++;
     }
     return success;
 }
@@ -380,14 +389,23 @@ function INPUTtext(defaultvalue, size, classnames) {
             case 'fixedcaption':
                 let caption = input.getAttribute('swcaption');
                 if (caption.toLowerCase() == 'name' && pastedlines.length > 1) {
-                    paste = pastedlines.shift(); // the first line should be the name
+                    paste = pastedlines.shift(); // the first line should be the name'
+                    let lastability = '';
                     pastedlines.forEach(line => {
                         let m = line.match(/^\s*([a-z]*)(.*)/i);
                         if (['tiny', 'small', 'medium', 'large', 'huge', 'gargantuan'].includes(m[1].toLowerCase())) {
                             m[2] = `${m[1]} ${m[2]}`;
                             m[1] = 'creature info';
                         }
-                        pasteHandler(m[1].toLowerCase(), m[2].replace(/\s+/ig, ' ').trim());
+                        if (lastability != '') {
+                            m[2] = m[2].replace(/\(.*\)/i, '').trim();
+                            m[1] = lastability;
+                            line = `${m[1]} ${m[2]}`;
+                            lastability = '';
+                        } else {
+                            if (['str', 'dex', 'con', 'int', 'wis', 'cha'].includes(m[1].toLowerCase()) && m[2].trim() == '') lastability = m[1];
+                        }
+                        pasteHandler(m[1].toLowerCase(), m[2].replace(/\s+/ig, ' ').trim(), line.trim());
                     });
                 } else {
                     paste = removeCaption(paste, caption);
@@ -453,7 +471,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                     let matches = paste.match(r);
                     if (matches.length == 3) {
                         paste = matches[1].trim();
-                        pasteHandler('initiative', matches[2].trim());
+                        pasteHandler('initiative', matches[2].trim(), paste);
                     }
                 }
                 break;
