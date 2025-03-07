@@ -448,6 +448,8 @@ function Iability5e(element) {
     i.setAttribute('id', id);
     i.setAttribute('modifierid', modifierid);
     i.setAttribute('onchange', `updatemodifier(${id});`);
+    i.setAttribute('swcaption', element.caption);
+    i.setAttribute('swtype', 'number');
     if (element.value) { i.setAttribute('value', element.value); };
     element.id = id;
     p.appendChild(LABEL(id, element.caption));
@@ -478,6 +480,8 @@ function Icr5e(element) {
     let s = SELECT(element, CR5e(), 'aligned');
     let id = newID();
     s.setAttribute('id', id);
+    s.setAttribute('swcaption', element.caption);
+    s.setAttribute('swtype', 'cr5e');
     if (element.value) { s.value = element.value; }; //{ s.setAttribute('value', element.value); };
     element.id = id;
     p.appendChild(LABEL(id, element.caption));
