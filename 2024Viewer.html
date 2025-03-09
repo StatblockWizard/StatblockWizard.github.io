@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex">
-    <title>StatblockWizard Viewer</title>
+    <title>StatblockWizard Viewer - view and export your 2024 monster stat block</title>
 
     <script type="application/javascript" src="2024/js/StatblockWizard.js"></script>
     <script type="application/javascript" src="js/StatblockWizardTools.js"></script>
@@ -30,6 +30,8 @@
             not work now.</p>
     </noscript>
     <div id="StatblockWizardViewer"></div>
+    <br>
+    <div class="center"><label for="colorpicker">Select a background color:</label>&nbsp;<input type="color" id="colorpicker" onchange="document.body.style.backgroundColor=this.value;" title="Selecting a background color helps when choosing the transparency setting."></div>
     <img id="svgimg" style="display: none;" title="svgimg" alt="placeholder for svg file creation">
 </body>
 
