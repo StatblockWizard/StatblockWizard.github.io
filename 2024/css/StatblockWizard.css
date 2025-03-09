@@ -1,6 +1,7 @@
 /* This file is provided as-is, without any warranty. You are free to copy, modify, and redistribute as you see fit. */
 
 :root {
+    --StatblockWizardBorder: #bcbcbc;
     --StatblockWizardMonstername: #700000;
     --StatblockWizardScreenborder: #600000;
     --StatblockWizardCoreText: #600000;
@@ -29,9 +30,9 @@
     font-weight: 300;
     font-kerning: auto;
     letter-spacing: 0.02em;
-    border: 3px #bcbcbc double;
+    border: 3px var(--StatblockWizardBorder) double;
     border-radius: 6px;
-    box-shadow: 2px 2px 4px #bcbcbc;
+    box-shadow: 2px 2px 4px var(--StatblockWizardBorder);
 
     margin-top: 0;
     margin-bottom: 4px;
@@ -52,6 +53,19 @@
 
 .StatblockWizard-Transparent {
     background-color: transparent;
+    --StatblockWizardBackground: #f8f4f0;
+    --StatblockWizardAbilitiesRow1: #f8e8e0;
+    --StatblockWizardAbilitiesRow2: #d0d0d0;
+    --StatblockWizardModsRow1: #e8d0d0;
+    --StatblockWizardModsRow2: #d8c0c0;
+}
+
+.StatblockWizard-SemiTransparent {
+    --StatblockWizardBackground: #f8f4f0c0;
+    --StatblockWizardAbilitiesRow1: #f8e8e0c0;
+    --StatblockWizardAbilitiesRow2: #d0d0d0c0;
+    --StatblockWizardModsRow1: #e8d0d0c0;
+    --StatblockWizardModsRow2: #d8c0c0c0;
 }
 
 .StatblockWizard-likeyword,

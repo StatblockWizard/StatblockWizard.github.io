@@ -17,6 +17,7 @@ let inGroup = false;
 let inSection = false;
 let SectionPosition = 'last';
 let currentzoom = '100%';
+let transparency = 0;
 
 function StartNewViewer() {
     document.getElementById('svgimg').addEventListener('load', svgimgOnLoadhandler);
@@ -74,10 +75,24 @@ function CreateViewerFooter() {
         DBsetStatblockWizard(Content);
     });
 
-    let Transparent = INPUTbutton('Transparent', 't', 'Switch between normal and transparent backgrounds. The selected option affects the HTML and PNG file export.');
+    let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparant, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
     d.appendChild(Transparent);
     Transparent.addEventListener('click', () => {
-        Viewer.firstElementChild.classList.toggle('StatblockWizard-Transparent');
+        switch (transparency) {
+            case 0:
+                transparency++;
+                Viewer.firstElementChild.classList.add('StatblockWizard-SemiTransparent');                
+                break;
+            case 1:
+                transparency++;
+                Viewer.firstElementChild.classList.remove('StatblockWizard-SemiTransparent');
+                Viewer.firstElementChild.classList.add('StatblockWizard-Transparent');
+                break;
+            default:
+                transparency = 0;
+                Viewer.firstElementChild.classList.remove('StatblockWizard-Transparent');
+                break;        
+        }
     });
 
     let seljson = INPUTfile('.statblockwizard.json');
@@ -885,6 +900,19 @@ function GetImgCSS() {
 
 .StatblockWizard-Transparent {
     background-color: transparent;
+    --StatblockWizardBackground: #f8f4f0;
+    --StatblockWizardAbilitiesRow1: #f8e8e0;
+    --StatblockWizardAbilitiesRow2: #d0d0d0;
+    --StatblockWizardModsRow1: #e8d0d0;
+    --StatblockWizardModsRow2: #d8c0c0;
+}
+
+.StatblockWizard-SemiTransparent {
+    --StatblockWizardBackground: #f8f4f0c0;
+    --StatblockWizardAbilitiesRow1: #f8e8e0c0;
+    --StatblockWizardAbilitiesRow2: #d0d0d0c0;
+    --StatblockWizardModsRow1: #e8d0d0c0;
+    --StatblockWizardModsRow2: #d8c0c0c0;
 }
 
 .StatblockWizard-likeyword,
