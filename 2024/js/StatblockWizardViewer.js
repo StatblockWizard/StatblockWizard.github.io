@@ -75,7 +75,7 @@ function CreateViewerFooter() {
         DBsetStatblockWizard(Content);
     });
 
-    let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparant, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
+    let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparent, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
     d.appendChild(Transparent);
     Transparent.addEventListener('click', () => {
         switch (transparency) {
