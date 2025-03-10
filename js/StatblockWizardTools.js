@@ -161,13 +161,13 @@ function pasteHandler(caption, pastevalue, fullvalue) {
                         {
                             let r = /(.+)Initiative(.+)/i;
                             let matches = pastevalue.match(r);
-                            if (matches.length == 3) {
+                            if (matches && (matches.length == 3)) {
                                 SetElementValue(inputs[input].id, matches[1].trim());
                                 pasteHandler('initiative', matches[2].trim(), pastevalue);
-                                success = true;
                             } else {
                                 SetElementValue(inputs[input].id, pastevalue);
                             }
+                            success = true;
                             break;
                         }
                     case "ability2024":
@@ -175,14 +175,14 @@ function pasteHandler(caption, pastevalue, fullvalue) {
                             pastevalue = pastevalue.replace(/[−]/ig, '-');
                             let r = /(\d*)\s*([\+\-\d]*)\s*([\+\-\d]*)/i;
                             let matches = pastevalue.match(r);
-                            if (matches.length == 4) {
+                            if (matches && (matches.length == 4)) {
                                 SetElementValue(inputs[input].id, matches[1]);
                                 SetElementValue(`${inputs[input].id}-mod`, matches[2]);
                                 SetElementValue(`${inputs[input].id}-save`, matches[3]);
-                                success = true;
                             }
+                            success = true;
+                            break;
                         }
-                        break;
                 }
             }
         }
@@ -468,9 +468,12 @@ function INPUTtext(defaultvalue, size, classnames) {
                 {
                     let r = /AC\s*(.+)Initiative(.+)/i;
                     let matches = paste.match(r);
-                    if (matches.length == 3) {
+                    if (matches && (matches.length == 3)) {
                         paste = matches[1].trim();
                         pasteHandler('initiative', matches[2].trim(), paste);
+                    } else {
+                        let accaption = input.getAttribute('swcaption');
+                        paste = removeCaption(paste, accaption);
                     }
                 }
                 break;
