@@ -309,7 +309,7 @@ function CatchWordsInCss(t, splitters, css) {
         par2pos = remainder.indexOf(')', par1pos);
         comma2pos = remainder.indexOf(',', par2pos);
         if ((commapos >= 0) && (par1pos >= 0) && (par1pos < commapos)) {
-            commapos = ((par2pos > par1pos) && (comma2pos > par2pos)) ? comma2pos : 0;
+            commapos = ((par2pos > par1pos) && (comma2pos > par2pos)) ? comma2pos : -1;
         }
 
         if (commapos >= 0) {
