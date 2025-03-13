@@ -444,7 +444,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                 paste = paste.replace(rul, '');
                 break;
             case 'ol':
-                let rd = /^[\d]*[\.]+/;
+                let rd = /^[\d]*[\.\:]+/;
                 paste = paste.replace(rd, '');
                 break;
             case 'attack5e':
