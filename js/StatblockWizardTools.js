@@ -541,7 +541,7 @@ function INPUTtext(defaultvalue, size, classnames) {
                     if (dot < 0) { break; };
                     let pastevalue = paste.slice(dot + 1).trim();
                     if (pastevalue.length == 0) { break; };
-                    let r = /Trigger\:(.*)Response\:(.*)/i;
+                    let r = /Trigger\:(.*)Response[\:—](.*)/i;
                     let matches = pastevalue.match(r);
                     if (matches.length == 3) {
                         let valueids = JSON.parse(input.getAttribute('swvalueids'));
