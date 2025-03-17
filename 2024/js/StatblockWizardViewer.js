@@ -22,6 +22,7 @@ let transparency = 0;
 function StartNewViewer() {
     document.getElementById('svgimg').addEventListener('load', svgimgOnLoadhandler);
     Content = DBgetStatblockWizard();
+    if (Content[0].version != CurrentVersionNumber()) { updateStatblock2024(Content) };
     if (StartViewer()) {
         // allow dropping of json file
         Viewer.addEventListener('dragover', (event) => {
@@ -156,7 +157,7 @@ function CreateStatblockHtml() {
     Content.forEach(element => {
         switch (element.type) {
             case 'version':
-                if (element.version != CurrentVersionNumber()) { updateStatblock2024(Content) };
+                //if (element.version != CurrentVersionNumber()) { updateStatblock2024(Content) };
                 switch (element.columns) {
                     case 1: StatblockWizard.classList.add('StatblockWizard-SingleColumn');
                         break;

@@ -8,11 +8,13 @@ var proposedFocusId = '';
 
 function StartNewCreator() {
     Content = StatblockDefinition2024();
+    if (Content[0].version != CurrentVersionNumber()) { updateStatblock2024(Content) };
     CreateCreatorPage();
 }
 
 function StartCreator() {
     Content = DBgetStatblockWizard();
+    if (Content[0].version != CurrentVersionNumber()) { updateStatblock2024(Content) };
     CreateCreatorPage();
 }
 
@@ -210,7 +212,7 @@ function StatblockDefinition2024() {
             , { "type": "section", "caption": "Characteristics (like Personality Traits, Ideals, Bonds, Flaws) ", "showcaption": false, "css": "section characteristics", "captioncss": "" }
             , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
             , { "type": "section", "caption": "Traits", "showcaption": true, "css": "section traits", "captioncss": "sectionheader" }
-            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
+            , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
             , { "type": "section", "caption": "Actions", "showcaption": true, "css": "section actions", "captioncss": "sectionheader" }
             , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
             , { "type": "section", "caption": "Bonus Actions", "showcaption": true, "css": "section bonusactions", "captioncss": "sectionheader" }
