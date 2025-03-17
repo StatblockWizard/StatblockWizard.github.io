@@ -1,10 +1,6 @@
 // Copyright 2025 StatblockWizard
 
 // #region 2024
-function CurrentVersionNumber() {
-    return '2024.3';
-}
-
 function StatblockWizardDemo() {
     return GetStatblocWizardDemo2024();
 }
@@ -66,12 +62,17 @@ function AddHtmlTo(existing, addition, position = 'last') {
 // #endregion Versionspecific Tools
 
 // #region VersionUpdate
+function CurrentVersionNumber() {
+    return '2024.4'; // update the standard in the Creator if required
+}
+
 function updateStatblock2024(Content) {
     let current = Content[0].version;
     while (current != CurrentVersionNumber()) {
         switch (current) {
             case "2024.1": current = updateStatblock2024v1Tov2(Content); break;
             case "2024.2": current = updateStatblock2024v2Tov3(Content); break;
+            case "2024.3": current = updateStatblock2024v3Tov4(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -102,6 +103,21 @@ function updateStatblock2024v2Tov3(Content) {
 
     // update version no.
     Content[0].version = "2024.3";
+    return Content[0].version;
+}
+
+function updateStatblock2024v3Tov4(Content) {
+    // add "attack2024" and "save2024" to Traits section contenttypes
+    let traits = getStatblockContentElementIndex(Content, 'section', 'Traits');
+    if (traits != -1 && traits < Content.length) {
+        // the next element should be a sectionend
+        if (Content[traits + 1].type == 'sectionend') {
+            Content[traits + 1].contenttypes.splice(1, 0, { "name": "saving throw", "type": "save2024" });
+            Content[traits + 1].contenttypes.splice(1, 0, { "name": "attack", "type": "attack2024" });
+        }
+    }
+    // update version no.
+    Content[0].version = "2024.4";
     return Content[0].version;
 }
 // #endregion VersionUpdate
