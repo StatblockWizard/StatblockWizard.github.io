@@ -90,6 +90,16 @@ function getStatblockContentElementIndex(inStatblock, type, caption) {
     return ((found) ? (i - 1) : -1);
 }
 
+// function getStatblockStyleElementIndex(inStatblock, fortype, forsubtype) {
+//     let i = 1;
+//     let found = false;
+//     while (!found && (i < inStatblock.length - 1)) {
+//         i++;
+//         found = (inStatblock[i - 1].type.toLowerCase() == 'css') && (inStatblock[i - 1].fortype.toLowerCase() == fortype.toLowerCase()) && ((!forsubtype) || inStatblock[i - 1].forsubtype.toLowerCase() == forsubtype.toLowerCase())
+//     }
+//     return ((found) ? (i - 1) : -1);
+// }
+
 function SetElementValue(id, value) {
     let e = document.getElementById(id);
     if (e) { e.value = (value == '--') ? 'None' : value; };
@@ -122,7 +132,7 @@ function removeCaption(from, caption) {
 }
 
 function PutKeywordsInSpan(text) {
-    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|Success|Failure or Success|Trigger|Response)\:/ig;
+    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|First Failure|Second Failure|Success|Failure or Success|Trigger|Response)\:/ig;
     return (text.replace(r, '$1<span class="' + fullClassname('italic') + '">$2:</span>'));
 }
 
@@ -510,9 +520,12 @@ function INPUTtext(defaultvalue, size, classnames) {
                     SetElementValue(svalueids[0], savetype2024value(matches[2].trim()));
 
                     let rem = matches[3].trim();
-                    // order must be Failure, Success, Failure or Success
-                    // but none of them need to be present.
+                    // order must be Failure, First Failure, Second Failure, Success, Failure or Success
+                    // but none of them need to be present 
+                    // if there is a Second Failure, either First Failure or Failure is required, but only one can be present at any time.
                     let fs = rem.indexOf('Failure or Success:');
+                    let f2 = rem.indexOf('Second Failure:');
+                    let f1 = rem.indexOf('First Failure:');
                     let ff = rem.indexOf('Failure:');
                     let ss = rem.indexOf('Success:');
                     if (ss > fs && fs > -1) {
@@ -520,12 +533,21 @@ function INPUTtext(defaultvalue, size, classnames) {
                         ss = -1
                     }
                     if (fs > -1) {
-                        SetElementValue(svalueids[4], removeCaption(rem.slice(fs), 'Failure or Success').trim());
+                        SetElementValue(svalueids[5], removeCaption(rem.slice(fs), 'Failure or Success').trim());
                         rem = rem.substring(0, fs).trim();
                     }
                     if (ss > -1) {
-                        SetElementValue(svalueids[3], removeCaption(rem.slice(ss), 'Success').trim());
+                        SetElementValue(svalueids[4], removeCaption(rem.slice(ss), 'Success').trim());
                         rem = rem.substring(0, ss).trim();
+                    }
+                    if (f2 > -1) {
+                        SetElementValue(svalueids[3], removeCaption(rem.slice(f2), 'Second Failure').trim());
+                        rem = rem.substring(0, f2).trim();
+                    }
+                    if (ff > f1 && f1 != -1) { 
+                        ff = -1;
+                        SetElementValue(svalueids[2], removeCaption(rem.slice(f1), 'First Failure').trim());
+                        rem = rem.substring(0, f1).trim();
                     }
                     if (ff > -1) {
                         SetElementValue(svalueids[2], removeCaption(rem.slice(ff), 'Failure').trim());
