@@ -640,17 +640,25 @@ function Osave2024(value, csselement) {
     let st = value.savetype;
     let dc = value.savedc;
     let f = value.failure;
+    let f2 = value.secondfailure;
     let s = value.success;
     let fs = value.failureorsuccess;
-    if ((c + st + dc + f + s + fs) != '') {
+    if ((c + st + dc + f + f2 + s + fs) != '') {
         // "captioncss": "keyword", "savetypecss": "savingthrowtype", "saveresultcss": "savingthrowresult"
         let l = P('', csselement.css);
         l.appendChild(CatchAttackNameInSpan(c, csselement.captioncss));
         l.appendChild(SPAN(savetype2024()[st].text, csselement.savetypecss));
         l.appendChild(SPAN(dc));
         if (f != '') {
-            l.appendChild(SPAN('Failure:', csselement.saveresultcss));
-            l.appendChild(SPAN(f));
+            if (f2 == '') {
+                l.appendChild(SPAN('Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(f));
+            } else {
+                l.appendChild(SPAN('First Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(f));
+                l.appendChild(SPAN('Second Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(f2));    
+            }
         }
         if (s != '') {
             l.appendChild(SPAN('Success:', csselement.saveresultcss));

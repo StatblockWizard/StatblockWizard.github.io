@@ -227,7 +227,7 @@ function StatblockDefinition2024() {
             // , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
         , { "type": "groupend" }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
-        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center" , "beforeclass": "core"}
+        , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center", "beforeclass": "core" }
         , { "type": "sectionend", "content": "static" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
@@ -481,7 +481,7 @@ function Iability2024(element) {
     let imod = INPUTtext('', 4, 'abilitymod');
     imod.setAttribute('id', modid);
     let isave = INPUTtext('', 4, 'abilitysave');
-    isave.setAttribute('id',saveid);
+    isave.setAttribute('id', saveid);
     element.id = scoreid;
 
     p.appendChild(LABEL(scoreid, `${element.caption} / ${element.modcaption} / ${element.savecaption}`));
@@ -489,10 +489,10 @@ function Iability2024(element) {
     p.appendChild(imod);
     p.appendChild(isave);
 
-    if (element.value) { 
-        i.setAttribute('value', element.value.score); 
-        imod.setAttribute('value', element.value.mod); 
-        isave.setAttribute('value', element.value.save); 
+    if (element.value) {
+        i.setAttribute('value', element.value.score);
+        imod.setAttribute('value', element.value.mod);
+        isave.setAttribute('value', element.value.save);
     };
     return p
 }
@@ -760,6 +760,7 @@ function Isave2024(element, id, value) {
     let forist = `${id}-savetype`;
     let forisdc = `${id}-savedc`;
     let forif = `${id}-failure`;
+    let forif2 = `${id}-secondfailure`;
     let foris = `${id}-success`;
     let forifs = `${id}-failureorsuccess`;
 
@@ -768,7 +769,7 @@ function Isave2024(element, id, value) {
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
     ic.setAttribute('swtype', 'save2024');
-    ic.setAttribute('swvalueids', JSON.stringify([forist, forisdc, forif, foris, forifs]));
+    ic.setAttribute('swvalueids', JSON.stringify([forist, forisdc, forif, forif2, foris, forifs]));
     let p1 = P();
     p1.appendChild(lc);
     p1.appendChild(ic);
@@ -805,6 +806,17 @@ function Isave2024(element, id, value) {
     p4.appendChild(isf);
     d.appendChild(p4);
 
+    let lf2 = LABEL(forif, 'Second Failure');
+    let isf2 = INPUTtext('', 50, 'aligned full');
+    isf2.setAttribute('id', forif2);
+    isf2.setAttribute('name', forif2);
+    isf2.setAttribute('swtype', 'fixedcaption');
+    isf2.setAttribute('swcaption', 'Second Failure');
+    let p42 = P();
+    p42.appendChild(lf2);
+    p42.appendChild(isf2);
+    d.appendChild(p42);
+
     let lss = LABEL(foris, 'Success');
     let iss = INPUTtext('', 50, 'aligned full');
     iss.setAttribute('id', foris);
@@ -832,6 +844,7 @@ function Isave2024(element, id, value) {
         sst.value = value.savetype;
         idc.setAttribute('value', value.savedc);
         isf.setAttribute('value', value.failure);
+        isf2.setAttribute('value', value.secondfailure);
         iss.setAttribute('value', value.success);
         ifs.setAttribute('value', value.failureorsuccess);
     };
@@ -1206,9 +1219,10 @@ function Usave2024(id, type) {
     let st = GetElementValue(`${id}-savetype`);
     let sdc = GetElementValue(`${id}-savedc`);
     let f = GetElementValue(`${id}-failure`);
+    let f2 = GetElementValue(`${id}-secondfailure`);
     let s = GetElementValue(`${id}-success`);
     let fs = GetElementValue(`${id}-failureorsuccess`);
-    return { "type": type, "caption": c, "savetype": st, "savedc": sdc, "failure": f, "success": s, "failureorsuccess": fs };
+    return { "type": type, "caption": c, "savetype": st, "savedc": sdc, "failure": f, "secondfailure": f2, "success": s, "failureorsuccess": fs };
 }
 
 function Ureaction2024(id, type) {

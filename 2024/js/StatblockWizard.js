@@ -63,7 +63,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
 
 // #region VersionUpdate
 function CurrentVersionNumber() {
-    return '2024.4'; // update the standard in the Creator if required
+    return '2024.5'; // update the standard in the Creator if required
 }
 
 function updateStatblock2024(Content) {
@@ -73,6 +73,7 @@ function updateStatblock2024(Content) {
             case "2024.1": current = updateStatblock2024v1Tov2(Content); break;
             case "2024.2": current = updateStatblock2024v2Tov3(Content); break;
             case "2024.3": current = updateStatblock2024v3Tov4(Content); break;
+            case "2024.4": current = updateStatblock2024v4Tov5(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -120,4 +121,24 @@ function updateStatblock2024v3Tov4(Content) {
     Content[0].version = "2024.4";
     return Content[0].version;
 }
+
+function updateStatblock2024v4Tov5(Content) {
+    // add support First and Second Failure on saving throws : add "secondvalue": "" to all values of type==save2024 in sectionends
+    let i = 1;
+    while (i < Content.length - 1) {
+        i++;
+        if (Content[i - 1].type.toLowerCase() == 'sectionend') {
+            let j = 0;
+            while (j < Content[i - 1].values.length) {
+                if (Content[i - 1].values[j].type == 'save2024') Content[i - 1].values[j].secondfailure = '';
+                j++;
+            }
+        }
+    }
+
+    // update version no.
+    Content[0].version = "2024.5";
+    return Content[0].version;
+}
+
 // #endregion VersionUpdate
