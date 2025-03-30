@@ -23,7 +23,7 @@ function addVersionSelect() {
         });
         switch ( currentVersion ) {
             case versionNone:
-                text = "Currently, there is no statblock stored in this browser's local storage.";
+                text = "Currently, there is no stat block stored in this browser's local storage.";
                 vs.value = version2024;
                 break;
             default:
@@ -101,46 +101,23 @@ function addSamples() {
     addClassnames(d, 'center');
 
     d.appendChild(H2('Using the 2024 layout'));
-
-    let classnames = 'samplefigure';
-    let captionclassnames = 'samplecaption';
-
-    let f20241 = FIGURE('res/Goblin%20Warrior.statblockwizard.png', 'Goblin Warrior', 'StatblockWizard sample stat block of a Goblin Warrior, using the 2024 layout', classnames, 'sampleimage', captionclassnames);
-    f20241.addEventListener('click', () => {
-        DBsetStatblockWizard(sampleGoblinWarrior());
-        window.location.replace('2024Viewer.html');
-    });
-    d.appendChild(f20241);
-
-    let f20242 = FIGURE('res/Incubus.statblockwizard.png', 'Incubus', 'StatblockWizard sample stat block of an Incubus, using the 2024 layout', classnames, 'sampleimage', captionclassnames);
-    f20242.addEventListener('click', () => {
-        DBsetStatblockWizard(sampleIncubus());
-        window.location.replace('2024Viewer.html');
-    });
-    d.appendChild(f20242);
+    d.appendChild(appendSample('Goblin%20Warrior', 'Goblin Warrior', 'a Goblin Warrior', sampleGoblinWarrior));
+    d.appendChild(appendSample('Incubus', 'Incubus', 'an Incubus', sampleIncubus));
 
     d.appendChild(H2('Using the Original layout'));
+    d.appendChild(appendSample('Archmage', 'Archmage', 'an Archmage', sampleArchmage));
+    d.appendChild(appendSample('Cat', 'Cat', 'a Cat, featuring Zipper', sampleCat));
+    d.appendChild(appendSample('Cat1', 'Cat (alternate image position)', 'a Cat, featuring Zipper (alternate image position)',  sampleCat1));
+}
 
-    let f1 = FIGURE('res/Archmage.statblockwizard.png', 'Archmage', 'StatblockWizard sample stat block of an Archmage, using the Original layout', classnames, 'sampleimage', captionclassnames);
-    f1.addEventListener('click', () => {
-        DBsetStatblockWizard(sampleArchmage());
-        window.location.replace('Viewer.html');
+function appendSample(filename, statblockname, statblocktext, statblockcontent) {
+    let sample = FIGURE(`res/${filename}.statblockwizard.png`, statblockname, `StatblockWizard sample stat block of ${statblocktext}.`, 'samplefigure', 'sampleimage', 'samplecaption');
+    sample.addEventListener('click', () => {
+        let samplecontent = statblockcontent();
+        DBsetStatblockWizard(samplecontent);
+        OpenViewer(StatblockWizardVersion(samplecontent));
     });
-    d.appendChild(f1);
-    
-    let f2 = FIGURE('res/Cat.statblockwizard.png', 'Cat', 'StatblockWizard sample stat block of a Cat, featuring Zipper. Using the Original layout', classnames, 'sampleimage', captionclassnames);
-    f2.addEventListener('click', () => {
-        DBsetStatblockWizard(sampleCat());
-        window.location.replace('Viewer.html');
-    });
-    d.appendChild(f2);
-
-    let f21 = FIGURE('res/Cat1.statblockwizard.png', 'Cat (alternate image position)', 'StatblockWizard sample stat block of a Cat, featuring Zipper (alternate image position). Using the Original layout', classnames, 'sampleimage', captionclassnames);
-    f21.addEventListener('click', () => {
-        DBsetStatblockWizard(sampleCat1());
-        window.location.replace('Viewer.html');
-    });
-    d.appendChild(f21);
+    return sample
 }
 
 function sampleArchmage() {
