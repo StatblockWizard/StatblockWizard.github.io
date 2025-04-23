@@ -63,7 +63,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
 
 // #region VersionUpdate
 function CurrentVersionNumber() {
-    return '2024.5'; // update the standard in the Creator if required
+    return '2024.6'; // update the standard in the Creator if required
 }
 
 function updateStatblock2024(Content) {
@@ -74,6 +74,7 @@ function updateStatblock2024(Content) {
             case "2024.2": current = updateStatblock2024v2Tov3(Content); break;
             case "2024.3": current = updateStatblock2024v3Tov4(Content); break;
             case "2024.4": current = updateStatblock2024v4Tov5(Content); break;
+            case "2024.5": current = updateStatblock2024v5Tov6(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -141,4 +142,18 @@ function updateStatblock2024v4Tov5(Content) {
     return Content[0].version;
 }
 
+function updateStatblock2024v5Tov6(Content) {
+    // add "legendary text" to Epic Actions section contenttypes
+    let epicactions = getStatblockContentElementIndex(Content, 'section', 'Epic Actions');
+    if (epicactions != -1 && epicactions < Content.length) {
+        // the next element should be a sectionend
+        if (Content[epicactions + 1].type == 'sectionend') {
+            Content[epicactions + 1].contenttypes.splice(0, 0, { "name": "legendary text", "type": "legendarytext" });
+        }
+    }
+
+    // update version no.
+    Content[0].version = "2024.6";
+    return Content[0].version;
+}
 // #endregion VersionUpdate
