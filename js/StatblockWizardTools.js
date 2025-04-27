@@ -387,7 +387,8 @@ function INPUTtext(defaultvalue, size, classnames) {
 
     input.addEventListener('paste', (ce) => {
         let paste = (ce.clipboardData || window.clipboardData).getData('text').toString();
-        paste = paste.replace(/\r\n([^\s])/ig,'$1');
+        paste = paste.replace(/\n(?!\s*\b(tiny|small|medium|large|huge|gargantuan|ac|initiative|hp|speed|mod|str|dex|con|wis|int|cha|skills|resistances|vulnerabilities|immunities|gear|senses|languages|cr)\b)/ig,'$1');
+        paste = paste.replace(/^\s*/,'').replace(/\r/g,'');
         paste = paste.replace(/(\d)\s+(str|dex|con|int|wis|cha)\s+/ig,'$1\n$2 '); // put abilities on separate lines
         let pastedlines = paste.split(/\n/g)
         paste = `${input.value.substring(0, input.selectionStart)}${paste}${input.value.substring(input.selectionEnd)}`;
