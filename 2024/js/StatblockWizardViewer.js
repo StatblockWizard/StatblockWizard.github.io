@@ -840,6 +840,7 @@ function downloadPNG(StatblockImage, imgexportstylewidth, imgexportstyleheight, 
 function GetImgCSS() {
     return `
     :root {
+        --StatblockWizardBorder: #bcbcbc;
         --StatblockWizardMonstername: #700000;
         --StatblockWizardScreenborder: #600000;
         --StatblockWizardCoreText: #600000;
@@ -851,6 +852,7 @@ function GetImgCSS() {
         --StatblockWizardModsRow2: #d8c0c0;
         --StatblockWizardSectionHeader: #500000;
         --StatblockWizardGrey: #696969;
+        --StatblockWizardBoxShadow: #d0d0d0;
     }
     
     /* latin-ext */
@@ -886,9 +888,9 @@ function GetImgCSS() {
     font-weight: 300;
     font-kerning: auto;
     letter-spacing: 0.02em;
-    border: 3px #bcbcbc double;
+    border: 3px var(--StatblockWizardBorder) double;
     border-radius: 6px;
-    box-shadow: 2px 2px 4px #bcbcbc;
+    box-shadow: 2px 2px 4px var(--StatblockWizardBoxShadow);
 
     margin-top: 0;
     margin-bottom: 0;
