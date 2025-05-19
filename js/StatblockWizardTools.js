@@ -132,7 +132,7 @@ function removeCaption(from, caption) {
 }
 
 function PutKeywordsInSpan(text) {
-    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|First Failure|Second Failure|Success|Failure or Success|Trigger|Response)\:/ig;
+    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|First Failure|Second Failure|Subsequent Failures|Success|Failure or Success|Trigger|Response)\:/ig;
     return (text.replace(r, '$1<span class="' + fullClassname('italic') + '">$2:</span>'));
 }
 
