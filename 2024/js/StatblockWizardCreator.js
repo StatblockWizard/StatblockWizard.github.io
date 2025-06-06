@@ -244,6 +244,14 @@ function StatblockDefinition2024() {
 }
 
 // #region Tools
+function updatemodifier(id) {
+    let e = document.getElementById(id);
+    if (e) {
+        let m = document.getElementById(`${id}-mod`);
+        if (m) { m.value = abilitymodifier(e.value); };
+    };
+}
+
 function activateFirstTitle() {
     let elist = document.getElementsByClassName('title');
     if (elist.length > 0) {
@@ -477,6 +485,7 @@ function Iability2024(element) {
     i.setAttribute('id', scoreid);
     i.setAttribute('swtype', 'ability2024');
     i.setAttribute('swcaption', element.caption);
+    i.setAttribute('onchange', `updatemodifier(${scoreid});`);
 
     let imod = INPUTtext('', 4, 'abilitymod');
     imod.setAttribute('id', modid);
