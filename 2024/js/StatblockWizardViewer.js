@@ -893,7 +893,7 @@ function GetImgCSS() {
     box-shadow: 2px 2px 4px var(--StatblockWizardBoxShadow);
 
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     margin-left: 0;
     margin-right: 0;
     padding: 0 7px 7px;
