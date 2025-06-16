@@ -706,7 +706,7 @@ function GetImgCSS() {
         padding: 0 10px;
     }
 
-    .StatblockWizard-keyword {
+    .StatblockWizard-keyword, .StatblockWizard strong, .StatblockWizard b {
         font-weight: bold;
     }
     

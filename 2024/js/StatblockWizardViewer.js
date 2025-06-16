@@ -927,7 +927,7 @@ function GetImgCSS() {
 }
 
 .StatblockWizard-likeyword,
-.StatblockWizard-keyword {
+.StatblockWizard-keyword, .StatblockWizard strong, .StatblockWizard b {
     font-weight: bold;
     letter-spacing: 0.02em;
 }
