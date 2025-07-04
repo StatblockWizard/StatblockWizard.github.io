@@ -722,7 +722,7 @@ function downloadhtml(html, filename) {
 
 function downloadcss() {
     const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', 'css/StatblockWizard.css');
+    linkElement.setAttribute('href', '2024/css/StatblockWizard.css');
     linkElement.setAttribute('download', 'StatblockWizard.css');
     linkElement.click();
 }
