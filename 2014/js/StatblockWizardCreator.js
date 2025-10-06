@@ -209,7 +209,7 @@ function StatblockDefinition5e() {
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
         , { "type": "css", "fortype": "text", "css": "line text" }
-        , { "type": "css", "fortype": "attack5e", "css": "line weapon", "captioncss": "keyword", "attackcss": "attack", "hitcss": "hit" }
+        , { "type": "css", "fortype": "attack5e", "css": "line weapon", "captioncss": "keyword", "attackcss": "attack", "hitcss": "hit"}
         , { "type": "css", "fortype": "list", "forsubtype": "ul", "listcss": "line list-ul", "css": "listitem", "captioncss": "keyword" }
         , { "type": "css", "fortype": "list", "forsubtype": "ol", "listcss": "line list-ol", "css": "listitem", "captioncss": "keyword" }
         , { "type": "css", "fortype": "list", "forsubtype": "dl", "listcss": "line list-dl", "css": "listitem", "captioncss": "keyword" }

@@ -233,7 +233,7 @@ function StatblockDefinition2024() {
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
         , { "type": "css", "fortype": "text", "css": "line text" }
         , { "type": "css", "fortype": "legendarytext", "css": "line legendarytext" }
-        , { "type": "css", "fortype": "attack2024", "css": "line attack", "captioncss": "keyword", "attackcss": "attacktype", "hitcss": "hit" }
+        , { "type": "css", "fortype": "attack2024", "css": "line attack", "captioncss": "keyword", "attackcss": "attacktype", "hitcss": "hit" , "hitmisscss": "hitmiss"}
         , { "type": "css", "fortype": "save2024", "css": "line savingthrow", "captioncss": "keyword", "savetypecss": "savingthrowtype", "saveresultcss": "savingthrowresult" }
         , { "type": "css", "fortype": "reaction2024", "css": "line reaction", "captioncss": "keyword", "triggercss": "trigger", "responsecss": "response" }
         , { "type": "css", "fortype": "list", "forsubtype": "ul", "listcss": "line list-ul", "css": "listitem", "captioncss": "keyword" }
@@ -712,13 +712,14 @@ function Iattack2024(element, id, value) {
     let foriat = `${id}-attacktype`;
     let foria = `${id}-attack`;
     let forih = `${id}-hit`;
+    let forihm = `${id}-hitmiss`;
     let lc = LABEL(foric, 'Attack Name');
     let ic = INPUTtext('', 0, 'aligned full');
     ic.setAttribute('id', foric);
     ic.setAttribute('name', foric);
     ic.setAttribute('swtype', 'attack2024');
     ic.setAttribute('swcaption', element.caption);
-    ic.setAttribute('swvalueids', JSON.stringify([foriat, foria, forih]));
+    ic.setAttribute('swvalueids', JSON.stringify([foriat, foria, forih, forihm]));
     let p1 = P();
     p1.appendChild(lc);
     p1.appendChild(ic);
@@ -753,11 +754,23 @@ function Iattack2024(element, id, value) {
     p4.appendChild(ih);
     d.appendChild(p4);
 
+    let lhm = LABEL(forihm, 'Hit or Miss');
+    let ihm = INPUTtext('', 50, 'aligned full');
+    ihm.setAttribute('id', forihm);
+    ihm.setAttribute('name', forihm);
+    ihm.setAttribute('swtype', 'fixedcaption');
+    ihm.setAttribute('swcaption', 'Hit or Miss');
+    let p5 = P();
+    p5.appendChild(lhm);
+    p5.appendChild(ihm);
+    d.appendChild(p5);
+
     if (value) {
         ic.setAttribute('value', value.caption);
         sat.value = value.attacktype;
         ia.setAttribute('value', value.attack);
         ih.setAttribute('value', value.hit);
+        ihm.setAttribute('value', value.hitmiss);
     };
 
     return d;
@@ -1220,7 +1233,8 @@ function Uattack2024(id, type) {
     let at = GetElementValue(`${id}-attacktype`);
     let a = GetElementValue(`${id}-attack`);
     let h = GetElementValue(`${id}-hit`);
-    return { "type": type, "caption": c, "attacktype": at, "attack": a, "hit": h };
+    let hm = GetElementValue(`${id}-hitmiss`);
+    return { "type": type, "caption": c, "attacktype": at, "attack": a, "hit": h , "hitmiss": hm};
 }
 
 function Usave2024(id, type) {

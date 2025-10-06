@@ -270,6 +270,7 @@
 
 .StatblockWizard-attacktype,
 .StatblockWizard-hit,
+.StatblockWizard-hitmiss,
 .StatblockWizard-savingthrowtype,
 .StatblockWizard-savingthrowresult,
 .StatblockWizard-trigger,
@@ -279,6 +280,7 @@
 }
 
 .StatblockWizard-hit::before,
+.StatblockWizard-hitmiss::before,
 .StatblockWizard-savingthrowresult::before,
 .StatblockWizard-response::before {
     content: ' ';
@@ -286,6 +288,7 @@
 
 .StatblockWizard-attacktype::after,
 .StatblockWizard-hit::after,
+.StatblockWizard-hitmiss::after,
 .StatblockWizard-savingthrowtype::after,
 .StatblockWizard-savingthrowresult::after,
 .StatblockWizard-trigger::after,
