@@ -82,7 +82,7 @@ function CreateViewerFooter() {
         switch (transparency) {
             case 0:
                 transparency++;
-                Viewer.firstElementChild.classList.add('StatblockWizard-SemiTransparent');                
+                Viewer.firstElementChild.classList.add('StatblockWizard-SemiTransparent');
                 break;
             case 1:
                 transparency++;
@@ -92,7 +92,7 @@ function CreateViewerFooter() {
             default:
                 transparency = 0;
                 Viewer.firstElementChild.classList.remove('StatblockWizard-Transparent');
-                break;        
+                break;
         }
     });
 
@@ -623,13 +623,18 @@ function Oattack2024(value, csselement) {
     let at = value.attacktype;
     let a = value.attack;
     let h = value.hit;
-    if ((c + at + a + h) != '') {
+    let hm = value.hitmiss;
+    if ((c + at + a + h + hm) != '') {
         let l = P('', csselement.css);
         l.appendChild(CatchAttackNameInSpan(c, csselement.captioncss));
         l.appendChild(SPAN(attacktype2024()[at].text, csselement.attackcss));
         l.appendChild(SPAN(a));
         l.appendChild(SPAN('Hit:', csselement.hitcss));
         l.appendChild(SPAN(h));
+        if (hm != '') {
+            l.appendChild(SPAN('Hit or Miss:', csselement.hitmisscss));
+            l.appendChild(SPAN(hm));
+        }
         return l;
     }
     return emptyNode();
@@ -657,7 +662,7 @@ function Osave2024(value, csselement) {
                 l.appendChild(SPAN('First Failure:', csselement.saveresultcss));
                 l.appendChild(SPAN(f));
                 l.appendChild(SPAN('Second Failure:', csselement.saveresultcss));
-                l.appendChild(SPAN(f2));    
+                l.appendChild(SPAN(f2));
             }
         }
         if (s != '') {
@@ -1127,6 +1132,7 @@ function GetImgCSS() {
 
 .StatblockWizard-attacktype,
 .StatblockWizard-hit,
+.StatblockWizard-hitmiss,
 .StatblockWizard-savingthrowtype,
 .StatblockWizard-savingthrowresult,
 .StatblockWizard-trigger,
@@ -1136,6 +1142,7 @@ function GetImgCSS() {
 }
 
 .StatblockWizard-hit::before,
+.StatblockWizard-hitmiss::before,
 .StatblockWizard-savingthrowresult::before,
 .StatblockWizard-response::before {
     content: ' ';
@@ -1143,6 +1150,7 @@ function GetImgCSS() {
 
 .StatblockWizard-attacktype::after,
 .StatblockWizard-hit::after,
+.StatblockWizard-hitmiss::after,
 .StatblockWizard-savingthrowtype::after,
 .StatblockWizard-savingthrowresult::after,
 .StatblockWizard-trigger::after,

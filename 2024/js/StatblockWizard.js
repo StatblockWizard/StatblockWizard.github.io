@@ -63,7 +63,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
 
 // #region VersionUpdate
 function CurrentVersionNumber() {
-    return '2024.6'; // update the standard in the Creator if required
+    return '2024.7'; // update the standard in the Creator if required
 }
 
 function updateStatblock2024(Content) {
@@ -75,6 +75,7 @@ function updateStatblock2024(Content) {
             case "2024.3": current = updateStatblock2024v3Tov4(Content); break;
             case "2024.4": current = updateStatblock2024v4Tov5(Content); break;
             case "2024.5": current = updateStatblock2024v5Tov6(Content); break;
+            case "2024.6": current = updateStatblock2024v6Tov7(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -154,6 +155,30 @@ function updateStatblock2024v5Tov6(Content) {
 
     // update version no.
     Content[0].version = "2024.6";
+    return Content[0].version;
+}
+
+function updateStatblock2024v6Tov7(Content) {
+    // add support Hit or Miss on Attack2024 : add "hitmiss": "" to all values of type==attack2024 in sectionends
+    let i = 1;
+    while (i < Content.length - 1) {
+        i++;
+        if (Content[i - 1].type.toLowerCase() == 'sectionend') {
+            let j = 0;
+            while (j < Content[i - 1].values.length) {
+                if (Content[i - 1].values[j].type == 'attack2024') Content[i - 1].values[j].hitmiss = '';
+                j++;
+            }
+        }
+    }
+    // add hitmisscss to type=css, fortype=attack2024
+    let attack2024 = getStatblockStyleElementIndex(Content,'attack2024');
+    if (attack2024 != -1 && attack2024 < Content.length) {
+        Content[attack2024].hitmisscss = 'hitmiss';
+    }
+
+    // update version no.
+    Content[0].version = "2024.7";
     return Content[0].version;
 }
 // #endregion VersionUpdate

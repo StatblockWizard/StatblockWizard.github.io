@@ -90,15 +90,15 @@ function getStatblockContentElementIndex(inStatblock, type, caption) {
     return ((found) ? (i - 1) : -1);
 }
 
-// function getStatblockStyleElementIndex(inStatblock, fortype, forsubtype) {
-//     let i = 1;
-//     let found = false;
-//     while (!found && (i < inStatblock.length - 1)) {
-//         i++;
-//         found = (inStatblock[i - 1].type.toLowerCase() == 'css') && (inStatblock[i - 1].fortype.toLowerCase() == fortype.toLowerCase()) && ((!forsubtype) || inStatblock[i - 1].forsubtype.toLowerCase() == forsubtype.toLowerCase())
-//     }
-//     return ((found) ? (i - 1) : -1);
-// }
+function getStatblockStyleElementIndex(inStatblock, fortype, forsubtype) {
+    let i = 1;
+    let found = false;
+    while (!found && (i < inStatblock.length - 1)) {
+        i++;
+        found = (inStatblock[i - 1].type.toLowerCase() == 'css') && (inStatblock[i - 1].fortype.toLowerCase() == fortype.toLowerCase()) && ((!forsubtype) || inStatblock[i - 1].forsubtype.toLowerCase() == forsubtype.toLowerCase())
+    }
+    return ((found) ? (i - 1) : -1);
+}
 
 function SetElementValue(id, value) {
     let e = document.getElementById(id);
@@ -132,7 +132,7 @@ function removeCaption(from, caption) {
 }
 
 function PutKeywordsInSpan(text) {
-    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|First Failure|Second Failure|Subsequent Failures|Success|Failure or Success|Trigger|Response)\:/ig;
+    let r = /(^|\s)(Melee or Ranged Attack Roll|Melee Attack Roll|Ranged Attack Roll|Hit|Hit or Miss|Strength Saving Throw|Dexterity Saving Throw|Constitution Saving Throw|Intelligence Saving Throw|Wisdom Saving Throw|Charisma Saving Throw|Failure|First Failure|Second Failure|Subsequent Failures|Success|Failure or Success|Trigger|Response)\:/ig;
     return (text.replace(r, '$1<span class="' + fullClassname('italic') + '">$2:</span>'));
 }
 
@@ -506,11 +506,15 @@ function INPUTtext(defaultvalue, size, classnames) {
             case 'attack2024':
                 let r = /(.*)\.\s*(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)/i;
                 let matches = paste.match(r);
-                if (matches.length == 5) {
+                let r1 = /(.*)\.\s*(Melee Attack Roll\:|Ranged Attack Roll\:|Melee or Ranged Attack Roll\:)(.*)Hit\:(.*)Hit or Miss\:(.*)/i;
+                let matches1 = paste.match(r1);
+                if (matches1) { matches = matches1 }
+                if (matches.length >= 5) {
                     let valueids = JSON.parse(input.getAttribute('swvalueids'));
                     SetElementValue(valueids[0], attacktype2024value(matches[2].trim()));
                     SetElementValue(valueids[1], matches[3].trim());
                     SetElementValue(valueids[2], matches[4].trim());
+                    if (matches.length == 6) {SetElementValue(valueids[3], matches[5].trim()); };
                     paste = matches[1].replace(/\.([^\s])/ig, '. $1').trim() + '.';
                 }
                 break;
