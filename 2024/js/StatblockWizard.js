@@ -63,7 +63,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
 
 // #region VersionUpdate
 function CurrentVersionNumber() {
-    return '2024.7'; // update the standard in the Creator if required
+    return '2024.8'; // update the standard in the Creator if required
 }
 
 function updateStatblock2024(Content) {
@@ -76,6 +76,7 @@ function updateStatblock2024(Content) {
             case "2024.4": current = updateStatblock2024v4Tov5(Content); break;
             case "2024.5": current = updateStatblock2024v5Tov6(Content); break;
             case "2024.6": current = updateStatblock2024v6Tov7(Content); break;
+            case "2024.7": current = updateStatblock2024v7Tov8(Content); break;
             default: // actually a not supported version of upgrade. Silently keep the current version
                 current = CurrentVersionNumber(); // to end the loop
         }
@@ -84,7 +85,7 @@ function updateStatblock2024(Content) {
 }
 
 function updateStatblock2024v1Tov2(Content) {
-    // if no Gear entry extists, insert it right before Senses
+    // if no Gear entry exists, insert it right before Senses
     if (getStatblockContentElementIndex(Content, 'string', 'Gear') == -1) {
         let senses = getStatblockContentElementIndex(Content, 'senses5e', 'Senses');
         Content.splice(senses, 0, { "type": "string", "caption": "Gear", "showcaption": true, "defaultvalue": "", "css": "feature gear", "captioncss": "keyword" })
@@ -172,13 +173,23 @@ function updateStatblock2024v6Tov7(Content) {
         }
     }
     // add hitmisscss to type=css, fortype=attack2024
-    let attack2024 = getStatblockStyleElementIndex(Content,'attack2024');
+    let attack2024 = getStatblockStyleElementIndex(Content, 'attack2024');
     if (attack2024 != -1 && attack2024 < Content.length) {
         Content[attack2024].hitmisscss = 'hitmiss';
     }
 
     // update version no.
     Content[0].version = "2024.7";
+    return Content[0].version;
+}
+
+function updateStatblock2024v7Tov8(Content) {
+    // add "Attribution" as last item before the "css" item for "namedstring"
+    let css = getStatblockStyleElementIndex(Content, 'namedstring')
+    if (css != -1) Content.splice(css, 0, { "type": "attribution", "caption": "Attribution", "defaultvalue": "", "css1": "attribution1", "css2": "StatblockWizard-attribution2" });
+
+    // update version no.
+    Content[0].version = "2024.8";
     return Content[0].version;
 }
 // #endregion VersionUpdate
