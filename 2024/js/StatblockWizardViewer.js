@@ -56,6 +56,7 @@ function CreateViewerContent() {
     CreateStatblockHtml();
     StatblockWizard.setAttribute('title', `Stat block of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
     StatblockWizard.appendChild(Statblock);
+    AddAttribution();
     Viewer.appendChild(StatblockWizard);
 }
 
@@ -239,11 +240,23 @@ function CreateStatblockHtml() {
             case 'image':
                 AddToStatblockHtml(Oimage(element), element.position);
                 break;
+            case 'attribution':
+                AddToStatblockHtml(Oattribution1(element));
+                // AddToStatblockHtml(Oattribution2(element));
+                break;
             default:
                 break;
         }
     });
     CreatingStatblock = false;
+}
+
+function AddAttribution() {
+    let attributionindex = getStatblockContentElementIndex(Content, 'attribution', 'Attribution');
+    if (attributionindex != -1) {
+        let element = Content[attributionindex];
+        StatblockWizard.appendChild(Oattribution2(element));
+    }
 }
 
 // #region Tools
@@ -578,6 +591,24 @@ function Oimage(element) {
     return emptyNode();
 }
 
+function Oattribution1(element) {
+    // this creates an in-flow element that adds enough space to allow for attribution1
+    if (element.value) {
+        let div = DIV(element.css1);
+        return div;
+    };
+    return emptyNode();
+}
+
+function Oattribution2(element) {
+    if (element.value) {
+        let div = DIV(element.css2);
+        let span = SPAN(element.value);
+        div.appendChild(span);
+        return div;
+    };
+    return emptyNode();
+}
 
 function Qnamedstring(value) {
     return ((value.caption != '') && (value.value != ''));
@@ -1274,6 +1305,20 @@ dd.StatblockWizard-spelllist {
     border-right: 0;
     border-left: 0;
     border-bottom: 1px var(--StatblockWizardScreenborder) solid;
+}
+    
+.StatblockWizard-attribution1 {
+    margin: 0;
+    height: 2px;
+}
+
+.StatblockWizard-attribution2 {
+    color: var(--StatblockWizardGrey);
+    font-size: 0.52em;
+    margin: 0;
+    position: absolute;
+    bottom: 7px;
+    right: 14px;
 }`;
 }
 // #endregion Export

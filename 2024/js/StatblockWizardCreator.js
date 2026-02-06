@@ -119,6 +119,9 @@ function CreateCreatorContent() {
             case 'image':
                 AddToCreator(Iimage(element));
                 break;
+            case 'attribution':
+                AddToCreator(Iattribution(element));
+                break;
             default:
                 break;
         }
@@ -162,6 +165,9 @@ function UpdateContent() {
                 break;
             case 'image':
                 Uimage(element);
+                break;
+            case 'attribution':
+                Uattribution(element);
                 break;
             default:
                 break;
@@ -229,6 +235,7 @@ function StatblockDefinition2024() {
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
         , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center", "beforeclass": "core" }
         , { "type": "sectionend", "content": "static" }
+        , { "type": "attribution", "caption": "Attribution", "defaultvalue": "", "css1": "attribution1", "css2": "StatblockWizard-attribution2" }
         // below lines are used for setting class names
         , { "type": "css", "fortype": "namedstring", "css": "line namedstring", "captioncss": "keyword" }
         , { "type": "css", "fortype": "text", "css": "line text" }
@@ -1105,6 +1112,11 @@ function HideImageSettingsForPosition() {
         iali.classList.remove('unavailable');
     }
 }
+
+function Iattribution(element) {
+    // for now just use Istring
+    return Istring(element);
+}
 // #endregion Input
 
 // #region UpdateContent
@@ -1261,5 +1273,10 @@ function Uimage(element) {
     element.position = GetElementValue('image-position');
     element.alignment = GetElementValue('image-alignment');
     element.credits = GetElementValue('image-credits')
+}
+
+function Uattribution(element) {
+   // for now just use Ustring
+   return Ustring(element);
 }
 // #endregion UpdateContent
