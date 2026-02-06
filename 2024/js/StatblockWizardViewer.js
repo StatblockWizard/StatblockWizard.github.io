@@ -241,8 +241,7 @@ function CreateStatblockHtml() {
                 AddToStatblockHtml(Oimage(element), element.position);
                 break;
             case 'attribution':
-                AddToStatblockHtml(Oattribution1(element));
-                // AddToStatblockHtml(Oattribution2(element));
+                AddToStatblockHtml(Oattribution1(element)); // this is only a space blocker, the actual text is added later
                 break;
             default:
                 break;
@@ -253,10 +252,7 @@ function CreateStatblockHtml() {
 
 function AddAttribution() {
     let attributionindex = getStatblockContentElementIndex(Content, 'attribution', 'Attribution');
-    if (attributionindex != -1) {
-        let element = Content[attributionindex];
-        StatblockWizard.appendChild(Oattribution2(element));
-    }
+    if (attributionindex != -1) { StatblockWizard.appendChild(Oattribution2(Content[attributionindex])); }
 }
 
 // #region Tools
@@ -310,7 +306,7 @@ function CatchLanguages(t) {
 function CatchWordsInCss(t, splitters, css) {
     let s = SPAN();
 
-    // let tlist = t.split(','); // do not spit at commas within parenthesis
+    // let tlist = t.split(','); // do not split at commas within parenthesis
     let tlist = [];
     var remainder = t;
     let commapos;

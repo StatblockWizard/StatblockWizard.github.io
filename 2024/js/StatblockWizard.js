@@ -185,7 +185,7 @@ function updateStatblock2024v6Tov7(Content) {
 
 function updateStatblock2024v7Tov8(Content) {
     // add "Attribution" as last item before the "css" item for "namedstring"
-    let css = getStatblockStyleElementIndex(Content, 'namedstring')
+    let css = getStatblockStyleElementIndex(Content, 'namedstring');
     if (css != -1) Content.splice(css, 0, { "type": "attribution", "caption": "Attribution", "defaultvalue": "", "css1": "attribution1", "css2": "StatblockWizard-attribution2" });
 
     // update version no.
