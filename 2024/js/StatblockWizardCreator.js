@@ -53,9 +53,9 @@ function CreateCreatorFooter() {
                 ProcessFileCreator(fr.result);
             }
             if (this.files[0] != '') {
-                fr.readAsText(this.files[0])
-                this.value = ''
-                this.content = ''
+                fr.readAsText(this.files[0]);
+                this.value = '';
+                this.content = '';
             }
         })
     }
@@ -203,7 +203,6 @@ function StatblockDefinition2024() {
             , { "type": "ability2024", "caption": "Cha", "modcaption": "mod", "savecaption": "save", "defaultvalue": "", "css": "ability", "captioncss": "abilityname mentalabilities", "scorecss": "abilityscore mentalabilities", "modifiercss": "abilitymodifier mentalmods", "savecss": "abilitysave mentalmods", "number": 3 }
             , { "type": "tablesectionend", "content": "static" }
             , { "type": "section", "caption": "Features", "showcaption": false, "css": "section features", "captioncss": "" }
-            // , { "type": "string", "caption": "Saving Throws", "showcaption": true, "defaultvalue": "", "css": "feature savingthrows", "captioncss": "keyword" }
             , { "type": "skills5e", "caption": "Skills", "showcaption": true, "defaultvalue": "", "css": "feature skills", "captioncss": "keyword", "skillcss": "skill" }
             , { "type": "string", "caption": "Vulnerabilities", "showcaption": true, "defaultvalue": "", "css": "feature vulnerabilities", "captioncss": "keyword" }
             , { "type": "string", "caption": "Resistances", "showcaption": true, "defaultvalue": "", "css": "feature resistances", "captioncss": "keyword" }
@@ -229,8 +228,6 @@ function StatblockDefinition2024() {
             , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "legendary text", "type": "legendarytext" }, { "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
             , { "type": "section", "caption": "Epic Actions", "showcaption": true, "css": "section epicactions", "captioncss": "sectionheader" }
             , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "legendary text", "type": "legendarytext" }, { "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
-            // , { "type": "section", "caption": "Lair Actions", "showcaption": true, "css": "section lairactions", "captioncss": "sectionheader" }
-            // , { "type": "sectionend", "content": "dynamic", "contenttypes": [{ "name": "feature", "type": "namedstring" }, { "name": "attack", "type": "attack2024" }, { "name": "saving throw", "type": "save2024"}, { "name": "plain text", "type": "text" }, { "name": "list", "type": "list" }] }
         , { "type": "groupend" }
         , { "type": "section", "caption": "Supplemental", "showcaption": false, "css": "section supplemental", "captioncss": "" }
         , { "type": "image", "caption": "Image", "showcaption": false, "css": "image", "maxheight": 0, "position": "last", "alignment": "center", "beforeclass": "core" }
