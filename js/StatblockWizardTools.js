@@ -364,7 +364,7 @@ function INPUTbutton(text, accessKey, alt, classnames) {
 function INPUTnumber(minvalue, maxvalue, defaultvalue, classnames) {
     var input = document.createElement('input');
     input.setAttribute("type", "number");
-    if (minvalue) { input.setAttribute("min", minvalue); };
+    if (!isNaN(minvalue)) { input.setAttribute("min", minvalue); };
     if (maxvalue) { input.setAttribute("max", maxvalue); };
     if (Number.isInteger(defaultvalue)) { input.setAttribute('value', defaultvalue) };
     addClassnames(input, classnames);
