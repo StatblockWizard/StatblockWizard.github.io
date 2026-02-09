@@ -51,13 +51,15 @@ function StartViewer() {
 }
 
 function CreateViewerContent() {
+    let ViewerContent = DIV('StatblockWizardViewerContent');
     StatblockWizard = DIV('StatblockWizard');
     Statblock = DIV('StatblockWizard-Content');
     CreateStatblockHtml();
     StatblockWizard.setAttribute('title', `Stat block of ${StatblockName}. See https://statblockwizard.github.io/Legal.html`);
     StatblockWizard.appendChild(Statblock);
     AddAttribution();
-    Viewer.appendChild(StatblockWizard);
+    ViewerContent.appendChild(StatblockWizard);
+    Viewer.appendChild(ViewerContent);
 }
 
 function CreateViewerFooter() {
@@ -72,7 +74,7 @@ function CreateViewerFooter() {
     let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the JSON, HTML, and PNG file export.');
     d.appendChild(togglecolumns);
     togglecolumns.addEventListener('click', () => {
-        Viewer.firstElementChild.classList.toggle('StatblockWizard-SingleColumn');
+        GetStatblockElement().classList.toggle('StatblockWizard-SingleColumn');
         Content[0].columns = 3 - Content[0].columns;
         DBsetStatblockWizard(Content);
     });
@@ -80,20 +82,23 @@ function CreateViewerFooter() {
     let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparent, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
     d.appendChild(Transparent);
     Transparent.addEventListener('click', () => {
-        switch (transparency) {
-            case 0:
-                transparency++;
-                Viewer.firstElementChild.classList.add('StatblockWizard-SemiTransparent');
-                break;
-            case 1:
-                transparency++;
-                Viewer.firstElementChild.classList.remove('StatblockWizard-SemiTransparent');
-                Viewer.firstElementChild.classList.add('StatblockWizard-Transparent');
-                break;
-            default:
-                transparency = 0;
-                Viewer.firstElementChild.classList.remove('StatblockWizard-Transparent');
-                break;
+        let sw = GetStatblockElement();
+        if (sw) {
+            switch (transparency) {
+                case 0:
+                    transparency++;
+                    sw.classList.add('StatblockWizard-SemiTransparent');
+                    break;
+                case 1:
+                    transparency++;
+                    sw.classList.remove('StatblockWizard-SemiTransparent');
+                    sw.classList.add('StatblockWizard-Transparent');
+                    break;
+                default:
+                    transparency = 0;
+                    sw.classList.remove('StatblockWizard-Transparent');
+                    break;
+            }
         }
     });
 
@@ -126,7 +131,7 @@ function CreateViewerFooter() {
     let dlhtmlbutton = INPUTbutton('HTML', 'h', 'Download the stat block as a StatblockWizard partial html file, containing a DIV element that you can use in your own html files. The file needs a style sheet!');
     d.appendChild(dlhtmlbutton);
     dlhtmlbutton.addEventListener('click', () => {
-        downloadhtml(Viewer.firstElementChild, StatblockName);
+        downloadhtml(GetStatblockElement(), StatblockName);
     });
 
     let dlcss = INPUTbutton('CSS', 's', 'Show the styling information that defines how StatblockWizard stat blocks look. You are free to use, edit, or redistribute this at your own risk.');
@@ -256,6 +261,10 @@ function AddAttribution() {
 }
 
 // #region Tools
+function GetStatblockElement() {
+    return Viewer.getElementsByClassName('StatblockWizard')[0]
+}
+
 function AddToStatblockHtml(html, position = 'last') {
     html.normalize();
     if (inSection) {
