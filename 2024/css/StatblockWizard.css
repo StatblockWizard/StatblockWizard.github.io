@@ -390,8 +390,12 @@ dd.StatblockWizard-spelllist {
     display: block;
     border: none;
     padding: 0;
-    max-width: 60mm;
+    max-width: 82.5mm;
     margin: 0 auto;
+}
+
+.StatblockWizard-SingleColumn .StatblockWizard-image {
+    max-width: 84mm;
 }
 
 .StatblockWizard-image-left {
