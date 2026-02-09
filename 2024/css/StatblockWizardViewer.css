@@ -5,3 +5,8 @@
     margin-left: 15px;
     margin-right: 3px;
 }
+
+.StatblockWizardViewerContent {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
