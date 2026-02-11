@@ -64,15 +64,16 @@ function CreateViewerContent() {
 
 function CreateViewerFooter() {
     let d = DIV('center');
+    let d1 = DIV('nobreak');
 
     let openCreator = INPUTbutton('Creator', 'c', 'Open the Creator to edit the current stat block, or to create a totally new one.');
-    d.appendChild(openCreator);
+    d1.appendChild(openCreator);
     openCreator.addEventListener('click', () => {
         window.location.replace('2024Creator.html');
     });
 
     let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the JSON, HTML, and PNG file export.');
-    d.appendChild(togglecolumns);
+    d1.appendChild(togglecolumns);
     togglecolumns.addEventListener('click', () => {
         GetStatblockElement().classList.toggle('StatblockWizard-SingleColumn');
         Content[0].columns = 3 - Content[0].columns;
@@ -80,7 +81,7 @@ function CreateViewerFooter() {
     });
 
     let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparent, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
-    d.appendChild(Transparent);
+    d1.appendChild(Transparent);
     Transparent.addEventListener('click', () => {
         let sw = GetStatblockElement();
         if (sw) {
@@ -115,27 +116,30 @@ function CreateViewerFooter() {
         })
     }
     let upjson = INPUTbutton('Upload JSON', 'u', 'Load a StatblockWizard json file to show the contained stat block.');
-    d.appendChild(upjson);
+    d1.appendChild(upjson);
     upjson.addEventListener('click', () => {
         seljson.click();
     });
 
-    d.appendChild(SPAN('Download:', 'downloadoptionstext'))
+    d.appendChild(d1);
+    let d2=DIV('nobreak');
+
+    d2.appendChild(SPAN('Download:', 'downloadoptionstext'))
 
     let dljsonbutton = INPUTbutton('JSON', 'j', 'Download the current stat block to a StatblockWizard json file. This file will contain all data that is required to later view or edit the stat block again. The name of the stat block will be used for the name of the file.');
-    d.appendChild(dljsonbutton);
+    d2.appendChild(dljsonbutton);
     dljsonbutton.addEventListener('click', () => {
         downloadjson(Content, StatblockName);
     });
 
     let dlhtmlbutton = INPUTbutton('HTML', 'h', 'Download the stat block as a StatblockWizard partial html file, containing a DIV element that you can use in your own html files. The file needs a style sheet!');
-    d.appendChild(dlhtmlbutton);
+    d2.appendChild(dlhtmlbutton);
     dlhtmlbutton.addEventListener('click', () => {
         downloadhtml(GetStatblockElement(), StatblockName);
     });
 
     let dlcss = INPUTbutton('CSS', 's', 'Show the styling information that defines how StatblockWizard stat blocks look. You are free to use, edit, or redistribute this at your own risk.');
-    d.appendChild(dlcss);
+    d2.appendChild(dlcss);
     dlcss.addEventListener('click', () => {
         downloadcss();
     });
@@ -147,11 +151,13 @@ function CreateViewerFooter() {
     // });
 
     let dlpng = INPUTbutton('PNG', 'p', 'Download the stat block as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution.');
-    d.appendChild(dlpng);
+    d2.appendChild(dlpng);
     dlpng.addEventListener('click', () => {
         downloadAsImagePNG(StatblockName);
     });
 
+    d.appendChild(d2);
+    
     Viewer.appendChild(d);
 }
 
