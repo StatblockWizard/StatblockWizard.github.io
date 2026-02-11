@@ -791,14 +791,15 @@ function CreateSVG(imgtype, filename) {
             return
     };
 
+    var StatblockWizardContent = GetStatblockElement();
     var requiredimgwidth;
     var requiredimgheight;
-    requiredimgwidth = StatblockWizard.clientWidth + 2 * StatblockWizard.clientLeft + 4;
-    requiredimgheight = StatblockWizard.clientHeight + 2 * StatblockWizard.clientTop + 4;
+    requiredimgwidth = StatblockWizardContent.clientWidth + 2 * StatblockWizardContent.clientLeft + 4;
+    requiredimgheight = StatblockWizardContent.clientHeight + 2 * StatblockWizardContent.clientTop + 4;
 
     let imgdiv = document.createElement('div');
     imgdiv.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-    imgdiv.setAttribute('style', 'border:0;padding:0;');
+    imgdiv.setAttribute('style', 'border:0;padding:0;margin:0;');
     let style = document.createElement('style');
     style.innerHTML = GetImgCSS();
     imgdiv.appendChild(style);
@@ -1283,8 +1284,12 @@ dd.StatblockWizard-spelllist {
     display: block;
     border: none;
     padding: 0;
-    max-width: 60mm;
+    max-width: 82.5mm;
     margin: 0 auto;
+}
+
+.StatblockWizard-SingleColumn .StatblockWizard-image {
+    max-width: 84mm;
 }
 
 .StatblockWizard-image-left {
@@ -1311,7 +1316,7 @@ dd.StatblockWizard-spelllist {
     border-left: 0;
     border-bottom: 1px var(--StatblockWizardScreenborder) solid;
 }
-    
+
 .StatblockWizard-attribution1 {
     margin: 0;
     height: 2px;
