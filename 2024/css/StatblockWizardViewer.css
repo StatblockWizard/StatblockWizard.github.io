@@ -6,6 +6,11 @@
     margin-right: 3px;
 }
 
+.nobreak {
+    display: inline-block;
+    break-inside: avoid;
+}
+
 .StatblockWizardViewerContent {
     overflow-y: hidden;
     overflow-x: auto;
