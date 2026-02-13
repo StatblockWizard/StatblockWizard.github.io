@@ -64,9 +64,10 @@ function CreateViewerContent() {
 
 function CreateViewerFooter() {
     let d = DIV('center');
+    let d1 = DIV('nobreak');
 
     let openCreator = INPUTbutton('Creator', 'c', 'Open the Creator to edit the current stat block, or to create a totally new one.');
-    d.appendChild(openCreator);
+    d1.appendChild(openCreator);
     openCreator.addEventListener('click', () => {
         window.location.replace('2024Creator.html');
     });

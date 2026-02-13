@@ -571,7 +571,6 @@ function Inamedstring(element, id, value) {
     return d;
 }
 
-
 function Itext(element, id, value) {
     let d = DIV();
     let p = P();
