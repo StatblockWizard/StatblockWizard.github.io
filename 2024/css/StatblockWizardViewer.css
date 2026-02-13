@@ -1,7 +1,8 @@
 /* Copyright 2023, 2025 StatblockWizard */
-.downloadoptionstext {
+.vieweroptionstext {
     font-size: larger;
     font-weight: bold;
+    vertical-align: bottom;
     margin-left: 15px;
     margin-right: 3px;
 }

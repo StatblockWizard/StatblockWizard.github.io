@@ -71,18 +71,23 @@ function CreateViewerFooter() {
     openCreator.addEventListener('click', () => {
         window.location.replace('2024Creator.html');
     });
+    d.appendChild(d1);
 
-    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1 and 2 column view. The selected option affects the JSON, HTML, and PNG file export.');
-    d1.appendChild(togglecolumns);
+    let d2 = DIV('nobreak');
+
+    d2.appendChild(SPAN('Stat block:', 'vieweroptionstext'))
+
+    let togglecolumns = INPUTbutton('Columns', '1', 'Switch between 1-column and 2-column view. The selected option applies to all files.');
+    d2.appendChild(togglecolumns);
     togglecolumns.addEventListener('click', () => {
         GetStatblockElement().classList.toggle('StatblockWizard-SingleColumn');
         Content[0].columns = 3 - Content[0].columns;
         DBsetStatblockWizard(Content);
     });
 
-    let Transparent = INPUTbutton('Transparent', 't', 'Loop through normal, semi transparent, and fully transparent backgrounds. The selected option affects the HTML and PNG file export.');
-    d1.appendChild(Transparent);
-    Transparent.addEventListener('click', () => {
+    let Transparency = INPUTbutton('Transparency', 't', 'Loop through normal, semi transparent, and fully transparent backgrounds. The selected option affects only the PNG image.');
+    d2.appendChild(Transparency);
+    Transparency.addEventListener('click', () => {
         let sw = GetStatblockElement();
         if (sw) {
             switch (transparency) {
@@ -115,48 +120,31 @@ function CreateViewerFooter() {
             }
         })
     }
-    let upjson = INPUTbutton('Upload JSON', 'u', 'Load a StatblockWizard json file to show the contained stat block.');
-    d1.appendChild(upjson);
+    d.appendChild(d2);
+
+    let d3=DIV('nobreak');
+
+    d3.appendChild(SPAN('File:', 'vieweroptionstext'))
+
+    let upjson = INPUTbutton('Load', 'l', 'Load a StatblockWizard json file to show the contained stat block.');
+    d3.appendChild(upjson);
     upjson.addEventListener('click', () => {
         seljson.click();
     });
 
-    d.appendChild(d1);
-    let d2=DIV('nobreak');
-
-    d2.appendChild(SPAN('Download:', 'downloadoptionstext'))
-
-    let dljsonbutton = INPUTbutton('JSON', 'j', 'Download the current stat block to a StatblockWizard json file. This file will contain all data that is required to later view or edit the stat block again. The name of the stat block will be used for the name of the file.');
-    d2.appendChild(dljsonbutton);
+    let dljsonbutton = INPUTbutton('Save', 's', 'Download the current stat block to a StatblockWizard json file. This file will contain all data that is required to later view or edit the stat block again. The name of the stat block will be used for the name of the file.');
+    d3.appendChild(dljsonbutton);
     dljsonbutton.addEventListener('click', () => {
         downloadjson(Content, StatblockName);
     });
 
-    let dlhtmlbutton = INPUTbutton('HTML', 'h', 'Download the stat block as a StatblockWizard partial html file, containing a DIV element that you can use in your own html files. The file needs a style sheet!');
-    d2.appendChild(dlhtmlbutton);
-    dlhtmlbutton.addEventListener('click', () => {
-        downloadhtml(GetStatblockElement(), StatblockName);
-    });
-
-    let dlcss = INPUTbutton('CSS', 's', 'Show the styling information that defines how StatblockWizard stat blocks look. You are free to use, edit, or redistribute this at your own risk.');
-    d2.appendChild(dlcss);
-    dlcss.addEventListener('click', () => {
-        downloadcss();
-    });
-
-    // let dlsvg = INPUTbutton('SVG', 'g', 'Download the stat block as a StatblockWizard SVG file. This gives you the best image resolution. WARNING: the SVG format used is not widely supported. Test this for your preferred software. Modern browsers support the format.');
-    // d.appendChild(dlsvg);
-    // dlsvg.addEventListener('click', () => {
-    //     downloadAsImageSVG(StatblockName);
-    // });
-
-    let dlpng = INPUTbutton('PNG', 'p', 'Download the stat block as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution.');
-    d2.appendChild(dlpng);
+    let dlpng = INPUTbutton('PNG image', 'p', 'Download the stat block as a StatblockWizard PNG image file. The image is larger than you may expect, to give you good resolution. Resize to 32% for the intended size.');
+    d3.appendChild(dlpng);
     dlpng.addEventListener('click', () => {
         downloadAsImagePNG(StatblockName);
     });
 
-    d.appendChild(d2);
+    d.appendChild(d3);
     
     Viewer.appendChild(d);
 }

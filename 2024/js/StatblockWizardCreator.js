@@ -59,13 +59,13 @@ function CreateCreatorFooter() {
             }
         })
     }
-    let upjson = INPUTbutton('Upload JSON', 'u', 'Load a previously exported StatblockWizard json file into this page, so you can edit it.');
+    let upjson = INPUTbutton('Load Stat block', 'l', 'Load a previously saved StatblockWizard json file into this page, so you can edit it.');
     d.appendChild(upjson);
     upjson.addEventListener('click', () => {
         seljson.click();
     });
 
-    let openViewer = INPUTbutton('Viewer', 'v', 'Open the Viewer using the current stat block. There you can export it in several file formats.');
+    let openViewer = INPUTbutton('Viewer', 'v', 'Save the current stat block in the browser\'s local storage, then show it in the Viewer.');
     d.appendChild(openViewer);
     openViewer.addEventListener('click', () => {
         UpdateContent();
