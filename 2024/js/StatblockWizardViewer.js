@@ -869,7 +869,16 @@ function downloadPNG(StatblockImage, imgexportstylewidth, imgexportstyleheight, 
     ctx.drawImage(StatblockImage, 0, 0);
     var a = document.createElement('a');
     a.href = canvas.toDataURL(`image/png`);
-    a.download = `${filename}.statblockwizard.png`;
+    switch (transparency) {
+        case 1:
+            a.download = `${filename} (semi-transparent).statblockwizard.png`;
+            break;
+        case 2:
+            a.download = `${filename} (transparent).statblockwizard.png`;
+            break;
+        default:
+            a.download = `${filename}.statblockwizard.png`;
+    }
     a.click();
 }
 
