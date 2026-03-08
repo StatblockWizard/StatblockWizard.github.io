@@ -897,7 +897,7 @@ function GetImgCSS() {
         --StatblockWizardModsRow2: #d8c0c0;
         --StatblockWizardSectionHeader: #500000;
         --StatblockWizardGrey: #696969;
-        --StatblockWizardBoxShadow: #d0d0d0;
+        --StatblockWizardBoxShadow: #808080d0;
     }
     
     /* latin-ext */
