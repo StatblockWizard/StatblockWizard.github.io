@@ -4,7 +4,7 @@
     "theme_color": "#fdfdfd",
     "background_color": "#fdfdfd",
     "display": "standalone",
-    "orientation": "any",
+    "orientation": "natural",
     "scope": "/",
     "start_url": "/",
     "description": "Format your 5.5e or 5e statblocks the easy way. You enter the text, Statblock Wizard handles the layout.",
