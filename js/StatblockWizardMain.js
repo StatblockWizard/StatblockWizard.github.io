@@ -11,12 +11,13 @@ function main() {
 
 function addVersionSelect() {
     let v = document.getElementById('versionselect');
+    let versionText;
     if (v) {
         v.innerHTML = '';
         let p = P();
         currentVersion = DBStatblockWizardVersion();
         let text;
-        let vs = SELECT(v, [{"value": versionOriginal, "text": "Original version"},{"value": version2024, "text": "2024 version"}])
+        let vs = SELECT(v, [{"value": versionOriginal, "text": "5e"},{"value": version2024, "text": "5.5e"}])
         vs.setAttribute('id','versionselector');
         vs.addEventListener('change',  function () {
             selectedVersion = this.value;
@@ -27,8 +28,13 @@ function addVersionSelect() {
                 vs.value = version2024;
                 break;
             default:
-                text = `Your current stat block uses the ${currentVersion} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
+                switch ( currentVersion ) {
+                    case versionOriginal: versionText = '5e'; break;
+                    case version2024: versionText = '5.5e'; break;
+                };
+                text = `Your current stat block uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
                 vs.value = currentVersion;
+                break;
         };
         p.appendChild(SPAN(text));
         p.appendChild(BR());
