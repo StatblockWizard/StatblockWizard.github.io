@@ -106,11 +106,11 @@ function addSamples() {
     let d = document.getElementById('StatblockWizardSamples');
     addClassnames(d, 'center');
 
-    d.appendChild(H2('Using the 2024 layout'));
+    d.appendChild(H2('Using the 5.5e layout'));
     d.appendChild(appendSample('Goblin%20Warrior', 'Goblin Warrior', 'a Goblin Warrior', sampleGoblinWarrior));
     d.appendChild(appendSample('Incubus', 'Incubus', 'an Incubus', sampleIncubus, 'samplewide'));
 
-    d.appendChild(H2('Using the Original layout'));
+    d.appendChild(H2('Using the 5e layout'));
     d.appendChild(appendSample('Archmage', 'Archmage', 'an Archmage', sampleArchmage, 'samplewide'));
     d.appendChild(appendSample('Cat', 'Cat', 'a Cat, featuring Zipper', sampleCat, 'samplewide'));
     d.appendChild(appendSample('Cat1', 'Cat (alternate image position)', 'a Cat, featuring Zipper (alternate image position)',  sampleCat1));
