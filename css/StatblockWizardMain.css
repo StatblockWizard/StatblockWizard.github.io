@@ -7,8 +7,8 @@
     --key: #a00000;
     --buttonface: #a8760b; /* #b8860b; */
     --buttonfont: #fdfdfd; /* #f5f5f5; */
-    --sidebarborder: #bcbcbc;
-    --sidebarackground: #f8f4f0;
+    --instructionboxborder: #bcbcbc;
+    --instructionboxbackground: #f8f4f0;
 }
 
 body {
@@ -51,19 +51,19 @@ body {
     font-weight: bold;
 }
 
-.sidebar {
+.instructionbox {
     max-width: 850px;
-    min-width: 400px;
+    min-width: 320px;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    padding: 10px;
-    background-color: var(--sidebarackground);
-    border: 3px var(--sidebarborder) double;
+    padding: 8px;
+    background-color: var(--instructionboxbackground);
+    border: 3px var(--instructionboxborder) double;
     border-radius: 6px;
     text-align: center;
 }
-.sidebar p {
+.instructionbox p {
     margin: 0;
     padding: 0;
 }
