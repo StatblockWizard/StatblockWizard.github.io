@@ -28,7 +28,7 @@
     ],
     "file_handlers": [
         {
-            "action": "/openFile",
+            "action": "./",
             "accept": {
                 "application/json": [
                     ".statblockwizard"
