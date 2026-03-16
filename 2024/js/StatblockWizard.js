@@ -50,6 +50,7 @@ function AddHtmlTo(existing, addition, position = 'last') {
             if (addition.outerHTML != '') {
                 if (position == 'first') {
                     let c = existing.getElementsByClassName(fullClassname('core'));
+                    if (c.length == 0) { c = existing.getElementsByClassName(fullClassname('body')); }
                     if (c.length > 0) {
                         c[0].insertAdjacentHTML('beforebegin', addition.outerHTML);
                         return;
