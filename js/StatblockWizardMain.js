@@ -11,10 +11,13 @@ if ("launchQueue" in window) {
 
 async function OpenFileFromLaunchQueue(files) {
     for (const file of files) {
-        const blob = await file.getFile();
-        blob.handle = file;
-        const text = await blob.text();
-        ProcessFileViewer(text);
+        if (file.kind === 'file' && file.type === 'application/json' && file.name.endsWith('.statblockwizard')) {
+            const blob = await file.getFile();
+            blob.handle = file;
+            const text = await blob.text();
+            ProcessFileViewer(text);
+            return;
+        }
     }
 }
 

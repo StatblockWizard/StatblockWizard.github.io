@@ -45,7 +45,7 @@ function CreateCreatorFooter() {
         StartNewCreator();
     });
 
-    let seljson = INPUTfile('.statblockwizard.json');
+    let seljson = INPUTfile('.statblockwizard.json, .statblockwizard');
     if (seljson) {
         seljson.addEventListener('change', function () {
             var fr = new FileReader();
