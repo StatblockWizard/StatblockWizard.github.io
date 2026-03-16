@@ -6,9 +6,19 @@ window.addEventListener('load', main, false);
 if ("launchQueue" in window) {
   launchQueue.setConsumer(async (launchParams) => {
     for (const file of launchParams.files) { 
-        ProcessFileViewer(file);
+        OpenFileFromLaunchQueue(file);
     }
   });
+}
+
+async function OpenFileFromLaunchQueue(files) {
+    for (const file of files) {
+        const blob = await file.getFile();
+        blob.handle = file;
+        const text = await blob.text();
+
+        ProcessFileViewer(text);
+    }
 }
 
 function main() {
