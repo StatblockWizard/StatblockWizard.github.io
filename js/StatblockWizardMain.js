@@ -9,7 +9,7 @@ if ("launchQueue" in window) {
   });
 }
 
-async function OpenFileFromLaunchQueue(file) {
+async function OpenFileFromLaunchQueue(files) {
     for (const file of files) {
         const blob = await file.getFile();
         blob.handle = file;
