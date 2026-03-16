@@ -3,6 +3,14 @@ var selectedVersion;
 
 window.addEventListener('load', main, false);
 
+if ("launchQueue" in window) {
+  launchQueue.setConsumer(async (launchParams) => {
+    for (const file of launchParams.files) { 
+        ProcessFileViewer(file);
+    }
+  });
+}
+
 function main() {
     addVersionSelect();
     addModules();
