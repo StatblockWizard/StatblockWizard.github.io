@@ -28,12 +28,15 @@
     ],
     "file_handlers": [
         {
-            "action": "./",
+            "action": "/",
             "accept": {
                 "application/json": [
                     ".statblockwizard"
                 ]
             }
         }
-    ]
+    ],
+    "launch_handler": {
+        "client_mode": "focus-existing"
+    }
 }

@@ -10,13 +10,14 @@ if ("launchQueue" in window) {
 }
 
 async function OpenFileFromLaunchQueue(files) {
+    let HandledOne = false;
     for (const file of files) {
-        if (file.kind === 'file' && file.type === 'application/json' && file.name.endsWith('.statblockwizard')) {
+        if (!HandledOne && (file.kind === 'file') && file.name.endsWith('.statblockwizard')) {
             const blob = await file.getFile();
             blob.handle = file;
             const text = await blob.text();
             ProcessFileViewer(text);
-            return;
+            HandledOne = true;
         }
     }
 }
