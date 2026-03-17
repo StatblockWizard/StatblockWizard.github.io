@@ -1,22 +1,22 @@
-    const HOSTNAME_WHITELIST = [
-        self.location.hostname
-    ]
+const HOSTNAME_WHITELIST = [
+    self.location.hostname
+]
 
-    const getFixedUrl = (req) => {
-        var now = Date.now()
-        var url = new URL(req.url)
-        url.protocol = self.location.protocol
-        if (url.hostname === self.location.hostname) {
-            url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
-        }
-        return url.href
+const getFixedUrl = (req) => {
+    var now = Date.now()
+    var url = new URL(req.url)
+    url.protocol = self.location.protocol
+    if (url.hostname === self.location.hostname) {
+        url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
     }
+    return url.href
+}
 
-    self.addEventListener('activate', event => {
-      event.waitUntil(self.clients.claim())
-    })
+self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim())
+})
 
-    self.addEventListener('fetch', event => {
+self.addEventListener('fetch', event => {
     if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
         const cached = caches.match(event.request)
         const fixedUrl = getFixedUrl(event.request)
@@ -28,16 +28,66 @@
         // If there’s nothing in cache, wait for the fetch.
         // If neither yields a response, return offline pages.
         event.respondWith(
-        Promise.race([fetched.catch(_ => cached), cached])
-            .then(resp => resp || fetched)
-            .catch(_ => { /* eat any errors */ })
+            Promise.race([fetched.catch(_ => cached), cached])
+                .then(resp => resp || fetched)
+                .catch(_ => { /* eat any errors */ })
         )
 
         // Update the cache with the version we fetched (only for ok status)
         event.waitUntil(
-        Promise.all([fetchedCopy, caches.open("pwa-cache")])
-            .then(([response, cache]) => response.ok && cache.put(event.request, response))
-            .catch(_ => { /* eat any errors */ })
+            Promise.all([fetchedCopy, caches.open("pwa-cache")])
+                .then(([response, cache]) => response.ok && cache.put(event.request, response))
+                .catch(_ => { /* eat any errors */ })
         )
     }
-    })
+})
+
+self.addEventListener("install", (event) => {
+    event.waitUntil(
+        caches
+            .open("pwa-cache")
+            .then((cache) =>
+                cache.addAll([
+                    "/2024Creator.html",
+                    "/2024Viewer.html",
+                    "/Creator.html",
+                    "/favicon.ico",
+                    "/index.html",
+                    "/Legal.html",
+                    "/Viewer.html",
+                    "/2014/css/StatblockWizard.css",
+                    "/2014/css/StatblockWizardCreator.css",
+                    "/2014/css/StatblockWizardFonts.css",
+                    "/2014/css/StatblockWizardPrint.css",
+                    "/2014/css/StatblockWizardViewer.css",
+                    "/2014/js/StatblockWizard.js",
+                    "/2014/js/StatblockWizardCreator.js",
+                    "/2014/js/StatblockWizardViewer.js",
+                    "/2024/css/StatblockWizard.css",
+                    "/2024/css/StatblockWizardCreator.css",
+                    "/2024/css/StatblockWizardFonts.css",
+                    "/2024/css/StatblockWizardPrint.css",
+                    "/2024/css/StatblockWizardViewer.css",
+                    "/2024/js/StatblockWizard.js",
+                    "/2024/js/StatblockWizardCreator.js",
+                    "/2024/js/StatblockWizardViewer.js",
+                    "/css/StatblockWizardMain.css",
+                    "/js/service-worker.js",
+                    "/js/StatblockWizardMain.js",
+                    "/js/StatblockWizardTools.js",
+                    "/res/Archmage.statblockwizard.png",
+                    "/res/Cat.statblockwizard.png",
+                    "/res/Cat1.statblockwizard.png",
+                    "/res/Goblin%20Warrior.statblockwizard.png",
+                    "/res/Incubus.statblockwizard.png",
+                    "/res/OFL.txt",
+                    "/res/StatblockWizard-Creator-Buttons.pdf",
+                    "/res/StatblockWizard.png",
+                    "/res/StatblockWizard_192.png",
+                    "/res/StatblockWizard_256_m.png",
+                    "/res/StatblockWizard_512.png",
+                    "/res/What%20do%20the%20buttons%20do_.statblockwizard.json"
+                ]),
+            ),
+    );
+});
