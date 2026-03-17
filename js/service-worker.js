@@ -48,6 +48,7 @@ self.addEventListener("install", (event) => {
             .open("pwa-cache")
             .then((cache) =>
                 cache.addAll([
+                    "/",
                     "/2024Creator.html",
                     "/2024Viewer.html",
                     "/Creator.html",
@@ -85,8 +86,7 @@ self.addEventListener("install", (event) => {
                     "/res/StatblockWizard.png",
                     "/res/StatblockWizard_192.png",
                     "/res/StatblockWizard_256_m.png",
-                    "/res/StatblockWizard_512.png",
-                    "/res/What%20do%20the%20buttons%20do_.statblockwizard.json"
+                    "/res/StatblockWizard_512.png"
                 ]),
             ),
     );
