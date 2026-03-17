@@ -3,25 +3,6 @@ var selectedVersion;
 
 window.addEventListener('load', main, false);
 
-if ("launchQueue" in window) {
-  launchQueue.setConsumer(async (launchParams) => {
-        OpenFileFromLaunchQueue(launchParams.files);
-  });
-}
-
-async function OpenFileFromLaunchQueue(files) {
-    let HandledOne = false;
-    for (const file of files) {
-        if (!HandledOne && (file.kind === 'file') && file.name.endsWith('.statblockwizard')) {
-            const blob = await file.getFile();
-            blob.handle = file;
-            const text = await blob.text();
-            ProcessFileViewer(text);
-            HandledOne = true;
-        }
-    }
-}
-
 function main() {
     addVersionSelect();
     addModules();
