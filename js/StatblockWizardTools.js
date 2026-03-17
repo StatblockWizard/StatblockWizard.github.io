@@ -1,4 +1,4 @@
-// Copyright 2025 StatblockWizard
+// Copyright 2025,2026 StatblockWizard
 var currentID = 0;
 var CreatingStatblock = false;
 const versionNone = 'None';
@@ -7,6 +7,25 @@ const version2024 = '2024';
 var currentVersion;
 
 window.addEventListener('load', CreateHomeLinks, false);
+
+if ("launchQueue" in window) {
+  launchQueue.setConsumer(async (launchParams) => {
+        OpenFileFromLaunchQueue(launchParams.files);
+  });
+}
+
+async function OpenFileFromLaunchQueue(files) {
+    let HandledOne = false;
+    for (const file of files) {
+        if (!HandledOne && (file.kind === 'file') && file.name.endsWith('.statblockwizard')) {
+            const blob = await file.getFile();
+            blob.handle = file;
+            const text = await blob.text();
+            ProcessFileViewer(text);
+            HandledOne = true;
+        }
+    }
+}
 
 // #region Tools
 function CreateHomeLinks() {
