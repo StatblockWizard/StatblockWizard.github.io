@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.2";
+const appversion = "3.1.3";
 
 window.addEventListener('load', main, false);
 
@@ -137,7 +137,7 @@ function appendSample(filename, statblockname, statblocktext, statblockcontent, 
 }
 
 function sampleArchmage() {
-    return getSampleStatblock("rchmage");
+    return getSampleStatblock("Archmage");
 }
 
 function sampleCat() {
@@ -161,7 +161,7 @@ function getSampleStatblock(name) {
     request.open('GET', `res/${name}.statblockwizard`, false);
     request.send(null);
     if (request.status === 200) {
-        return request.responseText;
+        return JSON.parse(request.responseText);
     } else {
         alert(`Error loading sample stat block: ${name}`);
         return '';
