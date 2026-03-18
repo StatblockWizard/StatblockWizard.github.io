@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.1"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.2"; // Update this to force the service worker to update and re-cache everything
 
 const HOSTNAME_WHITELIST = [
     self.location.hostname
@@ -44,52 +44,58 @@ self.addEventListener('fetch', event => {
     }
 })
 
+const addResourceToCache = async (resources) => {
+    const cache = await caches.open("pwa-cache");
+    await cache.addAll(resources);
+}
+
 self.addEventListener("install", (event) => {
     event.waitUntil(
-        caches
-            .open("pwa-cache")
-            .then((cache) =>
-                cache.addAll([
-                    "/",
-                    "/2024Creator.html",
-                    "/2024Viewer.html",
-                    "/Creator.html",
-                    "/favicon.ico",
-                    "/index.html",
-                    "/Legal.html",
-                    "/Viewer.html",
-                    "/2014/css/StatblockWizard.css",
-                    "/2014/css/StatblockWizardCreator.css",
-                    "/2014/css/StatblockWizardFonts.css",
-                    "/2014/css/StatblockWizardPrint.css",
-                    "/2014/css/StatblockWizardViewer.css",
-                    "/2014/js/StatblockWizard.js",
-                    "/2014/js/StatblockWizardCreator.js",
-                    "/2014/js/StatblockWizardViewer.js",
-                    "/2024/css/StatblockWizard.css",
-                    "/2024/css/StatblockWizardCreator.css",
-                    "/2024/css/StatblockWizardFonts.css",
-                    "/2024/css/StatblockWizardPrint.css",
-                    "/2024/css/StatblockWizardViewer.css",
-                    "/2024/js/StatblockWizard.js",
-                    "/2024/js/StatblockWizardCreator.js",
-                    "/2024/js/StatblockWizardViewer.js",
-                    "/css/StatblockWizardMain.css",
-                    "/js/service-worker.js",
-                    "/js/StatblockWizardMain.js",
-                    "/js/StatblockWizardTools.js",
-                    "/res/Archmage.statblockwizard.png",
-                    "/res/Cat.statblockwizard.png",
-                    "/res/Cat1.statblockwizard.png",
-                    "/res/Goblin%20Warrior.statblockwizard.png",
-                    "/res/Incubus.statblockwizard.png",
-                    "/res/OFL.txt",
-                    "/res/StatblockWizard-Creator-Buttons.pdf",
-                    "/res/StatblockWizard.png",
-                    "/res/StatblockWizard_192.png",
-                    "/res/StatblockWizard_256_m.png",
-                    "/res/StatblockWizard_512.png"
-                ]),
-            ),
+        addResourceToCache([
+            "/",
+            "/2024Creator.html",
+            "/2024Viewer.html",
+            "/Creator.html",
+            "/favicon.ico",
+            "/index.html",
+            "/Legal.html",
+            "/Viewer.html",
+            "/2014/css/StatblockWizard.css",
+            "/2014/css/StatblockWizardCreator.css",
+            "/2014/css/StatblockWizardFonts.css",
+            "/2014/css/StatblockWizardPrint.css",
+            "/2014/css/StatblockWizardViewer.css",
+            "/2014/js/StatblockWizard.js",
+            "/2014/js/StatblockWizardCreator.js",
+            "/2014/js/StatblockWizardViewer.js",
+            "/2024/css/StatblockWizard.css",
+            "/2024/css/StatblockWizardCreator.css",
+            "/2024/css/StatblockWizardFonts.css",
+            "/2024/css/StatblockWizardPrint.css",
+            "/2024/css/StatblockWizardViewer.css",
+            "/2024/js/StatblockWizard.js",
+            "/2024/js/StatblockWizardCreator.js",
+            "/2024/js/StatblockWizardViewer.js",
+            "/css/StatblockWizardMain.css",
+            "/js/StatblockWizardMain.js",
+            "/js/StatblockWizardTools.js",
+            "/res/Archmage.statblockwizard",
+            "/res/Archmage.statblockwizard.png",
+            "/res/Cat.statblockwizard",
+            "/res/Cat.statblockwizard.png",
+            "/res/Cat1.statblockwizard",
+            "/res/Cat1.statblockwizard.png",
+            "/res/Goblin%20Warrior.statblockwizard",
+            "/res/Goblin%20Warrior.statblockwizard.png",
+            "/res/Incubus.statblockwizard",
+            "/res/Incubus.statblockwizard.png",
+            "/res/OFL.txt",
+            "/res/StatblockWizard-Creator-Buttons.pdf",
+            "/res/StatblockWizard.png",
+            "/res/StatblockWizard_192.png",
+            "/res/StatblockWizard_256_m.png",
+            "/res/StatblockWizard_512.png"
+        ])
     );
+    console.log("Service worker installed and resources cached");
 });
