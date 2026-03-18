@@ -1,12 +1,21 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
+const appversion = "3.1.1";
 
 window.addEventListener('load', main, false);
 
 function main() {
+    addAppVersion();
     addVersionSelect();
     addModules();
     addSamples();
+}
+
+function addAppVersion() {
+    let e = document.getElementById('appversion');
+    if (e) {
+        e.appendChild(SPAN(`v${appversion}`));
+    }
 }
 
 function addVersionSelect() {
