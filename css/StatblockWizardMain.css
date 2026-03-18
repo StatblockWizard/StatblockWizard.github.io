@@ -51,6 +51,15 @@ body {
     font-weight: bold;
 }
 
+div#appversion {
+    position: absolute;
+    top: 1mm;
+    right: 1mm;
+    font-size: small;
+    color: var(--fore);
+    opacity: 0.5;
+}
+
 .instructionbox {
     max-width: 850px;
     min-width: 320px;
