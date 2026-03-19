@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.3"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.4"; // Update this to force the service worker to update and re-cache everything
 
 const HOSTNAME_WHITELIST = [
     self.location.hostname
@@ -94,8 +94,9 @@ self.addEventListener("install", (event) => {
             "/res/StatblockWizard.png",
             "/res/StatblockWizard_192.png",
             "/res/StatblockWizard_256_m.png",
-            "/res/StatblockWizard_512.png"
+            "/res/StatblockWizard_512.png",
+            "/res/Statblock_Wizard_demo_2014.statblockwizard",
+            "/res/Statblock_Wizard_demo_2024.statblockwizard"
         ])
     );
-    console.log("Service worker installed and resources cached");
 });
