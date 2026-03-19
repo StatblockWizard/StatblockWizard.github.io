@@ -1,6 +1,18 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.4";
+const appversion = "3.1.5";
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/service-worker.js')
+        .then((registration) => {
+            console.log('Service worker registration succeeded:', registration);
+        })
+        .catch((error) => {
+            console.error('Service worker registration failed:', error);
+        });
+} else {
+    console.error('Service workers are not supported.');
+}
 
 window.addEventListener('load', main, false);
 
@@ -26,18 +38,18 @@ function addVersionSelect() {
         let p = P();
         currentVersion = DBStatblockWizardVersion();
         let text;
-        let vs = SELECT(v, [{"value": versionOriginal, "text": "5e"},{"value": version2024, "text": "5.5e"}])
-        vs.setAttribute('id','versionselector');
-        vs.addEventListener('change',  function () {
+        let vs = SELECT(v, [{ "value": versionOriginal, "text": "5e" }, { "value": version2024, "text": "5.5e" }])
+        vs.setAttribute('id', 'versionselector');
+        vs.addEventListener('change', function () {
             selectedVersion = this.value;
         });
-        switch ( currentVersion ) {
+        switch (currentVersion) {
             case versionNone:
                 text = "Currently, there is no stat block stored in this browser's local storage.";
                 vs.value = version2024;
                 break;
             default:
-                switch ( currentVersion ) {
+                switch (currentVersion) {
                     case versionOriginal: versionText = '5e'; break;
                     case version2024: versionText = '5.5e'; break;
                 };
@@ -48,11 +60,11 @@ function addVersionSelect() {
         p.appendChild(SPAN(text));
         p.appendChild(BR());
         let s = SPAN('');
-        s.appendChild(LABEL('versionselector','Select the version to use'));
+        s.appendChild(LABEL('versionselector', 'Select the version to use'));
         s.appendChild(vs);
         p.appendChild(s);
         p.appendChild(BR());
-        p.appendChild(SPAN('There is no automatic conversion of stat blocks between versions.','note'));
+        p.appendChild(SPAN('There is no automatic conversion of stat blocks between versions.', 'note'));
         v.appendChild(p);
         selectedVersion = document.getElementById('versionselector').value;
     }
@@ -81,8 +93,8 @@ function addLicenseLink(e) {
 }
 
 function addMainPageLink(e, text, accessKey, link, alt, className) {
-    let newMainPageLink = INPUTbutton(text,accessKey, alt,className);
-    addClassnames(newMainPageLink,'mainpagelink');
+    let newMainPageLink = INPUTbutton(text, accessKey, alt, className);
+    addClassnames(newMainPageLink, 'mainpagelink');
     e.appendChild(newMainPageLink);
     newMainPageLink.addEventListener('click', () => {
         switch (link) {
@@ -102,7 +114,7 @@ function addMainPageLink(e, text, accessKey, link, alt, className) {
 function addClearLastSaved(e) {
     let t = 'Clear saved stat block';
     let tx = "Remove all data that was stored by this app from your browser's storage.";
-    let newMainPageLink = INPUTbutton(t,'', tx,'mainpagelink');
+    let newMainPageLink = INPUTbutton(t, '', tx, 'mainpagelink');
     e.appendChild(newMainPageLink);
     newMainPageLink.addEventListener('click', () => {
         DBclearStatblockWizard();
@@ -122,12 +134,12 @@ function addSamples() {
     d.appendChild(H2('Using the 5e layout'));
     d.appendChild(appendSample('Archmage', 'Archmage', 'an Archmage', sampleArchmage, 'samplewide'));
     d.appendChild(appendSample('Cat', 'Cat', 'a Cat, featuring Zipper', sampleCat, 'samplewide'));
-    d.appendChild(appendSample('Cat1', 'Cat (alternate image position)', 'a Cat, featuring Zipper (alternate image position)',  sampleCat1));
+    d.appendChild(appendSample('Cat1', 'Cat (alternate image position)', 'a Cat, featuring Zipper (alternate image position)', sampleCat1));
 }
 
 function appendSample(filename, statblockname, statblocktext, statblockcontent, extracss) {
     let sample = FIGURE(`res/${filename}.statblockwizard.png`, statblockname, `StatblockWizard sample stat block of ${statblocktext}.`, 'samplefigure', 'sampleimage', 'samplecaption');
-    if (extracss) addClassnames (sample, extracss)
+    if (extracss) addClassnames(sample, extracss)
     sample.addEventListener('click', () => {
         let samplecontent = statblockcontent();
         DBsetStatblockWizard(samplecontent);
