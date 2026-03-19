@@ -729,11 +729,11 @@ function fullClassname(name, whileCreatingStatblock = true) {
 
 // #region Demo Statblocks
 function GetStatblocWizardDemoOriginal() {
-    getSampleStatblock("Statblock_Wizard_demo_2014");
+    return(getSampleStatblock("Statblock_Wizard_demo_2014"));
 }
 
 function GetStatblocWizardDemo2024() {
-    getSampleStatblock("Statblock_Wizard_demo_2024");
+    return(getSampleStatblock("Statblock_Wizard_demo_2024"));
 }
 
 function getSampleStatblock(name) {
