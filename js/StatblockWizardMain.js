@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.3";
+const appversion = "3.1.4";
 
 window.addEventListener('load', main, false);
 
@@ -156,14 +156,3 @@ function sampleIncubus() {
     return getSampleStatblock("Incubus");
 }
 
-function getSampleStatblock(name) {
-    let request = new XMLHttpRequest();
-    request.open('GET', `res/${name}.statblockwizard`, false);
-    request.send(null);
-    if (request.status === 200) {
-        return JSON.parse(request.responseText);
-    } else {
-        alert(`Error loading sample stat block: ${name}`);
-        return '';
-    }
-}
