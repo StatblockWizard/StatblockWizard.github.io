@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.5"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.6"; // Update this to force the service worker to update and re-cache everything
 
 const HOSTNAME_WHITELIST = [
     self.location.hostname
