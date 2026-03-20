@@ -79,8 +79,7 @@
 }
 
 .StatblockWizard-nbspbefore::before,
-.StatblockWizard-nbspafter::after,
-.StatblockWizard-keyword::after {
+.StatblockWizard-nbspafter::after {
     content: '\0000a0';
 }
 
@@ -291,16 +290,6 @@
     content: ' ';
 }
 
-.StatblockWizard-attacktype::after,
-.StatblockWizard-hit::after,
-.StatblockWizard-hitmiss::after,
-.StatblockWizard-savingthrowtype::after,
-.StatblockWizard-savingthrowresult::after,
-.StatblockWizard-trigger::after,
-.StatblockWizard-response::after {
-    content: '\0000a0';
-}
-
 .StatblockWizard-detailline {
     text-indent: -1em;
     padding-left: 1em;
@@ -321,10 +310,6 @@
 
 .StatblockWizard-spellliststart {
     font-weight: bold;
-}
-
-.StatblockWizard-spellliststart::after {
-    content: '\0000a0';
 }
 
 .StatblockWizard-spell {
@@ -371,10 +356,6 @@ dt.StatblockWizard-keyword,
 dt.StatblockWizard-spellliststart {
     float: left;
     clear: left;
-}
-
-dt.StatblockWizard-keyword::after {
-    content: '\0000a0';
 }
 
 dd.StatblockWizard-listitem,
