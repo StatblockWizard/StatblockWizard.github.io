@@ -373,7 +373,10 @@ function ClearStatblockTables() {
 function Ostring(element) {
     if (element.value) {
         let p = P('', element.css);
-        if (element.showcaption) { p.appendChild(SPAN(element.caption, element.captioncss)); };
+        if (element.showcaption) { 
+            p.appendChild(SPAN(element.caption, element.captioncss));
+            p.appendChild(SPAN(' '));
+        };
         p.appendChild(SPAN(element.value));
         if (element.css == 'title') { StatblockName = element.value.replace(/<[^>]*>/g, ' ') };
         return p;
@@ -529,7 +532,10 @@ function OStatblockTable(StatblockTable) {
 function Oskills5e(element) {
     if (element.value) {
         let p = P('', element.css);
-        if (element.showcaption) { p.appendChild(SPAN(element.caption, element.captioncss)); };
+        if (element.showcaption) { 
+            p.appendChild(SPAN(element.caption, element.captioncss));
+            p.appendChild(SPAN(' '));
+        };
         p.appendChild(CatchSkillsInSpan(element.value, element.skillcss));
         return p;
     };
@@ -550,7 +556,10 @@ function Osenses5e(element) {
 function Olanguages5e(element) {
     if (element.value) {
         let p = P('', element.css);
-        if (element.showcaption) { p.appendChild(SPAN(element.caption, element.captioncss)); };
+        if (element.showcaption) {
+            p.appendChild(SPAN(element.caption, element.captioncss));
+            p.appendChild(SPAN(' '));
+        };
         p.appendChild(CatchLanguages(element.value));
         return p;
     };
@@ -564,11 +573,13 @@ function Ocr5e(element) {
             let p = P('', element.css);
             let scr = SPAN('', element.crcss);
             scr.appendChild(SPAN(element.caption, element.captioncss));
+            scr.appendChild(SPAN(' '));
             scr.appendChild(TEXTNODE(cr.text));
             p.appendChild(scr);
 
             let sproficiency = SPAN('', element.proficiencycss);
             sproficiency.appendChild(SPAN(element.proficiencycaption, element.proficiencycaptioncss));
+            sproficiency.appendChild(SPAN(' '));
             sproficiency.appendChild(TEXTNODE(cr.proficiencybonus));
             p.appendChild(sproficiency);
             return p;
@@ -615,7 +626,8 @@ function Qnamedstring(value) {
 
 function Onamedstring(value, csselement) {
     let l = P('', csselement.css);
-    l.appendChild(SPAN(value.caption, csselement.captioncss))
+    l.appendChild(SPAN(value.caption, csselement.captioncss));
+    l.appendChild(SPAN(' '));
     l.appendChild(SPAN(value.value));
     return l;
 }
@@ -657,12 +669,16 @@ function Oattack2024(value, csselement) {
     if ((c + at + a + h + hm) != '') {
         let l = P('', csselement.css);
         l.appendChild(CatchAttackNameInSpan(c, csselement.captioncss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(attacktype2024()[at].text, csselement.attackcss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(a));
         l.appendChild(SPAN('Hit:', csselement.hitcss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(h));
         if (hm != '') {
             l.appendChild(SPAN('Hit or Miss:', csselement.hitmisscss));
+            l.appendChild(SPAN(' '));
             l.appendChild(SPAN(hm));
         }
         return l;
@@ -682,25 +698,32 @@ function Osave2024(value, csselement) {
         // "captioncss": "keyword", "savetypecss": "savingthrowtype", "saveresultcss": "savingthrowresult"
         let l = P('', csselement.css);
         l.appendChild(CatchAttackNameInSpan(c, csselement.captioncss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(savetype2024()[st].text, csselement.savetypecss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(dc));
         if (f != '') {
             if (f2 == '') {
                 l.appendChild(SPAN('Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(' '));
                 l.appendChild(SPAN(f));
             } else {
                 l.appendChild(SPAN('First Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(' '));
                 l.appendChild(SPAN(f));
                 l.appendChild(SPAN('Second Failure:', csselement.saveresultcss));
+                l.appendChild(SPAN(' '));
                 l.appendChild(SPAN(f2));
             }
         }
         if (s != '') {
             l.appendChild(SPAN('Success:', csselement.saveresultcss));
+            l.appendChild(SPAN(' '));
             l.appendChild(SPAN(s));
         }
         if (fs != '') {
             l.appendChild(SPAN('Failure or Success:', csselement.saveresultcss));
+            l.appendChild(SPAN(' '));
             l.appendChild(SPAN(fs));
         }
         return l;
@@ -716,8 +739,10 @@ function Oreaction2024(value, csselement) {
         let l = P('', csselement.css);
         l.appendChild(CatchAttackNameInSpan(c, csselement.captioncss));
         l.appendChild(SPAN('Trigger:', csselement.triggercss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(t));
         l.appendChild(SPAN('Response:', csselement.responsecss));
+        l.appendChild(SPAN(' '));
         l.appendChild(SPAN(r));
         return l;
     }
@@ -729,7 +754,8 @@ function Ospells5e(value, csselement) { //deprecated
     let t = value.value;
     if ((c + t) != '') {
         let l = P('', csselement.css);
-        l.appendChild(SPAN(c, csselement.startcss))
+        l.appendChild(SPAN(c, csselement.startcss));
+        l.appendChild(SPAN(' '));
         l.appendChild(CatchSpellNamesInSpan(t, csselement.spellnamecss));
         return l;
     }
@@ -978,8 +1004,7 @@ function GetImgCSS() {
 }
 
 .StatblockWizard-nbspbefore::before,
-.StatblockWizard-nbspafter::after,
-.StatblockWizard-keyword::after {
+.StatblockWizard-nbspafter::after {
     content: '\u00a0';
 }
 
@@ -1188,16 +1213,6 @@ function GetImgCSS() {
     content: ' ';
 }
 
-.StatblockWizard-attacktype::after,
-.StatblockWizard-hit::after,
-.StatblockWizard-hitmiss::after,
-.StatblockWizard-savingthrowtype::after,
-.StatblockWizard-savingthrowresult::after,
-.StatblockWizard-trigger::after,
-.StatblockWizard-response::after {
-    content: '\u00a0';
-}
-
 .StatblockWizard-detailline {
     text-indent: -1em;
     padding-left: 1em;
@@ -1218,10 +1233,6 @@ function GetImgCSS() {
 
 .StatblockWizard-spellliststart {
     font-weight: bold;
-}
-
-.StatblockWizard-spellliststart::after {
-    content: '\u00a0';
 }
 
 .StatblockWizard-spell {
@@ -1268,10 +1279,6 @@ dt.StatblockWizard-keyword,
 dt.StatblockWizard-spellliststart {
     float: left;
     clear: left;
-}
-
-dt.StatblockWizard-keyword::after {
-    content: '\u00a0';
 }
 
 dd.StatblockWizard-listitem,
