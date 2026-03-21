@@ -1,53 +1,38 @@
-const statblockwizardappversion = "3.1.5"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.7"; // Update this to force the service worker to update and re-cache everything
 
-const HOSTNAME_WHITELIST = [
-    self.location.hostname
-]
+const addResourcesToCache = async (resources) => {
+  const cache = await caches.open('pwa-cache');
+  await cache.addAll(resources);
+};
 
-const getFixedUrl = (req) => {
-    var now = Date.now()
-    var url = new URL(req.url)
-    url.protocol = self.location.protocol
-    if (url.hostname === self.location.hostname) {
-        url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
+const putInCache = async (request, response) => {
+  const cache = await caches.open('pwa-cache');
+  await cache.put(request, response);
+};
+
+const cacheFirst = async ({ request, preloadResponsePromise, fallbackUrl }) => {
+  // First try to get the resource from the cache
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
+  }
+
+  // Next try to get the resource from the network
+  try {
+    const responseFromNetwork = await fetch(request.clone());
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+  } catch (error) {
+    const fallbackResponse = await caches.match(fallbackUrl);
+    if (fallbackResponse) {
+      return fallbackResponse;
     }
-    return url.href
-}
-
-self.addEventListener('activate', event => {
-    event.waitUntil(self.clients.claim())
-})
-
-self.addEventListener('fetch', event => {
-    if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
-        const cached = caches.match(event.request)
-        const fixedUrl = getFixedUrl(event.request)
-        const fetched = fetch(fixedUrl, { cache: 'no-store' })
-        const fetchedCopy = fetched.then(resp => resp.clone())
-
-        // Call respondWith() with whatever we get first.
-        // If the fetch fails (e.g disconnected), wait for the cache.
-        // If there’s nothing in cache, wait for the fetch.
-        // If neither yields a response, return offline pages.
-        event.respondWith(
-            Promise.race([fetched.catch(_ => cached), cached])
-                .then(resp => resp || fetched)
-                .catch(_ => { /* eat any errors */ })
-        )
-
-        // Update the cache with the version we fetched (only for ok status)
-        event.waitUntil(
-            Promise.all([fetchedCopy, caches.open("pwa-cache")])
-                .then(([response, cache]) => response.ok && cache.put(event.request, response))
-                .catch(_ => { /* eat any errors */ })
-        )
-    }
-})
-
-const addResourceToCache = async (resources) => {
-    const cache = await caches.open("pwa-cache");
-    await cache.addAll(resources);
-}
+    return new Response('Network error happened', {
+      status: 408,
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  }
+};
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
@@ -99,4 +84,13 @@ self.addEventListener("install", (event) => {
             "/res/Statblock_Wizard_demo_2024.statblockwizard"
         ])
     );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    cacheFirst({
+      request: event.request,
+      preloadResponsePromise: event.preloadResponse,
+    })
+  );
 });
