@@ -1,40 +1,81 @@
-const statblockwizardappversion = "3.1.7"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.8"; // Update this to force the service worker to update and re-cache everything
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open('pwa-cache');
   await cache.addAll(resources);
 };
 
-const putInCache = async (request, response) => {
-  const cache = await caches.open('pwa-cache');
-  await cache.put(request, response);
-};
+const getFixedUrl = (req) => {
+    var url = new URL(req.url)
+    url.protocol = self.location.protocol
+    return url.href
+}
 
-const cacheFirst = async ({ request, preloadResponsePromise, fallbackUrl }) => {
-  // First try to get the resource from the cache
-  const responseFromCache = await caches.match(request);
-  if (responseFromCache) {
-    return responseFromCache;
-  }
+self.addEventListener('activate', event => {
+    console.log('Service Worker activating...');
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    // Delete old caches if needed
+                    if (cacheName !== "pwa-cache") {
+                        console.log('Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => {
+            console.log('Service Worker activated');
+            return self.clients.claim();
+        })
+    );
+})
 
-  // Next try to get the resource from the network
-  try {
-    const responseFromNetwork = await fetch(request.clone());
-    putInCache(request, responseFromNetwork.clone());
-    return responseFromNetwork;
-  } catch (error) {
-    const fallbackResponse = await caches.match(fallbackUrl);
-    if (fallbackResponse) {
-      return fallbackResponse;
+self.addEventListener('fetch', event => {
+    if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
+        const cached = caches.match(event.request)
+        const fixedUrl = getFixedUrl(event.request)
+        const fetched = fetch(fixedUrl, { cache: 'no-store' })
+        const fetchedCopy = fetched.then(resp => resp.clone())
+
+        // Call respondWith() with whatever we get first.
+        // If the fetch fails (e.g disconnected), wait for the cache.
+        // If there’s nothing in cache, wait for the fetch.
+        // If neither yields a response, return offline pages.
+        event.respondWith(
+            Promise.race([fetched.catch(_ => cached), cached])
+                .then(resp => resp || fetched)
+                .catch(error => { 
+                    console.warn('Fetch failed for:', event.request.url, error);
+                    return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
+                })
+        )
+
+        // Update the cache with the version we fetched (only for ok status)
+        event.waitUntil(
+            Promise.all([fetchedCopy, caches.open("pwa-cache")])
+                .then(([response, cache]) => {
+                    if (response.ok) {
+                        return cache.put(event.request, response);
+                    }
+                })
+                .catch(error => { 
+                    console.warn('Cache update failed for:', event.request.url, error);
+                })
+        )
     }
-    return new Response('Network error happened', {
-      status: 408,
-      headers: { 'Content-Type': 'text/plain' },
-    });
-  }
-};
+})
+
+const addResourceToCache = async (resources) => {
+    const cache = await caches.open("pwa-cache");
+    await cache.addAll(resources);
+}
 
 self.addEventListener("install", (event) => {
+    console.log('Service Worker installing...');
+    // Force the waiting service worker to become the active service worker
+    self.skipWaiting();
+    
     event.waitUntil(
         addResourceToCache([
             "/",
@@ -82,7 +123,12 @@ self.addEventListener("install", (event) => {
             "/res/StatblockWizard_512.png",
             "/res/Statblock_Wizard_demo_2014.statblockwizard",
             "/res/Statblock_Wizard_demo_2024.statblockwizard"
-        ])
+        ]).then(() => {
+            console.log('Service Worker installed successfully');
+        }).catch(error => {
+            console.error('Service Worker installation failed:', error);
+            throw error;
+        })
     );
 });
 
