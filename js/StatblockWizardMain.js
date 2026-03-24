@@ -1,15 +1,21 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.8";
+const appversion = "3.1.9";
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/js/service-worker.js')
-        .then((registration) => {
-            console.log('Service worker registration succeeded:', registration);
-        })
-        .catch((error) => {
-            console.error('Service worker registration failed:', error);
-        });
+    navigator.serviceWorker.getRegistration("/app").then((registration) => {
+        if (registration) {
+            console.log('Service worker already registered:', registration);
+        } else {
+            navigator.serviceWorker.register('/js/service-worker.js')
+                .then((registration) => {
+                    console.log('Service worker registration succeeded:', registration);
+                })
+                .catch((error) => {
+                    console.error('Service worker registration failed:', error);
+                });
+        }
+    });
 } else {
     console.error('Service workers are not supported.');
 }
@@ -32,17 +38,17 @@ function addAppVersion() {
 function addVersionSelect() {
     const v = document.getElementById('versionselect');
     if (!v) return;
-    
+
     v.innerHTML = '';
     const p = P();
     currentVersion = DBStatblockWizardVersion();
-    
+
     const vs = SELECT(v, [{ "value": versionOriginal, "text": "5e" }, { "value": version2024, "text": "5.5e" }]);
     vs.id = 'versionselector';
-    vs.addEventListener('change', function() {
+    vs.addEventListener('change', function () {
         selectedVersion = this.value;
     });
-    
+
     let text;
     if (currentVersion === versionNone) {
         text = "Currently, there is no stat block stored in this browser's local storage.";
@@ -52,7 +58,7 @@ function addVersionSelect() {
         text = `Your current stat block uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
         vs.value = currentVersion;
     }
-    
+
     p.appendChild(SPAN(text));
     p.appendChild(BR());
     const s = SPAN('');
@@ -68,7 +74,7 @@ function addVersionSelect() {
 function addModules() {
     const e = document.getElementById('StatblockWizardModules');
     if (!e) return;
-    
+
     addModuleViewer(e);
     addModuleCreator(e);
     addLicenseLink(e);
@@ -91,13 +97,13 @@ function addMainPageLink(e, text, accessKey, link, alt, className) {
     const newMainPageLink = INPUTbutton(text, accessKey, alt, className);
     addClassnames(newMainPageLink, 'mainpagelink');
     e.appendChild(newMainPageLink);
-    
+
     const actions = {
         'creator': () => OpenCreator(selectedVersion),
         'viewer': () => OpenViewer(selectedVersion),
         'legal': () => window.location.replace('Legal.html')
     };
-    
+
     newMainPageLink.addEventListener('click', actions[link]);
 }
 
@@ -140,7 +146,7 @@ function appendSample(filename, statblockname, statblocktext, sampleName, extrac
         'samplecaption'
     );
     if (extracss) addClassnames(sample, extracss);
-    
+
     sample.addEventListener('click', () => {
         const samplecontent = getSampleStatblock(sampleName);
         DBsetStatblockWizard(samplecontent);
