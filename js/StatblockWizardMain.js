@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.9";
+const appversion = "3.1.10";
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistration("/app").then((registration) => {
