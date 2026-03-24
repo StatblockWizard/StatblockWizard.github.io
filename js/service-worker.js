@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.8"; // Update this to force the service worker to update and re-cache everything
+const statblockwizardappversion = "3.1.9"; // Update this to force the service worker to update and re-cache everything
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open('pwa-cache');
