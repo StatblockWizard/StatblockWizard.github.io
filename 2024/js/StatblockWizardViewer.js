@@ -1279,6 +1279,7 @@ dt.StatblockWizard-keyword,
 dt.StatblockWizard-spellliststart {
     float: left;
     clear: left;
+    padding-right: 1mm;
 }
 
 dd.StatblockWizard-listitem,

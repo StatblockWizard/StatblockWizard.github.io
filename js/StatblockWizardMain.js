@@ -1,24 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.10";
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistration("/app").then((registration) => {
-        if (registration) {
-            console.log('Service worker already registered:', registration);
-        } else {
-            navigator.serviceWorker.register('/js/service-worker.js')
-                .then((registration) => {
-                    console.log('Service worker registration succeeded:', registration);
-                })
-                .catch((error) => {
-                    console.error('Service worker registration failed:', error);
-                });
-        }
-    });
-} else {
-    console.error('Service workers are not supported.');
-}
+const appversion = "3.1.11";
 
 window.addEventListener('load', main, false);
 
@@ -127,7 +109,7 @@ function addSamples() {
     addClassnames(d, 'center');
 
     d.appendChild(H2('Using the 5.5e layout'));
-    d.appendChild(appendSample('Goblin%20Warrior', 'Goblin Warrior', 'a Goblin Warrior', 'GoblinWarrior'));
+    d.appendChild(appendSample('GoblinWarrior', 'Goblin Warrior', 'a Goblin Warrior', 'GoblinWarrior'));
     d.appendChild(appendSample('Incubus', 'Incubus', 'an Incubus', 'Incubus', 'samplewide'));
 
     d.appendChild(H2('Using the 5e layout'));
@@ -154,6 +136,3 @@ function appendSample(filename, statblockname, statblocktext, sampleName, extrac
     });
     return sample;
 }
-
-
-

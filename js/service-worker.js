@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.10";
+const statblockwizardappversion = "3.1.11";
 
 const CACHE_NAME = "pwa-cache";
 
@@ -100,7 +100,8 @@ self.addEventListener('install', (event) => {
             '/res/Archmage.statblockwizard',
             '/res/Cat.statblockwizard',
             '/res/Cat1.statblockwizard',
-            '/res/Goblin%20Warrior.statblockwizard',
+            '/res/GoblinWarrior.statblockwizard',
+            '/res/GoblinWarrior.statblockwizard.png',
             '/res/Incubus.statblockwizard',
             '/res/OFL.txt',
             '/res/StatblockWizard-Creator-Buttons.pdf',
@@ -114,7 +115,6 @@ self.addEventListener('install', (event) => {
             console.log('Service Worker installed successfully');
         }).catch(error => {
             console.error('Service Worker installation failed:', error);
-            throw error;
         })
     );
 });
