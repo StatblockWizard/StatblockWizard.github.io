@@ -1,4 +1,4 @@
-const statblockwizardappversion = "3.1.12";
+const statblockwizardappversion = "3.1.13";
 
 const CACHE_NAME = "pwa-cache";
 
