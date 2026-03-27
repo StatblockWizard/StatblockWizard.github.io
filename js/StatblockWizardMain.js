@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.11";
+const appversion = "3.1.12";
 
 window.addEventListener('load', main, false);
 
