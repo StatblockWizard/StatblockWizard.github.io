@@ -86,13 +86,14 @@ div#StatblockWizardModules {
 
 .mainpagelink {
     padding: 5px;
-    margin: 0 10px;
+    margin: 0 10px 2px;
     text-align: left;
     width: fit-content;
     border-collapse: collapse;
     background-color: var(--buttonface);
     border-style: outset;
     border-color: var(--alternateback);
+    border-radius: 6px;
     color: var(--buttonfont);
     font-weight: bold;
     text-decoration: none;
