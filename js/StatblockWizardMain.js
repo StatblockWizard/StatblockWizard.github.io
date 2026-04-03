@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.14";
+const appversion = "3.1.15";
 
 window.addEventListener('load', main, false);
 
@@ -23,7 +23,9 @@ function addVersionSelect() {
 
     v.innerHTML = '';
     const p = P();
-    currentVersion = DBStatblockWizardVersion();
+    const currentversionAndName = DBStatblockWizardVersionAndName();
+    currentVersion = currentversionAndName.version;
+    const currentName = currentversionAndName.name;
 
     const vs = SELECT(v, [{ "value": versionOriginal, "text": "5e" }, { "value": version2024, "text": "5.5e" }]);
     vs.id = 'versionselector';
@@ -31,17 +33,20 @@ function addVersionSelect() {
         selectedVersion = this.value;
     });
 
-    let text;
     if (currentVersion === versionNone) {
-        text = "Currently, there is no stat block stored in this browser's local storage.";
+        p.appendChild(SPAN("Currently, there is no stat block stored in this browser's local storage."));
         vs.value = version2024;
     } else {
         const versionText = currentVersion === versionOriginal ? '5e' : '5.5e';
-        text = `Your current stat block uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
+        const span = document.createElement('span');
+        span.appendChild(document.createTextNode('Your current stat block '));
+        if (currentName !== '') {
+            span.appendChild(document.createTextNode('"' + currentName + '" '));
+        }
+        span.appendChild(document.createTextNode(`uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`));
+        p.appendChild(span);
         vs.value = currentVersion;
     }
-
-    p.appendChild(SPAN(text));
     p.appendChild(BR());
     const s = SPAN('');
     s.appendChild(LABEL('versionselector', 'Select the version to use'));
