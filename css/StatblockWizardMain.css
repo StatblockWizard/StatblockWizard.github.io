@@ -121,9 +121,12 @@ h2 {
     margin-bottom: -5px;
 }
 
+.statblockname {
+    font-weight: bold;
+}
+
 .note {
     margin-top: 2px;
-    ;
     display: block;
     clear: both;
     font-size: small;
