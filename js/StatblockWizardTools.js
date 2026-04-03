@@ -79,8 +79,13 @@ function downloadjson(what, filename) {
     const fileURL = URL.createObjectURL(file);
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', fileURL);
-    linkElement.setAttribute('download', `${filename}.statblockwizard${(("launchQueue" in window) ? '' : '.json')}`);
+    linkElement.setAttribute('download', `${filename}.statblockwizard`);
+    document.body.appendChild(linkElement);
     linkElement.click();
+    setTimeout(() => {
+        URL.revokeObjectURL(fileURL);
+        linkElement.remove();
+    }, 0);
 }
 
 function findcsselement(definitionlist, type, subtype) {
