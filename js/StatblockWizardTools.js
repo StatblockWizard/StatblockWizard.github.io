@@ -171,8 +171,13 @@ function StatblockWizardVersion(Statblock) {
 }
 
 function StatblockWizardName(Statblock) {
-    let foundName = Statblock.filter((element) => (element.type == "string") && (element.caption.toLowerCase() == 'name'))
-    return ((foundName.length == 0) ? '' : foundName[0].value);
+    let foundName = Statblock.filter((element) =>
+        element &&
+        (element.type == "string") &&
+        (typeof element.caption == 'string') &&
+        (element.caption.toLowerCase() == 'name')
+    );
+    return ((foundName.length == 0) || (typeof foundName[0].value != 'string')) ? '' : foundName[0].value;
 }
 
 function pasteHandler(caption, pastevalue, fullvalue) {
