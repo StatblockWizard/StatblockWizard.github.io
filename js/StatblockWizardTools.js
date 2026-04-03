@@ -9,9 +9,9 @@ var currentVersion;
 window.addEventListener('load', CreateHomeLinks, false);
 
 if ("launchQueue" in window) {
-  launchQueue.setConsumer(async (launchParams) => {
+    launchQueue.setConsumer(async (launchParams) => {
         OpenFileFromLaunchQueue(launchParams.files);
-  });
+    });
 }
 
 async function OpenFileFromLaunchQueue(files) {
@@ -696,7 +696,7 @@ function SELECT(element, options, classnames) {
 function SPAN(text, classnames) {
     let span = document.createElement('span');
     if (text && (!classnames || classnames == '')) { text = PutKeywordsInSpan(text); }
-    if (text) { span.innerHTML = text; };
+    if (text) { span.appendChild(document.createTextNode(text)); };
     addClassnames(span, classnames);
     return span;
 }
@@ -757,11 +757,11 @@ function fullClassname(name, whileCreatingStatblock = true) {
 
 // #region Demo Statblocks
 function GetStatblocWizardDemoOriginal() {
-    return(getSampleStatblock("Statblock_Wizard_demo_2014"));
+    return (getSampleStatblock("Statblock_Wizard_demo_2014"));
 }
 
 function GetStatblocWizardDemo2024() {
-    return(getSampleStatblock("Statblock_Wizard_demo_2024"));
+    return (getSampleStatblock("Statblock_Wizard_demo_2024"));
 }
 
 function getSampleStatblock(name) {
