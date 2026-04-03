@@ -79,7 +79,7 @@ function downloadjson(what, filename) {
     const fileURL = URL.createObjectURL(file);
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', fileURL);
-    linkElement.setAttribute('download', `${filename}.statblockwizard${(("launchQueue" in window) ? '' : '.json')}`);
+    linkElement.setAttribute('download', `${filename}.statblockwizard`);
     linkElement.click();
 }
 
