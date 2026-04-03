@@ -38,10 +38,11 @@ function addVersionSelect() {
         vs.value = version2024;
     } else {
         const versionText = currentVersion === versionOriginal ? '5e' : '5.5e';
-        const span = document.createElement('span');
+        const span = SPAN('');
         span.appendChild(document.createTextNode('Your current stat block '));
         if (currentName !== '') {
-            span.appendChild(document.createTextNode('"' + currentName + '" '));
+            span.appendChild(SPAN('"' + currentName + '"', 'statblockname'));
+            span.appendChild(document.createTextNode(' '));
         }
         span.appendChild(document.createTextNode(`uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`));
         p.appendChild(span);
