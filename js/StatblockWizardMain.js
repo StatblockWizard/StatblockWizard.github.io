@@ -1,6 +1,6 @@
 // Copyright 2023, 2025 StatblockWizard
 var selectedVersion;
-const appversion = "3.1.14";
+const appversion = "3.1.15";
 
 window.addEventListener('load', main, false);
 
@@ -23,7 +23,9 @@ function addVersionSelect() {
 
     v.innerHTML = '';
     const p = P();
-    currentVersion = DBStatblockWizardVersion();
+    const currentversionAndName = DBStatblockWizardVersionAndName();
+    currentVersion = currentversionAndName.version;
+    const currentName = currentversionAndName.name;
 
     const vs = SELECT(v, [{ "value": versionOriginal, "text": "5e" }, { "value": version2024, "text": "5.5e" }]);
     vs.id = 'versionselector';
@@ -37,7 +39,7 @@ function addVersionSelect() {
         vs.value = version2024;
     } else {
         const versionText = currentVersion === versionOriginal ? '5e' : '5.5e';
-        text = `Your current stat block uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
+        text = `Your current stat block ${currentName === '' ? '' : `"${currentName}"`} uses the ${versionText} layout. If the version you select below is different, using the "Create or edit" or "View" buttons will replace the current stat block with the demo stat block of the selected version.`;
         vs.value = currentVersion;
     }
 

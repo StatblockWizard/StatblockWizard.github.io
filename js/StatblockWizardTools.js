@@ -170,6 +170,11 @@ function StatblockWizardVersion(Statblock) {
     return ((version.length == 0) ? versionOriginal : (version[0].version).slice(0, 4));
 }
 
+function StatblockWizardName(Statblock) {
+    let foundName = Statblock.filter((element) => (element.type == "string") && (element.caption.toLowerCase() == 'name'))
+    return ((foundName.length == 0) ? '' : foundName[0].value);
+}
+
 function pasteHandler(caption, pastevalue, fullvalue) {
     if (pastevalue == '' || !pastevalue) return false;
     let success = false;
@@ -258,6 +263,14 @@ function DBStatblockWizardVersion() {
     let s = JSON.parse(v);
     if (!Array.isArray(s)) { return versionNone; };
     return (StatblockWizardVersion(s));
+}
+
+function DBStatblockWizardVersionAndName() {
+    let v = window.localStorage.getItem('StatblockWizard');
+    if (!v) { return { version: versionNone, name: '' }; };
+    let s = JSON.parse(v);
+    if (!Array.isArray(s)) { return { version: versionNone, name: '' }; };
+    return ({ version: StatblockWizardVersion(s), name: StatblockWizardName(s) });
 }
 
 function DBreplaceDifferentVersionStatblock(forVersion) {
