@@ -273,7 +273,12 @@ function DBStatblockWizardVersion() {
 function DBStatblockWizardVersionAndName() {
     let v = window.localStorage.getItem('StatblockWizard');
     if (!v) { return { version: versionNone, name: '' }; };
-    let s = JSON.parse(v);
+    let s;
+    try {
+        s = JSON.parse(v);
+    } catch (e) {
+        return { version: versionNone, name: '' };
+    }
     if (!Array.isArray(s)) { return { version: versionNone, name: '' }; };
     return ({ version: StatblockWizardVersion(s), name: StatblockWizardName(s) });
 }
