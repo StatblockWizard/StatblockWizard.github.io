@@ -80,7 +80,12 @@ function downloadjson(what, filename) {
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', fileURL);
     linkElement.setAttribute('download', `${filename}.statblockwizard`);
+    document.body.appendChild(linkElement);
     linkElement.click();
+    setTimeout(() => {
+        URL.revokeObjectURL(fileURL);
+        linkElement.remove();
+    }, 0);
 }
 
 function findcsselement(definitionlist, type, subtype) {
