@@ -696,7 +696,7 @@ function SELECT(element, options, classnames) {
 function SPAN(text, classnames) {
     let span = document.createElement('span');
     if (text && (!classnames || classnames == '')) { text = PutKeywordsInSpan(text); }
-    if (text) { span.appendChild(document.createTextNode(text)); };
+    if (text) { span.innerHTML = text; };
     addClassnames(span, classnames);
     return span;
 }
