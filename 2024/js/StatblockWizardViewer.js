@@ -1235,7 +1235,7 @@ function GetImgCSS() {
     font-weight: bold;
 }
 
-.StatblockWizard-spell {
+.StatblockWizard-spell, spell {
     font-style: italic;
     break-before: avoid-column;
 }
