@@ -30,7 +30,7 @@
         {
             "action": "/",
             "accept": {
-                "application/json": [
+                "application/statblockwizard": [
                     ".statblockwizard"
                 ]
             }
