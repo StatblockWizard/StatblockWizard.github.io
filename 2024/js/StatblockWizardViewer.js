@@ -893,19 +893,24 @@ function downloadPNG(StatblockImage, imgexportstylewidth, imgexportstyleheight, 
     canvas.width = imgexportwidth;
     canvas.height = imgexportheight;
     ctx.drawImage(StatblockImage, 0, 0);
-    var a = document.createElement('a');
-    a.href = canvas.toDataURL(`image/png`);
-    switch (transparency) {
-        case 1:
-            a.download = `${filename} (semi-transparent).statblockwizard.png`;
-            break;
-        case 2:
-            a.download = `${filename} (transparent).statblockwizard.png`;
-            break;
-        default:
-            a.download = `${filename}.statblockwizard.png`;
-    }
-    a.click();
+    canvas.toBlob(function (blob) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        switch (transparency) {
+            case 1:
+                link.download = `${filename} (semi-transparent).statblockwizard.png`;
+                break;
+            case 2:
+                link.download = `${filename} (transparent).statblockwizard.png`;
+                break;
+            default:
+                link.download = `${filename}.statblockwizard.png`;
+        };
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }, 'image/png');
+
 }
 
 function GetImgCSS() {
