@@ -75,7 +75,7 @@ function removeids(fromarrayofobjects) {
 }
 
 function downloadjson(what, filename) {
-    const file = new Blob([JSON.stringify(what)], { type: 'application/json' });
+    const file = new Blob([JSON.stringify(what)], { type: 'application/statblockwizard' });
     const fileURL = URL.createObjectURL(file);
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', fileURL);
