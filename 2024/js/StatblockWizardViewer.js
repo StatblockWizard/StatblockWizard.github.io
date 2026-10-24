@@ -987,11 +987,11 @@ function GetImgCSS() {
 
 .StatblockWizard-Transparent {
     background-color: transparent;
-    --StatblockWizardBackground: #f8f4f0;
-    --StatblockWizardAbilitiesRow1: #f8e8e0;
-    --StatblockWizardAbilitiesRow2: #d0d0d0;
-    --StatblockWizardModsRow1: #e8d0d0;
-    --StatblockWizardModsRow2: #d8c0c0;
+    --StatblockWizardBackground: #f8f4f000;
+    --StatblockWizardAbilitiesRow1: #f8e8e000;
+    --StatblockWizardAbilitiesRow2: #d0d0d000;
+    --StatblockWizardModsRow1: #e8d0d000;
+    --StatblockWizardModsRow2: #d8c0c000;
 }
 
 .StatblockWizard-SemiTransparent {
@@ -1069,6 +1069,10 @@ function GetImgCSS() {
     border: none;
 }
 
+.StatblockWizard-Transparent .StatblockWizard-abilities {
+    column-rule: 1px var(--StatblockWizardBorder) solid;
+}
+
 .StatblockWizard-abilitiesblock {
     border-collapse: collapse;
     margin: 3px 0;
@@ -1097,6 +1101,19 @@ function GetImgCSS() {
     text-align-last: right;
     padding-right: 1px;
     color: var(--StatblockWizardGrey);
+}
+
+.StatblockWizard-Transparent table.StatblockWizard-abilitiesblock {
+    margin-bottom: 2px;
+}
+
+.StatblockWizard-Transparent .StatblockWizard-abilitiesblock th {
+    padding-bottom: 0;
+}
+
+.StatblockWizard-Transparent .StatblockWizard-abilitiesblock tbody {
+    border-top: 1px var(--StatblockWizardBorder) solid;
+    border-bottom: 1px var(--StatblockWizardBorder) solid;
 }
 
 .StatblockWizard-ability {
